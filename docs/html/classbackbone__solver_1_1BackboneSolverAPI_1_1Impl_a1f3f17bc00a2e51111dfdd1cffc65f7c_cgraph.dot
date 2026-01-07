@@ -1,0 +1,21 @@
+digraph "read_file"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="read_file",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Reads and parses a DIMACS CNF file."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="DIMACSReader::get_clause\l_vector",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classDIMACSReader.html#ab9e40d96b1f2285beb7b1d2130826f9e",tooltip="Get the parsed CNF formula."];
+  Node1 -> Node3 [id="edge2_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="DIMACSReader::get_max_id",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classDIMACSReader.html#acced3e8eb4f5cbbe755842b5c2d86eac",tooltip="Get maximum variable ID in the formula."];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="DIMACSReader::read",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classDIMACSReader.html#aaa936da334e29618ece019bd8a9aa06f",tooltip="Parse the DIMACS file."];
+  Node4 -> Node5 [id="edge4_Node000004_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="Reader::skip_whitespace",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classReader.html#ad286fa18439fbed14dec41adc407e71b",tooltip="Skip whitespace characters."];
+  Node4 -> Node6 [id="edge5_Node000004_Node000006",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="skipLine",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__ParseUtils.html#gabb0b266785e7046fdc13a28d8f5c67fb",tooltip="Skip to end of current line."];
+  Node6 -> Node7 [id="edge6_Node000006_Node000007",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="isEof",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__ParseUtils.html#gaeafd19f99cdf75678e3765e233b0547b",tooltip="Check if StreamBuffer reached end of file."];
+}

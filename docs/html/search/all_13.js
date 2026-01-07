@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['range_0',['Range',['../DIMACSReader_8hh.html#afedca1f5f73af75f34691ca08cd394f8',1,'DIMACSReader.hh']]],
+  ['read_1',['read',['../classDIMACSReader.html#aaa936da334e29618ece019bd8a9aa06f',1,'DIMACSReader']]],
+  ['read_5fclause_5fcount_2',['read_clause_count',['../classDimacs2GraphsAPI_1_1Impl.html#a01f1f0f84fe8efd80c241d82cb2227ed',1,'Dimacs2GraphsAPI::Impl']]],
+  ['read_5fdimacs_3',['read_dimacs',['../classbackbone__solver_1_1BackboneSolverAPI.html#a6fa2f781f0e65a541b774f62051cdfca',1,'backbone_solver::BackboneSolverAPI']]],
+  ['read_5ffile_4',['read_file',['../classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#a1f3f17bc00a2e51111dfdd1cffc65f7c',1,'backbone_solver::BackboneSolverAPI::Impl']]],
+  ['reader_5',['reader',['../classReader.html#ab2d177e7b0e81bbf4ff29c973dd0ff93',1,'Reader::Reader()'],['../classReader.html',1,'Reader'],['../classReader.html#a073a6364daace70ef6bb6befa12ed134',1,'Reader::Reader(const Reader &amp;orig)'],['../classReader.html#a36abe925d2ceeee016e99b89c312c54b',1,'Reader::Reader(istream &amp;stream)'],['../classReader.html#a2d5f9f71ca687c7b2f4e48a56909fb69',1,'Reader::Reader(gzFile &amp;zf)']]],
+  ['readme_2emd_6',['README.md',['../README_8md.html',1,'']]],
+  ['related_20documentation_7',['Related Documentation',['../architecture.html#autotoc_md91',1,'']]],
+  ['relation_8',['relation',['../classRelation.html#a3f0953bd9f85f6669f8d57b717adc352',1,'Relation::Relation(std::shared_ptr&lt; Feature &gt; parent_feature, const std::vector&lt; std::shared_ptr&lt; Feature &gt; &gt; &amp;child_features, int min_cardinality, int max_cardinality)'],['../classRelation.html#abd5cce0a0fb27e0ec890d2f6dc876638',1,'Relation::Relation(const Relation &amp;other)'],['../classRelation.html',1,'Relation']]],
+  ['relation_2ehh_9',['Relation.hh',['../Relation_8hh.html',1,'']]],
+  ['relationencoder_10',['relationencoder',['../classRelationEncoder.html#afb3e99f2eda16221ef281a7fe7878dd8',1,'RelationEncoder::RelationEncoder()'],['../classRelationEncoder.html',1,'RelationEncoder']]],
+  ['relationencoder_2ehh_11',['RelationEncoder.hh',['../RelationEncoder_8hh.html',1,'']]],
+  ['remove_12',['remove',['../classLiteralSet.html#a51f160e762dc559b1d214b99c79855f2',1,'LiteralSet']]],
+  ['requirement_13',['Satisfiability Requirement',['../limitations.html#autotoc_md119',1,'']]],
+  ['requirements_14',['Memory Requirements',['../limitations.html#autotoc_md121',1,'']]],
+  ['requires_5fgraph_5ffile_15',['requires_graph_file',['../structstrong4vm_1_1AnalysisResult.html#a4a6d19f6e53ba5a81694dc30cf3ac6c2',1,'strong4vm::AnalysisResult']]],
+  ['requires_5flist_16',['requires_list',['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#ad50f9aa359efe1d0ef1f8ee91e5b48de',1,'Dimacs2GraphsAPI::Impl::ThreadWorker']]],
+  ['reuse_17',['Component Reuse',['../architecture.html#autotoc_md83',1,'']]],
+  ['run_18',['run',['../classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#ad1717410afd0be936c6213a63c8005fb',1,'backbone_solver::CheckCandidatesOneByOneWithoutAttention::run()'],['../classbackbone__solver_1_1CheckCandidatesOneByOne.html#ad1717410afd0be936c6213a63c8005fb',1,'backbone_solver::CheckCandidatesOneByOne::run()'],['../classbackbone__solver_1_1BackBone.html#a18954417d3124a8095783ea13dc6d00b',1,'backbone_solver::BackBone::run()'],['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a13a43e6d814de94978c515cb084873b1',1,'dimacs2graphs::Dimacs2GraphsAPI::Impl::ThreadWorker::run()']]],
+  ['run_5fwith_5fassumptions_19',['run_with_assumptions',['../classbackbone__solver_1_1BackBone.html#ab397636fc53d80bebd81f313957ea82d',1,'backbone_solver::BackBone::run_with_assumptions()'],['../classbackbone__solver_1_1CheckCandidatesOneByOne.html#aec85c6703581f965477875840c7fbc37',1,'backbone_solver::CheckCandidatesOneByOne::run_with_assumptions()'],['../classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#aec85c6703581f965477875840c7fbc37',1,'backbone_solver::CheckCandidatesOneByOneWithoutAttention::run_with_assumptions()']]],
+  ['running_20built_20examples_20',['Running Built Examples',['../examples.html#autotoc_md106',1,'']]],
+  ['running_20examples_21',['Building and Running Examples',['../examples.html#autotoc_md104',1,'']]],
+  ['runtime_20issues_22',['runtime issues',['../getting_started.html#autotoc_md61',1,'Runtime Issues'],['../limitations.html#autotoc_md137',1,'Runtime Issues']]]
+];

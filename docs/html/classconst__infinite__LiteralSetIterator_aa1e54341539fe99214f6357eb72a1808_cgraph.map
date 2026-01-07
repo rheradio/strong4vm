@@ -1,0 +1,9 @@
+<map id="operator++" name="operator++">
+<area shape="rect" id="Node000001" title="Advance to next literal (wraps around at end)" alt="" coords="5,55,104,80"/>
+<area shape="rect" id="Node000002" href="$classLiteralSet.html#ac991f2b1458bbe632c58fa58da7ed5b4" title="Check if a literal is in the set." alt="" coords="185,5,298,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,52,179,32,180,37,104,57"/>
+<area shape="rect" id="Node000003" href="$classLiteralSet.html#ab04e3a95d346022db7eee72026820425" title="Get the physical size of internal storage." alt="" coords="152,55,331,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="104,65,138,65,138,70,104,70"/>
+<area shape="rect" id="Node000004" href="$classLiteralSet.html#a259cb5a711406a8c3e5d937eb9350cca" title="Get the number of literals in the set." alt="" coords="182,104,301,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="104,77,180,98,179,103,103,83"/>
+</map>

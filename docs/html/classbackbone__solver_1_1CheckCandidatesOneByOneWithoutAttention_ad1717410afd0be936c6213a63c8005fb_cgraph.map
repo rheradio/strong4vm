@@ -1,0 +1,15 @@
+<map id="run" name="run">
+<area shape="rect" id="Node000001" title="Run backbone detection without activity bumping." alt="" coords="5,92,48,117"/>
+<area shape="rect" id="Node000002" href="$classLiteralSet.html#aef3bef1089d48e3cc09399657eeef5d4" title="Add a literal to the set." alt="" coords="109,5,225,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="38,90,62,65,95,41,109,34,111,38,97,46,66,69,41,94"/>
+<area shape="rect" id="Node000003" href="$classLiteralSet.html#a88460801f003cd58125ab1c53d05a7e1" title="Ultra&#45;fast bulk removal based on solver model." alt="" coords="98,55,237,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="48,98,84,90,85,95,49,103"/>
+<area shape="rect" id="Node000006" href="$classLiteralSet.html#a51f160e762dc559b1d214b99c79855f2" title="Remove a literal from the set." alt="" coords="96,120,239,145"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="49,106,90,115,89,120,48,111"/>
+<area shape="rect" id="Node000007" href="$classLiteralSet.html#a259cb5a711406a8c3e5d937eb9350cca" title="Get the number of literals in the set." alt="" coords="108,169,227,195"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="44,116,68,135,97,154,113,162,111,167,95,159,65,139,41,120"/>
+<area shape="rect" id="Node000004" href="$classLiteralSet.html#ac9ee9cfb345e867a15b88f4114ed6903" title="Get iterator past last literal." alt="" coords="287,63,403,88"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="237,73,273,73,273,78,237,78"/>
+<area shape="rect" id="Node000005" href="$classLiteralSet.html#ab04e3a95d346022db7eee72026820425" title="Get the physical size of internal storage." alt="" coords="451,63,629,88"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="403,73,437,73,437,78,403,78"/>
+</map>

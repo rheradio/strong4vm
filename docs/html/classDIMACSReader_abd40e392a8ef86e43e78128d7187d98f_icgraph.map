@@ -1,0 +1,5 @@
+<map id="DIMACSReader" name="DIMACSReader">
+<area shape="rect" id="Node000001" title="Construct DIMACS reader from a Reader." alt="" coords="170,5,286,31"/>
+<area shape="rect" id="Node000002" href="$classDIMACSReader.html#abc00ea48ab5cfc3c5b89b6e0380e399f" title="Copy constructor." alt="" coords="5,5,122,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,18,122,21,122,16,156,18"/>
+</map>

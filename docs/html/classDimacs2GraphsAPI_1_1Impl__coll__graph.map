@@ -1,0 +1,9 @@
+<map id="Dimacs2GraphsAPI::Impl" name="Dimacs2GraphsAPI::Impl">
+<area shape="rect" id="Node000001" title="PIMPL (Pointer to Implementation) idiom for ABI stability." alt="" coords="141,93,324,119"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1BackboneSolverAPI.html" title="Main API class for backbone computation using PIMPL pattern." alt="" coords="5,5,153,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,36,165,67,211,91,208,96,162,72,108,40"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="177,5,288,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,45,235,93,230,93,230,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="349,5,407,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="371,45,362,59,350,71,327,86,301,96,299,91,324,81,347,67,358,56,366,42"/>
+</map>

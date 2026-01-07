@@ -1,0 +1,9 @@
+<map id="Dimacs2GraphsAPI::Impl::ThreadWorker" name="Dimacs2GraphsAPI::Impl::ThreadWorker">
+<area shape="rect" id="Node000001" title="Thread worker structure for parallel variable processing." alt="" coords="141,93,324,133"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1BackboneSolverAPI.html" title="Main API class for backbone computation using PIMPL pattern." alt="" coords="5,5,153,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,35,203,91,200,95,108,40"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="177,5,288,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,44,235,93,230,93,230,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="313,5,371,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="331,44,308,71,273,96,270,91,304,67,326,41"/>
+</map>

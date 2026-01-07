@@ -1,0 +1,7 @@
+<map id="backbone_sign" name="backbone_sign">
+<area shape="rect" id="Node000001" title="Get sign of backbone variable." alt="" coords="5,5,124,31"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#a429b6afedef49329f4fedb2025d01998" title="Check if literal is in backbone." alt="" coords="172,5,275,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,15,158,15,158,21,124,21"/>
+<area shape="rect" id="Node000003" href="$classLiteralSet.html#ac991f2b1458bbe632c58fa58da7ed5b4" title="Check if a literal is in the set." alt="" coords="323,5,436,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,15,309,15,309,21,275,21"/>
+</map>

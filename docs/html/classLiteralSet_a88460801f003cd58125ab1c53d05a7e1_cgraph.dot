@@ -1,0 +1,13 @@
+digraph "discard_from_model"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="discard_from_model",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Ultra-fast bulk removal based on solver model."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="end",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classLiteralSet.html#ac9ee9cfb345e867a15b88f4114ed6903",tooltip="Get iterator past last literal."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="physical_size",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classLiteralSet.html#ab04e3a95d346022db7eee72026820425",tooltip="Get the physical size of internal storage."];
+}

@@ -1,0 +1,5 @@
+<map id="is_backbone" name="is_backbone">
+<area shape="rect" id="Node000001" title="Check if a literal is in the backbone." alt="" coords="5,5,108,31"/>
+<area shape="rect" id="Node000002" href="$classLiteralSet.html#ac991f2b1458bbe632c58fa58da7ed5b4" title="Check if a literal is in the set." alt="" coords="156,5,269,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,15,142,15,142,21,108,21"/>
+</map>

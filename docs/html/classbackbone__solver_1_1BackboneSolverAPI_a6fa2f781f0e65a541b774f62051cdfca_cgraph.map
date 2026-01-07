@@ -1,0 +1,17 @@
+<map id="read_dimacs" name="read_dimacs">
+<area shape="rect" id="Node000001" title="Read a DIMACS CNF file." alt="" coords="5,70,111,95"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#a1f3f17bc00a2e51111dfdd1cffc65f7c" title="Reads and parses a DIMACS CNF file." alt="" coords="159,63,363,103"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,80,145,80,145,85,111,85"/>
+<area shape="rect" id="Node000003" href="$classDIMACSReader.html#ab9e40d96b1f2285beb7b1d2130826f9e" title="Get the parsed CNF formula." alt="" coords="413,5,612,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="349,60,410,46,412,51,350,65"/>
+<area shape="rect" id="Node000004" href="$classDIMACSReader.html#acced3e8eb4f5cbbe755842b5c2d86eac" title="Get maximum variable ID in the formula." alt="" coords="411,70,615,95"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="363,80,397,80,397,85,363,85"/>
+<area shape="rect" id="Node000005" href="$classDIMACSReader.html#aaa936da334e29618ece019bd8a9aa06f" title="Parse the DIMACS file." alt="" coords="434,119,591,145"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="363,100,434,114,433,119,362,105"/>
+<area shape="rect" id="Node000006" href="$classReader.html#ad286fa18439fbed14dec41adc407e71b" title="Skip whitespace characters." alt="" coords="663,94,847,119"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="591,121,648,115,649,120,592,126"/>
+<area shape="rect" id="Node000007" href="$group__ParseUtils.html#gabb0b266785e7046fdc13a28d8f5c67fb" title="Skip to end of current line." alt="" coords="717,143,793,169"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="592,137,703,148,702,154,591,142"/>
+<area shape="rect" id="Node000008" href="$group__ParseUtils.html#gaeafd19f99cdf75678e3765e233b0547b" title="Check if StreamBuffer reached end of file." alt="" coords="895,143,949,169"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="793,153,881,153,881,159,793,159"/>
+</map>

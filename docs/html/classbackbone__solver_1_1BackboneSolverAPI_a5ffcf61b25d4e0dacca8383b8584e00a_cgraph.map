@@ -1,0 +1,5 @@
+<map id="is_satisfiable" name="is_satisfiable">
+<area shape="rect" id="Node000001" title="Check if the last read formula is satisfiable." alt="" coords="5,13,112,38"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#ab5ca705e5126262b4a37d3afda80d0f7" title="Checks if the loaded formula is satisfiable." alt="" coords="160,5,364,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,23,146,23,146,28,112,28"/>
+</map>

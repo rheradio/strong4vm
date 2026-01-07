@@ -1,0 +1,5 @@
+<map id="detector_to_string" name="detector_to_string">
+<area shape="rect" id="Node000001" title="Convert detector enum to string identifier." alt="" coords="188,5,328,31"/>
+<area shape="rect" id="Node000002" href="$classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#ae491c69e6096f78564dc58d79de5d525" title="Execute the complete Strong4VM analysis pipeline." alt="" coords="5,5,140,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,21,140,21,140,15,174,15"/>
+</map>

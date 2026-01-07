@@ -1,0 +1,5 @@
+<map id="create_backbone_detector" name="create_backbone_detector">
+<area shape="rect" id="Node000001" title="Create a backbone detector for the last read DIMACS file." alt="" coords="5,20,200,45"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#aed984e1bf042bacd64876fb9f2f89837" title="Creates a backbone detector instance of the specified type." alt="" coords="248,5,452,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,30,235,30,235,35,200,35"/>
+</map>

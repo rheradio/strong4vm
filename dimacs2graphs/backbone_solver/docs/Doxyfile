@@ -1,0 +1,173 @@
+#---------------------------------------------------------------------------
+# Project Information
+#---------------------------------------------------------------------------
+
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = "Backbone Solver"
+PROJECT_NUMBER         = 1.0.0
+PROJECT_BRIEF          = "High-Performance SAT Backbone Detection Engine - Core of Strong4VM Analysis"
+PROJECT_LOGO           = ../../../figures/icon.png
+OUTPUT_DIRECTORY       = .
+CREATE_SUBDIRS         = NO
+ALLOW_UNICODE_NAMES    = NO
+OUTPUT_LANGUAGE        = English
+BRIEF_MEMBER_DESC      = YES
+REPEAT_BRIEF           = YES
+ABBREVIATE_BRIEF       = "The $name class" \
+                         "The $name widget" \
+                         "The $name file" \
+                         is \
+                         provides \
+                         specifies \
+                         contains \
+                         represents \
+                         a \
+                         an \
+                         the
+
+#---------------------------------------------------------------------------
+# Build Configuration
+#---------------------------------------------------------------------------
+
+FULL_PATH_NAMES        = YES
+SHORT_NAMES            = NO
+JAVADOC_AUTOBRIEF      = YES
+INHERIT_DOCS           = YES
+TAB_SIZE               = 4
+
+#---------------------------------------------------------------------------
+# Input Configuration
+#---------------------------------------------------------------------------
+
+INPUT                  = backbone_overview.md \
+                         ../src/api \
+                         ../src/detectors \
+                         ../src/data_structures \
+                         ../src/io \
+                         ../src/minisat_interface \
+                         ../src/cli
+
+# Backbone Solver components:
+#   - API: High-level interface for backbone computation
+#   - Detectors: Backbone detection algorithms
+#   - Data Structures: Literal sets and auxiliary structures
+#   - I/O: DIMACS file reading and parsing
+#   - MiniSat Interface: SAT solver integration layer
+#   - CLI: Command-line backbone solver tool
+
+INPUT_ENCODING         = UTF-8
+INPUT_FILE_ENCODING    =
+FILE_PATTERNS          = *.h \
+                         *.hh \
+                         *.hpp \
+                         *.c \
+                         *.cc \
+                         *.cpp \
+                         *.md
+
+RECURSIVE              = YES
+
+EXCLUDE                = ../src/minisat \
+                         ../test \
+                         ../build
+
+EXCLUDE_PATTERNS       = */minisat/* \
+                         */test/* \
+                         */build/* \
+                         */.git/*
+
+EXAMPLE_PATH           = ../src/api
+EXAMPLE_PATTERNS       = *.cc *.cpp
+USE_MDFILE_AS_MAINPAGE = backbone_overview.md
+
+#---------------------------------------------------------------------------
+# Source Browsing
+#---------------------------------------------------------------------------
+
+SOURCE_BROWSER         = YES
+STRIP_CODE_COMMENTS    = YES
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+VERBATIM_HEADERS       = YES
+
+#---------------------------------------------------------------------------
+# Extraction Configuration
+#---------------------------------------------------------------------------
+
+EXTRACT_ALL            = YES
+# Suppress separate enumeration pages (redundant with "All" view)
+HIDE_SCOPE_NAMES       = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+CASE_SENSE_NAMES       = YES
+SORT_MEMBER_DOCS       = YES
+SORT_MEMBERS_CTORS_1ST = YES
+GENERATE_TODOLIST      = YES
+SHOW_FILES             = YES
+
+#---------------------------------------------------------------------------
+# Warnings and Progress
+#---------------------------------------------------------------------------
+
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_NO_PARAMDOC       = YES
+
+#---------------------------------------------------------------------------
+# Alphabetical Index
+#---------------------------------------------------------------------------
+
+ALPHABETICAL_INDEX     = YES
+
+#---------------------------------------------------------------------------
+# HTML Output Configuration
+#---------------------------------------------------------------------------
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_COLORSTYLE        = AUTO_LIGHT
+HTML_COLORSTYLE_HUE    = 210
+HTML_COLORSTYLE_SAT    = 100
+HTML_COLORSTYLE_GAMMA  = 90
+HTML_CODE_FOLDING      = YES
+GENERATE_TREEVIEW      = YES
+SEARCHENGINE           = YES
+
+#---------------------------------------------------------------------------
+# Other Output Formats (All Disabled)
+#---------------------------------------------------------------------------
+
+GENERATE_LATEX         = NO
+GENERATE_RTF           = NO
+GENERATE_MAN           = NO
+GENERATE_XML           = NO
+
+#---------------------------------------------------------------------------
+# Preprocessor Configuration
+#---------------------------------------------------------------------------
+
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+SEARCH_INCLUDES        = YES
+INCLUDE_PATH           = ../src/api \
+                         ../src/detectors \
+                         ../src/data_structures \
+                         ../src/io \
+                         ../src/minisat_interface
+
+#---------------------------------------------------------------------------
+# Diagram Generation with Graphviz
+#---------------------------------------------------------------------------
+
+HAVE_DOT               = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+INCLUDE_GRAPH          = NO
+INCLUDED_BY_GRAPH      = NO
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+GRAPHICAL_HIERARCHY    = YES
+DOT_GRAPH_MAX_NODES    = 100
+GENERATE_LEGEND        = YES
+DOT_CLEANUP            = NO

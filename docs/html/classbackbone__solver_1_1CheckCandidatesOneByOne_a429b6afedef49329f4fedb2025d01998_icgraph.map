@@ -1,0 +1,38 @@
+<map id="is_backbone" name="is_backbone">
+<area shape="rect" id="Node000001" title="Check if a literal is in the backbone." alt="" coords="1492,106,1595,131"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#ab6a76072d7f644ed65b775c07c813cd0" title="Get the sign of a backbone variable." alt="" coords="1325,55,1444,81"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1489,104,1425,83,1426,78,1491,99"/>
+<area shape="rect" id="Node000003" href="$classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#a2835cb6a89a8fd7a9d309506690feeca" title="Computes the backbone of the loaded formula." alt="" coords="1073,69,1277,109"/>
+<area shape="poly" id="edge17_Node000001_Node000003" title=" " alt="" coords="1478,116,1277,100,1278,95,1479,111"/>
+<area shape="rect" id="Node000010" href="$classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#acf802b3bfeb945434af36c4f2d11d487" title="Computes conditional backbone under user&#45;specified assumptions." alt="" coords="1073,134,1277,189"/>
+<area shape="poly" id="edge18_Node000001_Node000010" title=" " alt="" coords="1479,129,1278,152,1277,147,1478,123"/>
+<area shape="rect" id="Node000014" href="$classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#a06cd6196ced8445fcc0a67696399b2cf" title="Prints formatted backbone summary to stdout." alt="" coords="1073,5,1277,45"/>
+<area shape="poly" id="edge20_Node000001_Node000014" title=" " alt="" coords="1519,98,1485,69,1443,45,1402,33,1360,25,1277,21,1278,15,1361,20,1404,28,1445,40,1488,65,1522,94"/>
+<area shape="rect" id="Node000016" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#a4ba9451eeaefa50b3e7645f0ff5c806c" title="Check if a variable is in the backbone." alt="" coords="1333,207,1436,233"/>
+<area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="1516,142,1445,190,1412,210,1409,205,1443,186,1513,138"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1312,78,1278,82,1277,76,1312,73"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="1349,89,1278,124,1249,136,1247,131,1276,119,1347,84"/>
+<area shape="poly" id="edge14_Node000002_Node000014" title=" " alt="" coords="1312,56,1273,48,1274,43,1313,51"/>
+<area shape="rect" id="Node000004" href="$classbackbone__solver_1_1BackboneSolverAPI.html#a12b1b5463690036b43a353487ed72ab2" title="Compute the backbone using the created detector." alt="" coords="807,69,1025,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1060,92,1025,92,1025,87,1060,87"/>
+<area shape="rect" id="Node000005" href="$classDimacs2GraphsAPI_1_1Impl.html#a7267a63d7e93035c67c000e52e842b18" title="Internal implementation of graph generation." alt="" coords="525,69,759,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="793,92,759,92,759,87,793,87"/>
+<area shape="rect" id="Node000009" href="$backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="615,17,669,42"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="810,69,669,38,670,32,811,64"/>
+<area shape="rect" id="Node000006" href="$classdimacs2graphs_1_1Dimacs2GraphsAPI.html#ae990e997034cc3ff020fcbf912f8c23f" title="Generate graph files from a DIMACS CNF formula." alt="" coords="245,69,477,109"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="512,92,477,92,477,87,512,87"/>
+<area shape="rect" id="Node000007" href="$api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="74,49,129,74"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="231,78,129,67,129,62,232,73"/>
+<area shape="rect" id="Node000008" href="$classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#ae491c69e6096f78564dc58d79de5d525" title="Execute the complete Strong4VM analysis pipeline." alt="" coords="5,99,197,139"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="232,107,198,111,197,105,231,101"/>
+<area shape="rect" id="Node000011" href="$classbackbone__solver_1_1BackboneSolverAPI.html#a5649b8917b28d6a6cc2951fcb2d6d014" title="Compute backbone with assumptions." alt="" coords="807,134,1025,189"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="1060,164,1025,164,1025,159,1060,159"/>
+<area shape="poly" id="edge11_Node000011_Node000005" title=" " alt="" coords="798,133,718,112,720,107,799,128"/>
+<area shape="rect" id="Node000012" href="$structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#ad99fb73c56fde7233364881c130f21f0" title="Processes a single variable to extract dependency edges." alt="" coords="526,134,758,189"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="793,164,758,164,758,159,793,159"/>
+<area shape="rect" id="Node000013" href="$structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a13a43e6d814de94978c515cb084873b1" title="Main worker thread execution function." alt="" coords="245,141,477,181"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="512,164,478,164,478,159,512,159"/>
+<area shape="rect" id="Node000015" href="$classbackbone__solver_1_1BackboneSolverAPI.html#a31c4eb23cdd1bed0a3de0db2eaee1221" title="Print the backbone to standard output." alt="" coords="814,5,1018,45"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="1060,28,1018,28,1018,23,1060,23"/>
+<area shape="poly" id="edge16_Node000015_Node000009" title=" " alt="" coords="800,30,670,32,670,26,800,24"/>
+</map>

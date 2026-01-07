@@ -1,0 +1,19 @@
+<map id="run_with_assumptions" name="run_with_assumptions">
+<area shape="rect" id="Node000001" title="Run backbone detection with assumptions." alt="" coords="5,144,173,169"/>
+<area shape="rect" id="Node000002" href="$classLiteralSet.html#aef3bef1089d48e3cc09399657eeef5d4" title="Add a literal to the set." alt="" coords="235,5,351,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,142,149,93,183,65,220,40,232,34,234,38,223,44,186,69,153,97,104,146"/>
+<area shape="rect" id="Node000003" href="$classLiteralSet.html#ac8bb3912a3ce86b15842e79d0b421204" title="Clear all literals from the set." alt="" coords="231,55,355,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="114,141,220,90,240,82,242,87,222,95,116,146"/>
+<area shape="rect" id="Node000004" href="$classLiteralSet.html#a88460801f003cd58125ab1c53d05a7e1" title="Ultra&#45;fast bulk removal based on solver model." alt="" coords="223,105,362,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="170,141,209,135,210,140,171,147"/>
+<area shape="rect" id="Node000007" href="$classLiteralSet.html#aa9533caa775845a68f79d465bdaf706d" title="Create an infinite iterator that cycles through the set." alt="" coords="224,169,361,209"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="171,167,211,173,210,178,170,172"/>
+<area shape="rect" id="Node000008" href="$classLiteralSet.html#a51f160e762dc559b1d214b99c79855f2" title="Remove a literal from the set." alt="" coords="221,233,364,259"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="116,167,222,218,242,226,240,231,220,223,114,172"/>
+<area shape="rect" id="Node000009" href="$classLiteralSet.html#a259cb5a711406a8c3e5d937eb9350cca" title="Get the number of literals in the set." alt="" coords="233,283,352,308"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="104,168,153,216,187,243,223,268,237,275,235,280,220,272,183,248,150,220,101,172"/>
+<area shape="rect" id="Node000005" href="$classLiteralSet.html#ac9ee9cfb345e867a15b88f4114ed6903" title="Get iterator past last literal." alt="" coords="412,112,528,137"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="362,122,399,122,399,127,362,127"/>
+<area shape="rect" id="Node000006" href="$classLiteralSet.html#ab04e3a95d346022db7eee72026820425" title="Get the physical size of internal storage." alt="" coords="576,112,755,137"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="528,122,562,122,562,127,528,127"/>
+</map>

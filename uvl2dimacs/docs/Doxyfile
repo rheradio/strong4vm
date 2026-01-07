@@ -1,0 +1,173 @@
+#---------------------------------------------------------------------------
+# Project Information
+#---------------------------------------------------------------------------
+
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = "UVL2Dimacs"
+PROJECT_NUMBER         = 1.0.0
+PROJECT_BRIEF          = "UVL to DIMACS Converter - Part of Strong4VM Pipeline"
+PROJECT_LOGO           = ../../figures/icon.png
+OUTPUT_DIRECTORY       = .
+CREATE_SUBDIRS         = NO
+ALLOW_UNICODE_NAMES    = NO
+OUTPUT_LANGUAGE        = English
+BRIEF_MEMBER_DESC      = YES
+REPEAT_BRIEF           = YES
+ABBREVIATE_BRIEF       = "The $name class" \
+                         "The $name widget" \
+                         "The $name file" \
+                         is \
+                         provides \
+                         specifies \
+                         contains \
+                         represents \
+                         a \
+                         an \
+                         the
+
+#---------------------------------------------------------------------------
+# Build Configuration
+#---------------------------------------------------------------------------
+
+FULL_PATH_NAMES        = YES
+SHORT_NAMES            = NO
+JAVADOC_AUTOBRIEF      = YES
+INHERIT_DOCS           = YES
+TAB_SIZE               = 4
+
+#---------------------------------------------------------------------------
+# Input Configuration
+#---------------------------------------------------------------------------
+
+INPUT                  = uvl2dimacs_overview.md \
+                         ../generator/include \
+                         ../generator/src \
+                         ../api/include \
+                         ../api/src \
+                         ../api/examples \
+                         ../cli \
+                         ../parser/include \
+                         ../parser/src
+
+# Note: Parser files are ANTLR4-generated. Documentation includes:
+#   - UVLCppLexer: Tokenizer for UVL language
+#   - UVLCppParser: Syntax analyzer with grammar rules
+#   - Listeners: Parse tree traversal interfaces
+
+INPUT_ENCODING         = UTF-8
+INPUT_FILE_ENCODING    =
+FILE_PATTERNS          = *.h \
+                         *.hh \
+                         *.hpp \
+                         *.c \
+                         *.cc \
+                         *.cpp \
+                         *.md
+
+RECURSIVE              = YES
+
+EXCLUDE                = ../third_party \
+                         ../test \
+                         ../build
+
+EXCLUDE_PATTERNS       = */third_party/* \
+                         */test/* \
+                         */build/* \
+                         */.git/* \
+                         */.interp \
+                         *.tokens
+
+EXAMPLE_PATH           = ../api/examples
+EXAMPLE_PATTERNS       = *.cc *.cpp
+USE_MDFILE_AS_MAINPAGE = uvl2dimacs_overview.md
+
+#---------------------------------------------------------------------------
+# Source Browsing
+#---------------------------------------------------------------------------
+
+SOURCE_BROWSER         = YES
+STRIP_CODE_COMMENTS    = YES
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+VERBATIM_HEADERS       = YES
+
+#---------------------------------------------------------------------------
+# Extraction Configuration
+#---------------------------------------------------------------------------
+
+EXTRACT_ALL            = YES
+# Suppress separate enumeration pages (redundant with "All" view)
+HIDE_SCOPE_NAMES       = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+CASE_SENSE_NAMES       = YES
+SORT_MEMBER_DOCS       = YES
+SORT_MEMBERS_CTORS_1ST = YES
+GENERATE_TODOLIST      = YES
+SHOW_FILES             = YES
+
+#---------------------------------------------------------------------------
+# Warnings and Progress
+#---------------------------------------------------------------------------
+
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_NO_PARAMDOC       = YES
+
+#---------------------------------------------------------------------------
+# Alphabetical Index
+#---------------------------------------------------------------------------
+
+ALPHABETICAL_INDEX     = YES
+
+#---------------------------------------------------------------------------
+# HTML Output Configuration
+#---------------------------------------------------------------------------
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_COLORSTYLE        = AUTO_LIGHT
+HTML_COLORSTYLE_HUE    = 210
+HTML_COLORSTYLE_SAT    = 100
+HTML_COLORSTYLE_GAMMA  = 90
+HTML_CODE_FOLDING      = YES
+HTML_COPY_CLIPBOARD    = YES
+GENERATE_TREEVIEW      = YES
+SEARCHENGINE           = YES
+
+#---------------------------------------------------------------------------
+# Other Output Formats (All Disabled)
+#---------------------------------------------------------------------------
+
+GENERATE_LATEX         = NO
+GENERATE_RTF           = NO
+GENERATE_MAN           = NO
+GENERATE_XML           = NO
+
+#---------------------------------------------------------------------------
+# Preprocessor Configuration
+#---------------------------------------------------------------------------
+
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+SEARCH_INCLUDES        = YES
+INCLUDE_PATH           = ../generator/include \
+                         ../api/include \
+                         ../parser/include
+
+#---------------------------------------------------------------------------
+# Diagram Generation with Graphviz
+#---------------------------------------------------------------------------
+
+HAVE_DOT               = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+INCLUDE_GRAPH          = NO
+INCLUDED_BY_GRAPH      = NO
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+GRAPHICAL_HIERARCHY    = YES
+DOT_GRAPH_MAX_NODES    = 100
+GENERATE_LEGEND        = YES
+DOT_CLEANUP            = NO

@@ -1,0 +1,21 @@
+digraph "compute_backbone_with_assumptions"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="compute_backbone_with\l_assumptions",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Compute backbone with assumptions."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="dimacs2graphs::Dimacs2Graphs\lAPI::Impl::generate_graphs_impl",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classDimacs2GraphsAPI_1_1Impl.html#a7267a63d7e93035c67c000e52e842b18",tooltip="Internal implementation of graph generation."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="dimacs2graphs::Dimacs2Graphs\lAPI::generate_graphs",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdimacs2graphs_1_1Dimacs2GraphsAPI.html#ae990e997034cc3ff020fcbf912f8c23f",tooltip="Generate graph files from a DIMACS CNF formula."];
+  Node3 -> Node4 [id="edge3_Node000003_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="main",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627",tooltip=" "];
+  Node3 -> Node5 [id="edge4_Node000003_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="strong4vm::Strong4VMAPI\l::Impl::perform_analysis",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#ae491c69e6096f78564dc58d79de5d525",tooltip="Execute the complete Strong4VM analysis pipeline."];
+  Node1 -> Node6 [id="edge5_Node000001_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="dimacs2graphs::Dimacs2Graphs\lAPI::Impl::ThreadWorker\l::process_variable",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#ad99fb73c56fde7233364881c130f21f0",tooltip="Processes a single variable to extract dependency edges."];
+  Node6 -> Node7 [id="edge6_Node000006_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="dimacs2graphs::Dimacs2Graphs\lAPI::Impl::ThreadWorker::run",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a13a43e6d814de94978c515cb084873b1",tooltip="Main worker thread execution function."];
+}

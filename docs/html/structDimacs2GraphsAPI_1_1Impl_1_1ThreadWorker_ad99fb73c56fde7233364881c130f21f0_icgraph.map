@@ -1,0 +1,5 @@
+<map id="process_variable" name="process_variable">
+<area shape="rect" id="Node000001" title="Processes a single variable to extract dependency edges." alt="" coords="96,5,228,31"/>
+<area shape="rect" id="Node000002" href="$structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a13a43e6d814de94978c515cb084873b1" title="Main worker thread execution function." alt="" coords="5,5,48,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,21,48,21,48,15,83,15"/>
+</map>

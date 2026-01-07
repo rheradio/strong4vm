@@ -1,0 +1,7 @@
+<map id="Relation" name="Relation">
+<area shape="rect" id="Node000001" title="Constructs a new relation." alt="" coords="130,31,199,56"/>
+<area shape="rect" id="Node000002" href="$classRelation.html#abd5cce0a0fb27e0ec890d2f6dc876638" title="Copy constructor." alt="" coords="9,5,78,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,34,79,28,78,23,117,32"/>
+<area shape="rect" id="Node000003" href="$classRelation.html#af5bce205c30af064c848ab5d848f7760" title="Assignment operator." alt="" coords="5,55,82,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="112,54,83,63,82,57,117,53"/>
+</map>

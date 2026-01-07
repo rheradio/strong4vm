@@ -1,0 +1,40 @@
+<map id="compute" name="compute">
+<area shape="rect" id="Node000001" title="Computes the backbone of the loaded formula." alt="" coords="5,224,84,249"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#ab6a76072d7f644ed65b775c07c813cd0" title="Get the sign of a backbone variable." alt="" coords="132,58,385,98"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="49,222,79,170,102,140,130,114,153,101,156,106,134,119,106,144,83,173,54,225"/>
+<area shape="rect" id="Node000003" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#a429b6afedef49329f4fedb2025d01998" title="Check if a literal is in the backbone." alt="" coords="433,51,687,91"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="45,223,51,186,65,136,90,84,108,62,131,43,175,21,223,8,273,3,324,4,373,11,419,20,498,44,496,49,418,25,372,16,323,10,273,9,224,14,177,26,133,48,112,66,95,87,70,138,56,187,50,224"/>
+<area shape="rect" id="Node000005" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#ab6a76072d7f644ed65b775c07c813cd0" title="Get sign of backbone variable." alt="" coords="132,173,385,228"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="84,227,118,221,119,227,85,232"/>
+<area shape="rect" id="Node000006" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#a429b6afedef49329f4fedb2025d01998" title="Check if literal is in backbone." alt="" coords="433,116,687,170"/>
+<area shape="poly" id="edge12_Node000001_Node000006" title=" " alt="" coords="54,221,85,188,107,171,131,158,203,136,277,125,351,121,420,123,420,128,351,126,278,130,204,141,133,163,110,175,89,192,58,225"/>
+<area shape="rect" id="Node000007" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#a6703ab833b59818b719bb7524b002b94" title="Initialize detector and check satisfiability." alt="" coords="132,252,385,292"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="85,240,127,247,126,253,84,246"/>
+<area shape="rect" id="Node000009" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#a6703ab833b59818b719bb7524b002b94" title="Initialize and check satisfiability." alt="" coords="132,317,385,372"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="61,247,92,275,133,302,148,309,146,314,131,307,89,279,57,251"/>
+<area shape="rect" id="Node000010" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#ad1717410afd0be936c6213a63c8005fb" title="Run the backbone detection algorithm." alt="" coords="132,396,385,436"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="52,248,62,276,79,312,103,349,134,381,144,388,141,392,130,385,99,353,74,315,57,278,47,250"/>
+<area shape="rect" id="Node000012" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#ad1717410afd0be936c6213a63c8005fb" title="Run backbone detection without activity bumping." alt="" coords="132,460,385,500"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="50,249,56,288,70,341,95,398,113,424,134,446,139,451,136,455,130,450,108,427,91,401,65,343,51,289,45,250"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="385,72,420,71,420,77,385,78"/>
+<area shape="rect" id="Node000004" href="$classLiteralSet.html#ac991f2b1458bbe632c58fa58da7ed5b4" title="Check if a literal is in the set." alt="" coords="736,94,849,120"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="687,88,723,94,722,99,686,93"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="385,174,419,167,420,172,386,179"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="686,121,722,115,723,120,687,126"/>
+<area shape="rect" id="Node000008" href="$classLiteralSet.html#aef3bef1089d48e3cc09399657eeef5d4" title="Add a literal to the set." alt="" coords="502,344,618,369"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="341,290,386,302,506,337,504,342,385,307,340,295"/>
+<area shape="poly" id="edge10_Node000009_Node000008" title=" " alt="" coords="385,347,488,351,488,356,385,352"/>
+<area shape="poly" id="edge14_Node000010_Node000008" title=" " alt="" coords="359,394,488,368,489,373,360,399"/>
+<area shape="rect" id="Node000011" href="$classLiteralSet.html#a259cb5a711406a8c3e5d937eb9350cca" title="Get the number of literals in the set." alt="" coords="501,405,619,430"/>
+<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="385,414,487,415,487,420,385,420"/>
+<area shape="poly" id="edge17_Node000012_Node000008" title=" " alt="" coords="360,458,384,446,399,433,407,419,416,404,432,390,459,376,487,366,489,372,461,381,435,395,420,408,412,422,403,437,387,451,363,463"/>
+<area shape="poly" id="edge22_Node000012_Node000011" title=" " alt="" coords="355,458,486,430,487,435,356,463"/>
+<area shape="rect" id="Node000013" href="$classLiteralSet.html#a88460801f003cd58125ab1c53d05a7e1" title="Ultra&#45;fast bulk removal based on solver model." alt="" coords="491,458,629,498"/>
+<area shape="poly" id="edge18_Node000012_Node000013" title=" " alt="" coords="385,477,477,476,477,481,385,482"/>
+<area shape="rect" id="Node000016" href="$classLiteralSet.html#a51f160e762dc559b1d214b99c79855f2" title="Remove a literal from the set." alt="" coords="489,522,631,548"/>
+<area shape="poly" id="edge21_Node000012_Node000016" title=" " alt="" coords="370,498,476,517,475,523,369,503"/>
+<area shape="rect" id="Node000014" href="$classLiteralSet.html#ac9ee9cfb345e867a15b88f4114ed6903" title="Get iterator past last literal." alt="" coords="735,465,851,490"/>
+<area shape="poly" id="edge19_Node000013_Node000014" title=" " alt="" coords="630,475,721,475,721,480,630,480"/>
+<area shape="rect" id="Node000015" href="$classLiteralSet.html#ab04e3a95d346022db7eee72026820425" title="Get the physical size of internal storage." alt="" coords="899,465,1077,490"/>
+<area shape="poly" id="edge20_Node000014_Node000015" title=" " alt="" coords="851,475,885,475,885,480,851,480"/>
+</map>

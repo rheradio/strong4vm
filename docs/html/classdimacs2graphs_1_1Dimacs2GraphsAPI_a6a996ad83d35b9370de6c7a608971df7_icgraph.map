@@ -1,0 +1,7 @@
+<map id="get_num_clauses" name="get_num_clauses">
+<area shape="rect" id="Node000001" title="Get the number of clauses in the last processed formula." alt="" coords="245,35,380,60"/>
+<area shape="rect" id="Node000002" href="$api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="74,5,129,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,39,129,24,129,19,232,33"/>
+<area shape="rect" id="Node000003" href="$classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#ae491c69e6096f78564dc58d79de5d525" title="Execute the complete Strong4VM analysis pipeline." alt="" coords="5,55,197,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="232,61,198,65,197,60,232,55"/>
+</map>

@@ -1,0 +1,14 @@
+digraph "Dimacs2GraphsAPI::Impl"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [id="Node000001",label="Dimacs2GraphsAPI::Impl",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="PIMPL (Pointer to Implementation) idiom for ABI stability."];
+  Node2 -> Node1 [id="edge1_Node000001_Node000002",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" bone_api",fontcolor="grey" ];
+  Node2 [id="Node000002",label="BackboneSolverAPI",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$classbackbone__solver_1_1BackboneSolverAPI.html",tooltip="Main API class for backbone computation using PIMPL pattern."];
+  Node3 -> Node1 [id="edge2_Node000001_Node000003",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" global_backbone",fontcolor="grey" ];
+  Node3 [id="Node000003",label="vector\< int \>",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+  Node4 -> Node1 [id="edge3_Node000001_Node000004",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" error_message",fontcolor="grey" ];
+  Node4 [id="Node000004",label="string",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",tooltip=" "];
+}

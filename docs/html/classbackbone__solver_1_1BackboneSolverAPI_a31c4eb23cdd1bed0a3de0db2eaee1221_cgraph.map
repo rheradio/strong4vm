@@ -1,0 +1,18 @@
+<map id="print_backbone" name="print_backbone">
+<area shape="rect" id="Node000001" title="Print the backbone to standard output." alt="" coords="5,103,128,129"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#a06cd6196ced8445fcc0a67696399b2cf" title="Prints formatted backbone summary to stdout." alt="" coords="176,96,380,136"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,113,163,113,163,119,128,119"/>
+<area shape="rect" id="Node000003" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#ab6a76072d7f644ed65b775c07c813cd0" title="Get the sign of a backbone variable." alt="" coords="428,5,681,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="334,93,427,61,473,47,474,52,429,67,336,99"/>
+<area shape="rect" id="Node000004" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#a429b6afedef49329f4fedb2025d01998" title="Check if a literal is in the backbone." alt="" coords="729,60,983,100"/>
+<area shape="poly" id="edge8_Node000002_Node000004" title=" " alt="" coords="380,107,715,86,716,91,380,112"/>
+<area shape="rect" id="Node000006" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#ab6a76072d7f644ed65b775c07c813cd0" title="Get sign of backbone variable." alt="" coords="428,121,681,175"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="381,125,414,129,414,134,380,130"/>
+<area shape="rect" id="Node000007" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#a429b6afedef49329f4fedb2025d01998" title="Check if literal is in backbone." alt="" coords="729,125,983,179"/>
+<area shape="poly" id="edge9_Node000002_Node000007" title=" " alt="" coords="312,134,365,163,429,185,506,196,586,197,662,191,732,179,733,185,663,196,586,203,506,202,427,191,363,167,309,138"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="666,43,732,55,731,60,665,48"/>
+<area shape="rect" id="Node000005" href="$classLiteralSet.html#ac991f2b1458bbe632c58fa58da7ed5b4" title="Check if a literal is in the set." alt="" coords="1031,103,1144,129"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="983,97,1017,102,1016,108,982,102"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="681,147,716,147,716,153,681,152"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="982,130,1016,124,1017,130,983,135"/>
+</map>

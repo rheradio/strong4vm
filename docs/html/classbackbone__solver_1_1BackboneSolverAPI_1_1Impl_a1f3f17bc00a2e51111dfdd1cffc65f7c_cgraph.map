@@ -1,0 +1,15 @@
+<map id="read_file" name="read_file">
+<area shape="rect" id="Node000001" title="Reads and parses a DIMACS CNF file." alt="" coords="5,70,84,95"/>
+<area shape="rect" id="Node000002" href="$classDIMACSReader.html#ab9e40d96b1f2285beb7b1d2130826f9e" title="Get the parsed CNF formula." alt="" coords="135,5,333,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,68,154,47,155,52,85,73"/>
+<area shape="rect" id="Node000003" href="$classDIMACSReader.html#acced3e8eb4f5cbbe755842b5c2d86eac" title="Get maximum variable ID in the formula." alt="" coords="132,70,336,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="84,80,118,80,118,85,84,85"/>
+<area shape="rect" id="Node000004" href="$classDIMACSReader.html#aaa936da334e29618ece019bd8a9aa06f" title="Parse the DIMACS file." alt="" coords="155,119,313,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="85,91,133,104,168,113,167,118,131,109,83,96"/>
+<area shape="rect" id="Node000005" href="$classReader.html#ad286fa18439fbed14dec41adc407e71b" title="Skip whitespace characters." alt="" coords="384,94,568,119"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="313,121,370,115,370,120,313,126"/>
+<area shape="rect" id="Node000006" href="$group__ParseUtils.html#gabb0b266785e7046fdc13a28d8f5c67fb" title="Skip to end of current line." alt="" coords="438,143,514,169"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="313,137,424,148,424,154,313,142"/>
+<area shape="rect" id="Node000007" href="$group__ParseUtils.html#gaeafd19f99cdf75678e3765e233b0547b" title="Check if StreamBuffer reached end of file." alt="" coords="616,143,671,169"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="514,153,602,153,602,159,514,159"/>
+</map>

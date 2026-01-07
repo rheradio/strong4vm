@@ -1,0 +1,5 @@
+<map id="CheckCandidatesOneByOne" name="CheckCandidatesOneByOne">
+<area shape="rect" id="Node000001" title="Fast backbone detector using upper&#45;bound iterative elimination." alt="" coords="5,79,209,104"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1BackBone.html" title="Abstract base class for backbone detection algorithms." alt="" coords="64,5,151,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,44,110,79,105,79,105,44"/>
+</map>

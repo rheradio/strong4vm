@@ -1,0 +1,7 @@
+<map id="discard_from_model" name="discard_from_model">
+<area shape="rect" id="Node000001" title="Ultra&#45;fast bulk removal based on solver model." alt="" coords="5,5,160,31"/>
+<area shape="rect" id="Node000002" href="$classLiteralSet.html#ac9ee9cfb345e867a15b88f4114ed6903" title="Get iterator past last literal." alt="" coords="208,5,255,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,15,194,15,194,21,160,21"/>
+<area shape="rect" id="Node000003" href="$classLiteralSet.html#ab04e3a95d346022db7eee72026820425" title="Get the physical size of internal storage." alt="" coords="303,5,412,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,15,289,15,289,21,255,21"/>
+</map>

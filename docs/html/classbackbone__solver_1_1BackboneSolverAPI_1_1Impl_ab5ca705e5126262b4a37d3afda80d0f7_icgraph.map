@@ -1,0 +1,5 @@
+<map id="get_is_sat" name="get_is_sat">
+<area shape="rect" id="Node000001" title="Checks if the loaded formula is satisfiable." alt="" coords="257,13,345,38"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1BackboneSolverAPI.html#a5ffcf61b25d4e0dacca8383b8584e00a" title="Check if the last read formula is satisfiable." alt="" coords="5,5,209,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="243,28,210,28,210,23,243,23"/>
+</map>

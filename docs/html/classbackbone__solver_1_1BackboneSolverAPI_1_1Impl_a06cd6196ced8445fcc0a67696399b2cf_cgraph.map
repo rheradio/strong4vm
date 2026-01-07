@@ -1,0 +1,16 @@
+<map id="print_bb" name="print_bb">
+<area shape="rect" id="Node000001" title="Prints formatted backbone summary to stdout." alt="" coords="5,103,80,129"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#ab6a76072d7f644ed65b775c07c813cd0" title="Get the sign of a backbone variable." alt="" coords="128,5,381,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,101,91,81,127,62,163,47,165,52,129,66,94,86,63,105"/>
+<area shape="rect" id="Node000003" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html#a429b6afedef49329f4fedb2025d01998" title="Check if a literal is in the backbone." alt="" coords="429,60,683,100"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="80,110,128,105,415,85,416,91,128,111,81,115"/>
+<area shape="rect" id="Node000005" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#ab6a76072d7f644ed65b775c07c813cd0" title="Get sign of backbone variable." alt="" coords="128,121,381,175"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="81,119,115,124,114,129,80,124"/>
+<area shape="rect" id="Node000006" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#a429b6afedef49329f4fedb2025d01998" title="Check if literal is in backbone." alt="" coords="429,125,683,179"/>
+<area shape="poly" id="edge8_Node000001_Node000006" title=" " alt="" coords="56,127,86,158,106,174,129,186,170,198,213,205,300,207,384,197,458,180,459,186,385,202,301,212,213,210,169,203,127,190,103,178,82,162,52,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="366,43,432,55,431,60,365,48"/>
+<area shape="rect" id="Node000004" href="$classLiteralSet.html#ac991f2b1458bbe632c58fa58da7ed5b4" title="Check if a literal is in the set." alt="" coords="731,103,844,129"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="683,97,717,102,716,108,682,102"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="381,147,416,147,416,153,381,152"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="682,130,716,124,717,130,683,135"/>
+</map>

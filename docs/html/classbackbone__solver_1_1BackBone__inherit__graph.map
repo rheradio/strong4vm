@@ -1,0 +1,7 @@
+<map id="BackBone" name="BackBone">
+<area shape="rect" id="Node000001" title="Abstract base class for backbone detection algorithms." alt="" coords="191,5,277,31"/>
+<area shape="rect" id="Node000002" href="$classbackbone__solver_1_1CheckCandidatesOneByOne.html" title="Fast backbone detector using upper&#45;bound iterative elimination." alt="" coords="5,86,209,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,40,127,88,125,84,202,36"/>
+<area shape="rect" id="Node000003" href="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html" title="Upper&#45;bound backbone detector without activity bumping." alt="" coords="233,79,488,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="266,36,332,76,329,81,263,40"/>
+</map>

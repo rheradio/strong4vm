@@ -1,0 +1,7 @@
+<map id="Strong4VMAPI::Impl" name="Strong4VMAPI::Impl">
+<area shape="rect" id="Node000001" title="Internal implementation class (PIMPL idiom)" alt="" coords="5,269,156,295"/>
+<area shape="rect" id="Node000002" href="$structstrong4vm_1_1AnalysisResult.html" title="Result of a Strong4VM analysis." alt="" coords="21,181,140,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,221,83,269,78,269,78,221"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="51,5,110,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="83,44,83,181,78,181,78,44"/>
+</map>

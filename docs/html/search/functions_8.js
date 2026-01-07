@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['impl_0',['impl',['../classDimacs2GraphsAPI_1_1Impl.html#aeddeadda2f5f758685805d11658aa8f5',1,'dimacs2graphs::Dimacs2GraphsAPI::Impl::Impl()'],['../classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#aeddeadda2f5f758685805d11658aa8f5',1,'backbone_solver::BackboneSolverAPI::Impl::Impl()'],['../classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#aeddeadda2f5f758685805d11658aa8f5',1,'strong4vm::Strong4VMAPI::Impl::Impl()']]],
+  ['infinite_5fiterator_1',['infinite_iterator',['../classLiteralSet.html#aa9533caa775845a68f79d465bdaf706d',1,'LiteralSet']]],
+  ['initialize_2',['initialize',['../classbackbone__solver_1_1BackBone.html#a34baaf337a8602c543e260ca190e11a6',1,'backbone_solver::BackBone::initialize()'],['../classbackbone__solver_1_1CheckCandidatesOneByOne.html#a6703ab833b59818b719bb7524b002b94',1,'backbone_solver::CheckCandidatesOneByOne::initialize()'],['../classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#a6703ab833b59818b719bb7524b002b94',1,'backbone_solver::CheckCandidatesOneByOneWithoutAttention::initialize()']]],
+  ['is_5falternative_3',['is_alternative',['../classRelation.html#a00ccb076a723a6e561087e6d629f15af',1,'Relation']]],
+  ['is_5fbackbone_4',['is_backbone',['../classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#a4ba9451eeaefa50b3e7645f0ff5c806c',1,'backbone_solver::CheckCandidatesOneByOneWithoutAttention::is_backbone(Var var) const override'],['../classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#a429b6afedef49329f4fedb2025d01998',1,'backbone_solver::CheckCandidatesOneByOneWithoutAttention::is_backbone(const Lit &amp;literal) const override'],['../classbackbone__solver_1_1CheckCandidatesOneByOne.html#a4ba9451eeaefa50b3e7645f0ff5c806c',1,'backbone_solver::CheckCandidatesOneByOne::is_backbone(Var var) const override'],['../classbackbone__solver_1_1CheckCandidatesOneByOne.html#a429b6afedef49329f4fedb2025d01998',1,'backbone_solver::CheckCandidatesOneByOne::is_backbone(const Lit &amp;literal) const override'],['../classbackbone__solver_1_1BackBone.html#a9be6177507d8f93e81fd8deca91eca38',1,'backbone_solver::BackBone::is_backbone(Var var) const =0'],['../classbackbone__solver_1_1BackBone.html#a26e8699fc289a4d9cb63c916ec97b1de',1,'backbone_solver::BackBone::is_backbone(const Lit &amp;literal) const =0']]],
+  ['is_5fboolean_5foperation_5',['is_boolean_operation',['../classASTNode.html#a153076af7d2e3d49dc6a839831c70267',1,'ASTNode']]],
+  ['is_5fcardinality_6',['is_cardinality',['../classRelation.html#a2886d302da89dba511818c86930aa9a2',1,'Relation']]],
+  ['is_5fleaf_7',['is_leaf',['../classFeature.html#a3de4d8ac05ee0af976a546474a1d3d24',1,'Feature']]],
+  ['is_5fliteral_8',['is_literal',['../classASTNode.html#a50b13c4bd41440e935020eafa97cad7a',1,'ASTNode']]],
+  ['is_5fmandatory_9',['is_mandatory',['../classRelation.html#aa8d8eec2b6535e8dfafb7932e1c23b48',1,'Relation']]],
+  ['is_5foptional_10',['is_optional',['../classRelation.html#a92ffa1f2721b75a1492eca5c321c0e4f',1,'Relation']]],
+  ['is_5for_11',['is_or',['../classRelation.html#a66073b39fa70c40149332ab3acb2790c',1,'Relation']]],
+  ['is_5fpure_5fboolean_12',['is_pure_boolean',['../classConstraint.html#a799f9f6505f1f6c3b4fc0967454302c9',1,'Constraint']]],
+  ['is_5fpure_5fboolean_5ftree_13',['is_pure_boolean_tree',['../classASTNode.html#ad92844ecfb1e4892e14c463afa43e0da',1,'ASTNode']]],
+  ['is_5fsatisfiable_14',['is_satisfiable',['../classbackbone__solver_1_1BackboneSolverAPI.html#a5ffcf61b25d4e0dacca8383b8584e00a',1,'backbone_solver::BackboneSolverAPI']]],
+  ['iseof_15',['iseof',['../group__ParseUtils.html#gaeafd19f99cdf75678e3765e233b0547b',1,'isEof(StreamBuffer &amp;in):&#160;parse_utils.hh'],['../group__ParseUtils.html#ga4f52138a9dac0e10f8d1f0a2fda669f9',1,'isEof(const char *in):&#160;parse_utils.hh'],['../group__ParseUtils.html#gacdf5fb2e3de551c14ea0139e24ae2e0d',1,'isEof(B &amp;in):&#160;parse_utils.hh']]]
+];
