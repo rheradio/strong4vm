@@ -45,6 +45,7 @@ void print_usage(const char* program_name) {
     std::cout << "  -t, --threads N      Number of threads for graph generation (default: 1)\n";
     std::cout << "  -o, --output DIR     Output directory (default: same as input file)\n";
     std::cout << "  -k, --keep-dimacs    Keep intermediate DIMACS file (UVL input only)\n";
+    std::cout << "  -e, --enable-tseitin Enable Tseitin transformation for UVL conversion\n";
     std::cout << "  -h, --help           Display this help message\n\n";
     std::cout << "Output Files:\n";
     std::cout << "  <basename>__requires.net   Dependency graph (Pajek format)\n";
@@ -112,6 +113,7 @@ int main(int argc, char* argv[]) {
     std::string output_dir;
     int num_threads = 1;
     bool keep_dimacs = false;
+    bool use_tseitin = false;
 
     // Parse arguments
     for (int i = 1; i < argc; i++) {
@@ -122,6 +124,8 @@ int main(int argc, char* argv[]) {
             return 0;
         } else if (arg == "-k" || arg == "--keep-dimacs") {
             keep_dimacs = true;
+        } else if (arg == "-e" || arg == "--enable-tseitin") {
+            use_tseitin = true;
         } else if ((arg == "-t" || arg == "--threads") && i + 1 < argc) {
             num_threads = std::atoi(argv[++i]);
             if (num_threads < 1) {
@@ -192,10 +196,15 @@ int main(int argc, char* argv[]) {
             temp_dimacs = true;
         }
 
-        // Convert UVL to DIMACS using Straightforward mode
+        // Convert UVL to DIMACS
         uvl2dimacs::UVL2Dimacs converter;
         converter.set_verbose(true);
-        converter.set_mode(uvl2dimacs::ConversionMode::STRAIGHTFORWARD);
+        if (use_tseitin) {
+            converter.set_mode(uvl2dimacs::ConversionMode::TSEITIN);
+        } else {
+            converter.set_mode(uvl2dimacs::ConversionMode::STRAIGHTFORWARD);
+        }
+        std::cout << "  Mode: " << (use_tseitin ? "Tseitin" : "Straightforward") << "\n";
 
         auto result = converter.convert(input_file, dimacs_file);
 
@@ -230,6 +239,11 @@ int main(int argc, char* argv[]) {
     std::cout << "=================================================\n";
 
     dimacs2graphs::Dimacs2GraphsAPI graph_api;
+
+    // When Tseitin mode is used, filter auxiliary variables from output
+    if (use_tseitin) {
+        graph_api.set_filter_auxiliary(true);
+    }
 
     // Use the basename without path for graph generation
     std::string dimacs_basename = get_basename(dimacs_file);

@@ -210,6 +210,19 @@ public:
      */
     std::string get_error_message() const;
 
+    /**
+     * @brief Set whether to filter auxiliary variables from output
+     *
+     * When enabled, variables whose names start with "aux_" (Tseitin auxiliary
+     * variables) will be excluded from:
+     * - The main iteration loop (for efficiency)
+     * - Core and dead feature lists
+     * - Requires and excludes graph edges
+     *
+     * @param filter If true, filter auxiliary variables (default: false)
+     */
+    void set_filter_auxiliary(bool filter);
+
 private:
     class Impl;
     Impl* pimpl;

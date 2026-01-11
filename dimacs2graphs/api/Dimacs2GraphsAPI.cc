@@ -106,8 +106,9 @@ public:
     int num_clauses;
     vector<int> global_backbone;
     string error_message;
+    bool filter_auxiliary;
 
-    Impl() : num_variables(0), num_clauses(0) {}
+    Impl() : num_variables(0), num_clauses(0), filter_auxiliary(false) {}
 
     /**
      * @brief Normalizes a file path by removing trailing slashes
@@ -198,6 +199,70 @@ public:
     }
 
     /**
+     * @brief Reads feature names from DIMACS comments and identifies auxiliary variables
+     *
+     * Parses comment lines in the format "c [var_num] [feature_name]" to build
+     * a map of variable numbers to feature names. Also identifies variables
+     * whose names start with "aux_" (Tseitin auxiliary variables).
+     *
+     * @param dimacs_path Path to the DIMACS file
+     * @param feature_map Output map of variable numbers to feature names
+     * @param aux_vars Output set of auxiliary variable indices
+     * @return true if successful, false on error
+     */
+    bool read_feature_names(const string& dimacs_path,
+                           map<int, string>& feature_map,
+                           vector<bool>& aux_vars) {
+        ifstream dimacs_file(dimacs_path);
+        if (!dimacs_file.is_open()) {
+            error_message = "Could not open file: " + dimacs_path;
+            return false;
+        }
+
+        string line_str;
+        while (getline(dimacs_file, line_str)) {
+            if (line_str.empty()) continue;
+            if (line_str[0] == 'c') {
+                stringstream ss(line_str);
+                char c;
+                int var_number;
+                string word;
+
+                if (ss >> c >> var_number) {
+                    stringstream full_name;
+                    bool has_words = false;
+
+                    while (ss >> word) {
+                        has_words = true;
+                        if (full_name.tellp() > 0) full_name << " ";
+                        full_name << word;
+                    }
+
+                    if (has_words) {
+                        string name = full_name.str();
+                        feature_map[var_number] = name;
+
+                        // Check if this is an auxiliary variable (starts with "aux_")
+                        if (name.size() >= 4 && name.substr(0, 4) == "aux_") {
+                            // Ensure aux_vars vector is large enough
+                            if (var_number >= static_cast<int>(aux_vars.size())) {
+                                aux_vars.resize(var_number + 1, false);
+                            }
+                            aux_vars[var_number] = true;
+                        }
+                    }
+                }
+            } else if (line_str[0] == 'p') {
+                // Problem line - we can stop after reading all comments
+                // (comments typically come before the problem line)
+                // But some formats have comments throughout, so continue
+            }
+        }
+        dimacs_file.close();
+        return true;
+    }
+
+    /**
      * @struct ThreadWorker
      * @brief Thread worker structure for parallel variable processing
      *
@@ -216,8 +281,8 @@ public:
      */
     struct ThreadWorker {
         int thread_id;
-        int start_var;
-        int end_var;
+        int start_idx;
+        int end_idx;
 
         // Thread-local resources (pre-initialized API passed from main thread)
         BackboneSolverAPI* bone_api;
@@ -226,6 +291,8 @@ public:
 
         // Shared read-only data
         const vector<int>& global_bb;
+        const vector<bool>& aux_vars;
+        const vector<int>& vars_to_process;
         int num_variables;
 
         // Error handling
@@ -236,28 +303,38 @@ public:
         atomic<int>* progress_counter;
 
         /**
-         * @brief Constructs a thread worker for a variable range
+         * @brief Constructs a thread worker for a range of indices in vars_to_process
          *
          * @param tid Thread identifier
-         * @param start First variable in assigned range (inclusive)
-         * @param end Last variable in assigned range (inclusive)
+         * @param start First index in vars_to_process (inclusive)
+         * @param end Last index in vars_to_process (inclusive)
          * @param api Pre-initialized BackboneSolverAPI instance (created in main thread)
          * @param bb Global backbone vector (indexed array for O(1) lookup)
+         * @param aux Auxiliary variables flags (true if variable is aux_)
+         * @param vars Reference to vars_to_process vector
          * @param num_vars Total number of variables in the formula
          * @param progress Atomic counter for progress tracking
          */
         ThreadWorker(int tid, int start, int end,
                     BackboneSolverAPI* api,
-                    const vector<int>& bb, int num_vars,
+                    const vector<int>& bb, const vector<bool>& aux,
+                    const vector<int>& vars, int num_vars,
                     atomic<int>* progress)
-            : thread_id(tid), start_var(start), end_var(end),
-              bone_api(api), global_bb(bb), num_variables(num_vars),
-              success(true), progress_counter(progress) {}
+            : thread_id(tid), start_idx(start), end_idx(end),
+              bone_api(api), global_bb(bb), aux_vars(aux), vars_to_process(vars),
+              num_variables(num_vars), success(true), progress_counter(progress) {}
+
+        /**
+         * @brief Checks if a variable is an auxiliary variable
+         */
+        bool is_aux(int v) const {
+            return v < static_cast<int>(aux_vars.size()) && aux_vars[v];
+        }
 
         /**
          * @brief Main worker thread execution function
          *
-         * Processes all variables in the assigned range [start_var, end_var],
+         * Processes variables at indices [start_idx, end_idx] in vars_to_process,
          * computing backbone with assumptions for each variable and extracting
          * requires/excludes edges. Updates the shared progress counter atomically.
          *
@@ -266,9 +343,9 @@ public:
          */
         void run() {
             try {
-                // BackboneSolverAPI is pre-initialized, just process variables
-                // Process assigned variable range
-                for (int v = start_var; v <= end_var; v++) {
+                // Process assigned index range in vars_to_process
+                for (int idx = start_idx; idx <= end_idx; idx++) {
+                    int v = vars_to_process[idx];
                     process_variable(v);
                     (*progress_counter)++;
                 }
@@ -293,6 +370,7 @@ public:
          * - **Excludes edges**: If assuming v=true forces i=false (and neither v nor i are dead)
          *
          * The algorithm uses indexed arrays for O(1) backbone lookups to maximize performance.
+         * Edges involving auxiliary variables are excluded.
          *
          * @param v The variable to process (1-indexed)
          */
@@ -309,17 +387,17 @@ public:
                 line[var] = lit;
             }
 
-            // Extract requires edges
+            // Extract requires edges (skip edges to auxiliary variables)
             for (int i = 1; i <= num_variables; i++) {
-                if ((i != v) && (line[i] == i) && (global_bb[i] == 0)) {
+                if ((i != v) && (line[i] == i) && (global_bb[i] == 0) && !is_aux(i)) {
                     requires_list << v << " " << i << "\n";
                 }
             }
 
-            // Extract excludes edges
+            // Extract excludes edges (skip edges to auxiliary variables)
             for (int i = v; i <= num_variables; i++) {
                 if ((line[i] == -i) && (global_bb[i] != -i) &&
-                    (global_bb[v] != -v)) {
+                    (global_bb[v] != -v) && !is_aux(i)) {
                     excludes_list << v << " " << i << "\n";
                 }
             }
@@ -416,6 +494,48 @@ public:
 
         cout << "Detected " << num_variables << " variables and " << num_clauses << " clauses..." << endl;
 
+        // Read feature names early to identify auxiliary variables (when filtering is enabled)
+        map<int, string> feature_map;
+        vector<bool> aux_vars(num_variables + 1, false);
+        if (filter_auxiliary) {
+            cout << "Filtering auxiliary (aux_*) variables from output..." << endl;
+            if (!read_feature_names(dimacs_path, feature_map, aux_vars)) {
+                return false;
+            }
+            // Count auxiliary variables for informational purposes
+            int aux_count = 0;
+            for (int v = 1; v <= num_variables; v++) {
+                if (v < static_cast<int>(aux_vars.size()) && aux_vars[v]) {
+                    aux_count++;
+                }
+            }
+            if (aux_count > 0) {
+                cout << "Found " << aux_count << " auxiliary variables to filter" << endl;
+            }
+        }
+
+        // Helper lambda to check if a variable is auxiliary
+        auto is_aux = [&aux_vars](int v) -> bool {
+            return v < static_cast<int>(aux_vars.size()) && aux_vars[v];
+        };
+
+        // Build list of variables to process (excluding auxiliary variables)
+        vector<int> vars_to_process;
+        if (filter_auxiliary) {
+            for (int v = 1; v <= num_variables; v++) {
+                if (!is_aux(v)) {
+                    vars_to_process.push_back(v);
+                }
+            }
+            cout << "Processing " << vars_to_process.size() << " non-auxiliary variables" << endl;
+        } else {
+            // Process all variables
+            vars_to_process.reserve(num_variables);
+            for (int v = 1; v <= num_variables; v++) {
+                vars_to_process.push_back(v);
+            }
+        }
+
         // Compute global backbone
         cout << "Computing core and dead features..." << endl;
         vector<int> bb_vector = bone_api.compute_backbone();
@@ -446,8 +566,11 @@ public:
             return false;
         }
 
-        // Cap effective threads at number of variables
-        int effective_threads = min(num_of_threads, num_variables);
+        // Calculate total variables to process (excluding aux vars when filtering)
+        int total_to_process = static_cast<int>(vars_to_process.size());
+
+        // Cap effective threads at number of variables to process
+        int effective_threads = min(num_of_threads, total_to_process);
 
         if (effective_threads > 1) {
             cout << "Using " << effective_threads << " threads for parallel processing..." << endl;
@@ -457,9 +580,10 @@ public:
         stringstream requires_list;
 
         if (effective_threads == 1) {
-            // Single-threaded mode (original implementation)
-            for (int v = 1; v <= num_variables; v++) {
-                cout << "\rProgress: variable " << v << " of " << num_variables << flush;
+            // Single-threaded mode - iterate only over vars_to_process
+            for (int idx = 0; idx < total_to_process; idx++) {
+                int v = vars_to_process[idx];
+                cout << "\rProgress: " << (idx + 1) << " of " << total_to_process << " variables" << flush;
 
                 // Compute backbone assuming v=true
                 vector<int> assumptions = {v};
@@ -472,16 +596,16 @@ public:
                     line[var] = lit;
                 }
 
-                // Extract requires edges
+                // Extract requires edges (skip edges to auxiliary variables)
                 for (int i = 1; i <= num_variables; i++) {
-                    if ((i != v) && (line[i] == i) && (bb[i] == 0)) {
+                    if ((i != v) && (line[i] == i) && (bb[i] == 0) && !is_aux(i)) {
                         requires_list << v << " " << i << endl;
                     }
                 }
 
-                // Extract excludes edges
+                // Extract excludes edges (skip edges to auxiliary variables)
                 for (int i = v; i <= num_variables; i++) {
-                    if ((line[i] == -i) && (bb[i] != -i) && (bb[v] != -v)) {
+                    if ((line[i] == -i) && (bb[i] != -i) && (bb[v] != -v) && !is_aux(i)) {
                         excludes_list << v << " " << i << endl;
                     }
                 }
@@ -514,22 +638,23 @@ public:
             vector<thread> threads;
             threads.reserve(effective_threads);
 
-            int vars_per_thread = num_variables / effective_threads;
-            int remainder = num_variables % effective_threads;
+            // Distribute vars_to_process indices across threads
+            int vars_per_thread = total_to_process / effective_threads;
+            int remainder = total_to_process % effective_threads;
 
-            int current_var = 1;
+            int current_idx = 0;
             for (int t = 0; t < effective_threads; t++) {
-                int start_var = current_var;
+                int start_idx = current_idx;
                 int count = vars_per_thread + (t < remainder ? 1 : 0);
-                int end_var = start_var + count - 1;
+                int end_idx = start_idx + count - 1;
 
                 workers.emplace_back(ThreadWorker(
-                    t, start_var, end_var,
-                    apis[t].get(), bb, num_variables,
+                    t, start_idx, end_idx,
+                    apis[t].get(), bb, aux_vars, vars_to_process, num_variables,
                     &progress_counter
                 ));
 
-                current_var = end_var + 1;
+                current_idx = end_idx + 1;
             }
 
             // Launch threads
@@ -538,10 +663,10 @@ public:
             }
 
             // Progress monitoring
-            while (progress_counter < num_variables) {
+            while (progress_counter < total_to_process) {
                 int completed = progress_counter.load();
                 cout << "\rProgress: " << completed << " of "
-                     << num_variables << " variables" << flush;
+                     << total_to_process << " variables" << flush;
                 this_thread::sleep_for(chrono::milliseconds(100));
             }
 
@@ -550,8 +675,8 @@ public:
                 thread.join();
             }
 
-            cout << "\rProgress: " << num_variables << " of "
-                 << num_variables << " variables" << endl;
+            cout << "\rProgress: " << total_to_process << " of "
+                 << total_to_process << " variables" << endl;
 
             // Check for errors (fail-fast)
             for (const auto& worker : workers) {
@@ -569,8 +694,8 @@ public:
             }
         }
 
-        // Extract feature names from DIMACS comments
-        map<int, string> feature_map;
+        // Extract feature names from DIMACS comments (if not already read for filtering)
+        // Note: feature_map and aux_vars were declared earlier
         stringstream feat_stream;
         stringstream core_stream;
         stringstream dead_stream;
@@ -578,6 +703,7 @@ public:
         ifstream dimacs_input(dimacs_path);
         string line_str;
         while (getline(dimacs_input, line_str)) {
+            if (line_str.empty()) continue;
             if (line_str[0] == 'c') {
                 stringstream ss(line_str);
                 char c;
@@ -585,6 +711,11 @@ public:
                 string word;
 
                 if (ss >> c >> var_number) {
+                    // Skip auxiliary variables from output
+                    if (is_aux(var_number)) {
+                        continue;
+                    }
+
                     // Process each word separately
                     feat_stream << var_number;
                     bool has_words = false;
@@ -745,4 +876,12 @@ vector<int> Dimacs2GraphsAPI::get_global_backbone() const {
  */
 string Dimacs2GraphsAPI::get_error_message() const {
     return pimpl->error_message;
+}
+
+/**
+ * @brief Sets whether to filter auxiliary variables
+ * @param filter If true, variables starting with "aux_" are excluded
+ */
+void Dimacs2GraphsAPI::set_filter_auxiliary(bool filter) {
+    pimpl->filter_auxiliary = filter;
 }
