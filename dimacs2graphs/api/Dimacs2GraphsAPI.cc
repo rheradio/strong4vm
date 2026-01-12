@@ -784,13 +784,17 @@ public:
         outFile << dead_stream.str();
         outFile.close();
 
+        // Determine vertex count for Pajek output
+        // When filtering auxiliary variables, use only non-aux variable count
+        int vertex_count = filter_auxiliary ? static_cast<int>(vars_to_process.size()) : num_variables;
+
         cout << "Saving to " << output_base << "__requires.net" << endl;
         outFile.open(output_base + "__requires.net");
         if (!outFile.is_open()) {
             error_message = "Could not create output file: " + output_base + "__requires.net";
             return false;
         }
-        outFile << "*Vertices " << num_variables << endl;
+        outFile << "*Vertices " << vertex_count << endl;
         outFile << feat_stream.str();
         outFile << "*Arcs" << endl;
         outFile << requires_list.str();
@@ -803,7 +807,7 @@ public:
             error_message = "Could not create output file: " + output_base + "__excludes.net";
             return false;
         }
-        outFile << "*Vertices " << num_variables << endl;
+        outFile << "*Vertices " << vertex_count << endl;
         outFile << feat_stream.str();
         outFile << "*Edges" << endl;
         outFile << excludes_list.str();

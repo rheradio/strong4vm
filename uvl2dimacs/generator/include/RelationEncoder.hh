@@ -156,6 +156,30 @@ private:
      * Example: generate_combinations(3, 2) returns {{0,1}, {0,2}, {1,2}}
      */
     std::vector<std::vector<int>> generate_combinations(int n, int k);
+
+    /**
+     * @brief Adds a long OR clause using chain encoding for 3-CNF
+     *
+     * For clauses with more than 3 literals, this method introduces auxiliary
+     * variables to break the clause into multiple 3-literal clauses using
+     * the chain/ladder encoding technique.
+     *
+     * Given literals (a1 ∨ a2 ∨ ... ∨ an) with n > 3:
+     * - Introduces n-3 auxiliary variables s1, s2, ..., s_{n-3}
+     * - Generates clauses:
+     *   - (a1 ∨ a2 ∨ s1)
+     *   - (-s1 ∨ a3 ∨ s2)
+     *   - (-s2 ∨ a4 ∨ s3)
+     *   - ...
+     *   - (-s_{n-3} ∨ a_{n-1} ∨ an)
+     *
+     * This encoding is equisatisfiable with the original clause:
+     * - If all literals are false, the chain forces a contradiction
+     * - If at least one literal is true, the formula is satisfiable
+     *
+     * @param literals Vector of literals forming the OR clause
+     */
+    void add_long_or_clause(const std::vector<int>& literals);
 };
 
 #endif // RELATIONENCODER_H
