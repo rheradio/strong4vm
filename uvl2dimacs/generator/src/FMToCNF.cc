@@ -101,7 +101,7 @@ void FMToCNF::add_root() {
  * (MANDATORY, OPTIONAL, OR, ALTERNATIVE, CARDINALITY) into CNF clauses.
  */
 void FMToCNF::add_relations() {
-    RelationEncoder encoder(cnf_model);
+    RelationEncoder encoder(cnf_model, mode);
 
     auto relations = source_model->get_relations();
     for (const auto& relation : relations) {

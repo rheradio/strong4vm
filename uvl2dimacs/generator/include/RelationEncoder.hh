@@ -14,6 +14,7 @@
 
 #include "Relation.hh"
 #include "CNFModel.hh"
+#include "CNFMode.hh"
 #include <vector>
 #include <memory>
 
@@ -52,24 +53,30 @@
  * @see CNFModel for the CNF representation
  * @see FMToCNF for the overall transformation process
  *
+ * In TSEITIN mode, the encoder uses tree-based decomposition to ensure all
+ * clauses have at most 3 literals (3-CNF). This introduces auxiliary variables
+ * but guarantees uniform clause structure.
+ *
  * Example:
  * @code
  * CNFModel cnf;
- * RelationEncoder encoder(cnf);
- * encoder.encode_relation(mandatory_relation);  // Encodes parent <=> child
+ * RelationEncoder encoder(cnf, CNFMode::TSEITIN);  // 3-CNF encoding
+ * encoder.encode_relation(mandatory_relation);
  * @endcode
  */
 class RelationEncoder {
 private:
     CNFModel& cnf_model;  ///< Reference to the CNF model to add clauses to
+    CNFMode mode;         ///< CNF conversion mode (STRAIGHTFORWARD or TSEITIN)
 
 public:
     /**
      * @brief Constructs an encoder for the given CNF model
      *
      * @param model Reference to the CNF model where clauses will be added
+     * @param conversion_mode CNF mode: STRAIGHTFORWARD (default) or TSEITIN (3-CNF)
      */
-    explicit RelationEncoder(CNFModel& model);
+    explicit RelationEncoder(CNFModel& model, CNFMode conversion_mode = CNFMode::STRAIGHTFORWARD);
 
     /**
      * @brief Destructor
@@ -158,28 +165,21 @@ private:
     std::vector<std::vector<int>> generate_combinations(int n, int k);
 
     /**
-     * @brief Adds a long OR clause using chain encoding for 3-CNF
+     * @brief Builds an OR tree with auxiliary variables for 3-CNF encoding
      *
-     * For clauses with more than 3 literals, this method introduces auxiliary
-     * variables to break the clause into multiple 3-literal clauses using
-     * the chain/ladder encoding technique.
+     * Recursively decomposes an n-ary OR into binary ORs using auxiliary
+     * variables. Each binary OR produces 3 clauses with at most 3 literals.
      *
-     * Given literals (a1 ∨ a2 ∨ ... ∨ an) with n > 3:
-     * - Introduces n-3 auxiliary variables s1, s2, ..., s_{n-3}
-     * - Generates clauses:
-     *   - (a1 ∨ a2 ∨ s1)
-     *   - (-s1 ∨ a3 ∨ s2)
-     *   - (-s2 ∨ a4 ∨ s3)
-     *   - ...
-     *   - (-s_{n-3} ∨ a_{n-1} ∨ an)
+     * For n variables, creates O(n) auxiliary variables and O(n) clauses,
+     * all with at most 3 literals (3-CNF compliant).
      *
-     * This encoding is equisatisfiable with the original clause:
-     * - If all literals are false, the chain forces a contradiction
-     * - If at least one literal is true, the formula is satisfiable
+     * @param vars Vector of variable IDs to OR together
+     * @return Variable ID representing the result (aux var or original if single)
      *
-     * @param literals Vector of literals forming the OR clause
+     * Example: encode_or_tree({1, 2, 3, 4}) creates:
+     *   aux1 = (1 | 2), aux2 = (3 | 4), result = (aux1 | aux2)
      */
-    void add_long_or_clause(const std::vector<int>& literals);
+    int encode_or_tree(const std::vector<int>& vars);
 };
 
 #endif // RELATIONENCODER_H

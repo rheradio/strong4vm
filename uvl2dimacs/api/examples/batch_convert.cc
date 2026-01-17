@@ -58,22 +58,41 @@ void print_comparison(const std::string& file,
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <input1.uvl> [input2.uvl ...]" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " [-b] <input1.uvl> [input2.uvl ...]" << std::endl;
+        std::cerr << std::endl;
+        std::cerr << "Options:" << std::endl;
+        std::cerr << "  -b    Apply backbone simplification to reduce formula size" << std::endl;
         std::cerr << std::endl;
         std::cerr << "This example converts each file using both STRAIGHTFORWARD and TSEITIN modes" << std::endl;
         std::cerr << "and compares the results." << std::endl;
         return 1;
     }
 
+    // Parse arguments
+    bool use_backbone = false;
+    int start_index = 1;
+
+    if (std::string(argv[1]) == "-b") {
+        use_backbone = true;
+        start_index = 2;
+        if (argc < 3) {
+            std::cerr << "Error: No input files specified" << std::endl;
+            return 1;
+        }
+    }
+
     // Collect input files
     std::vector<std::string> input_files;
-    for (int i = 1; i < argc; i++) {
+    for (int i = start_index; i < argc; i++) {
         input_files.push_back(argv[i]);
     }
 
     std::cout << "UVL2Dimacs API Example - Mode Comparison" << std::endl;
     std::cout << "=========================================" << std::endl;
     std::cout << "Files to process: " << input_files.size() << std::endl;
+    if (use_backbone) {
+        std::cout << "Backbone simplification: ENABLED" << std::endl;
+    }
     std::cout << std::endl;
 
     // Process each file
@@ -88,6 +107,7 @@ int main(int argc, char* argv[]) {
         // Create converter (reused for both modes)
         uvl2dimacs::UVL2Dimacs converter;
         converter.set_verbose(false);  // Disable verbose output for cleaner comparison
+        converter.set_backbone_simplification(use_backbone);  // Apply backbone if requested
 
         // Convert with STRAIGHTFORWARD mode
         auto start = std::chrono::high_resolution_clock::now();

@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2026 Rubén Heradio and David Fernández Amorós
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 /**
  * @file UVL2Dimacs.hh
  * @brief High-level API for UVL to DIMACS conversion
@@ -54,32 +78,60 @@
  *
  * ## Conversion Modes
  *
- * The API supports two CNF transformation strategies:
+ * The API supports two CNF transformation strategies, each optimized for different use cases:
  *
- * **Straightforward (Default):**
+ * **Straightforward (Default - ConversionMode::STRAIGHTFORWARD):**
  * - Direct transformation using NNF (Negation Normal Form) and distribution law
- * - Fewer variables (1 variable per feature)
- * - May produce longer clauses for complex constraints
- * - Recommended for most use cases
+ * - Fewer variables (1 variable per feature, no auxiliary variables)
+ * - May produce longer clauses for complex constraints (no clause size limit)
+ * - More compact representation (fewer total clauses)
+ * - **Best for:** Most models, simple to medium complexity, when variable count is important
+ * - **When to use:** General purpose feature models, simple Boolean constraints
  *
- * **Tseitin:**
- * - Introduces auxiliary variables for subexpressions
- * - Produces 3-CNF (all clauses have ≤3 literals)
- * - More clauses but shorter, potentially faster for some solvers
- * - Recommended for formulas with deeply nested boolean expressions
+ * **Tseitin (ConversionMode::TSEITIN):**
+ * - Introduces auxiliary variables for subexpressions and feature tree relations
+ * - **Guarantees 3-CNF:** All clauses have at most 3 literals
+ * - Uses tree decomposition for n-ary OR/ALTERNATIVE groups
+ * - More variables and clauses, but uniform clause structure
+ * - Prevents exponential clause explosion in complex nested formulas
+ * - **Best for:** SAT solvers optimized for 3-CNF, deeply nested Boolean expressions
+ * - **When to use:** Large OR/ALTERNATIVE groups (>5 children), complex cross-tree constraints
+ * - **How it works:** Decomposes n-ary operations into binary tree structures
+ *   Example: `(A ∨ B ∨ C ∨ D)` becomes `aux1=(A∨B)`, `aux2=(C∨D)`, `result=(aux1∨aux2)`
+ *
+ * **Comparison Table:**
+ *
+ * | Aspect                | Straightforward         | Tseitin                  |
+ * |-----------------------|-------------------------|--------------------------|
+ * | Variables             | n features              | n features + m auxiliary |
+ * | Clauses               | Fewer total             | More total               |
+ * | Max literals/clause   | Unlimited (can be large)| **≤3 (3-CNF)**          |
+ * | Technique             | NNF + distribution      | Tseitin + tree decomp.   |
+ * | Best for              | Simple models           | 3-CNF requirement        |
+ *
+ * See docs/translation.md for detailed transformation rules and examples.
  *
  * ## API Usage
  *
- * Basic usage pattern:
+ * **Basic conversion (Straightforward mode):**
  * @code
  * uvl2dimacs::UVL2Dimacs converter;
- * converter.set_mode(ConversionMode::STRAIGHTFORWARD);
+ * converter.set_mode(ConversionMode::STRAIGHTFORWARD);  // Default mode
  * auto result = converter.convert("model.uvl", "output.dimacs");
  * if (result.success) {
  *     std::cout << "Features: " << result.num_features << std::endl;
  *     std::cout << "CNF Variables: " << result.num_variables << std::endl;
  *     std::cout << "CNF Clauses: " << result.num_clauses << std::endl;
  * }
+ * @endcode
+ *
+ * **Tseitin mode (3-CNF guarantee):**
+ * @code
+ * uvl2dimacs::UVL2Dimacs converter;
+ * converter.set_mode(ConversionMode::TSEITIN);  // Use Tseitin transformation
+ * auto result = converter.convert("model.uvl", "output.dimacs");
+ * // All clauses in output will have ≤3 literals
+ * // Auxiliary variables introduced: result.num_variables - result.num_features
  * @endcode
  *
  * ## Output Format
@@ -112,10 +164,14 @@ namespace uvl2dimacs {
  * @enum ConversionMode
  * @ingroup UVL2Dimacs
  * @brief Conversion mode for CNF generation
+ *
+ * Choose the appropriate mode based on your requirements:
+ * - STRAIGHTFORWARD: Fewer variables, may have longer clauses
+ * - TSEITIN: Guaranteed 3-CNF (≤3 literals per clause), more variables
  */
 enum class ConversionMode {
-    STRAIGHTFORWARD,  ///< Direct conversion without auxiliary variables (smaller CNF)
-    TSEITIN           ///< Tseitin transformation with auxiliary variables (may be larger but more efficient for some solvers)
+    STRAIGHTFORWARD,  ///< Direct NNF conversion without auxiliary variables (compact, fewer variables, variable clause length)
+    TSEITIN           ///< Tseitin transformation with auxiliary variables (guaranteed 3-CNF, more variables, uniform structure)
 };
 
 /**

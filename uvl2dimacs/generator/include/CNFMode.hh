@@ -15,39 +15,46 @@
  * @enum CNFMode
  * @brief Conversion modes for generating CNF from feature models
  *
- * Specifies the strategy for converting constraint expressions to CNF:
+ * Specifies the strategy for converting constraint expressions and feature
+ * tree relations to CNF:
  *
  * **STRAIGHTFORWARD Mode**:
  * - Direct conversion without introducing auxiliary variables
  * - Uses only the original feature variables
  * - Results in fewer total variables
- * - May produce longer clauses (potential clause explosion for complex constraints)
- * - Better when formula size (number of clauses) is more important than clause length
+ * - May produce longer clauses (no limit on literals per clause)
+ * - Better when variable count is more important than clause length
  *
- * **TSEITIN Mode**:
+ * **TSEITIN Mode** (3-CNF):
  * - Uses Tseitin transformation with auxiliary variables
  * - Introduces helper variables to decompose complex expressions
- * - Results in more variables but shorter, more uniform clauses (typically 3-CNF)
+ * - **Guarantees all clauses have at most 3 literals (3-CNF)**
+ * - Uses tree-based decomposition for n-ary OR operations
  * - Prevents clause explosion for deeply nested expressions
- * - Better for SAT solvers that perform well on 3-CNF
+ * - Better for SAT solvers optimized for 3-CNF
  *
- * @see ASTNode::get_clauses() for conversion implementation
+ * The 3-CNF guarantee applies to:
+ * - Boolean constraint expressions (AND, OR, NOT, IMPLIES, IFF)
+ * - Feature tree relations (OR groups, ALTERNATIVE groups, CARDINALITY)
+ *
+ * @see ASTNode::get_clauses() for constraint conversion
+ * @see RelationEncoder for feature tree relation encoding
  * @see FMToCNF::transform() for feature model transformation
  *
  * Example trade-offs:
  * @code
- * // Expression: (A & B) | (C & D)
+ * // OR group with 4 children
  *
- * // STRAIGHTFORWARD: 4 clauses, 2-4 literals each
- * // Clauses: (A|C), (A|D), (B|C), (B|D)
+ * // STRAIGHTFORWARD: 1 clause with 5 literals
+ * // Clause: (-parent | c1 | c2 | c3 | c4)
  *
- * // TSEITIN: 7 clauses, 2-3 literals each, +2 auxiliary variables
- * // Introduces: T1 = (A & B), T2 = (C & D), result = (T1 | T2)
+ * // TSEITIN: 10 clauses with max 3 literals, +3 auxiliary variables
+ * // Uses tree decomposition: aux1=(c1|c2), aux2=(c3|c4), aux3=(aux1|aux2)
  * @endcode
  */
 enum class CNFMode {
-    TSEITIN,        ///< Use Tseitin transformation with auxiliary variables (more vars, shorter clauses)
-    STRAIGHTFORWARD ///< Direct conversion without auxiliary variables (fewer vars, potentially longer clauses)
+    TSEITIN,        ///< Tseitin transformation: guarantees 3-CNF (max 3 literals per clause)
+    STRAIGHTFORWARD ///< Direct conversion: fewer variables, potentially longer clauses
 };
 
 #endif // CNFMODE_H

@@ -94,17 +94,8 @@ target_include_directories(uvl2dimacs_api PUBLIC
 )
 target_link_libraries(uvl2dimacs_api uvl2dimacs_lib uvl-parser antlr4-runtime)
 
-# API Examples
-add_executable(simple_convert api/examples/simple_convert.cc)
-target_include_directories(simple_convert PRIVATE ${PROJECT_SOURCE_DIR}/api/include)
-target_link_libraries(simple_convert uvl2dimacs_api uvl2dimacs_lib uvl-parser antlr4-runtime)
-
-add_executable(batch_convert api/examples/batch_convert.cc)
-target_include_directories(batch_convert PRIVATE ${PROJECT_SOURCE_DIR}/api/include)
-target_link_libraries(batch_convert uvl2dimacs_api uvl2dimacs_lib uvl-parser antlr4-runtime)
-
 # Installation
-install(TARGETS uvl2dimacs_lib uvl2dimacs_api uvl2dimacs simple_convert batch_convert
+install(TARGETS uvl2dimacs_lib uvl2dimacs_api uvl2dimacs
     RUNTIME DESTINATION bin
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
