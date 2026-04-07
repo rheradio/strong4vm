@@ -143,8 +143,9 @@ void RelationEncoder::encode_optional(std::shared_ptr<Relation> relation) {
  * 1. (¬parent ∨ child₁ ∨ child₂ ∨ ... ∨ childₙ) - at least one child
  * 2. For each child i: (¬childᵢ ∨ parent) - child implies parent
  *
- * TSEITIN mode (3-CNF with auxiliary variables):
- * Uses tree decomposition to ensure all clauses have ≤3 literals.
+ * In both modes, the "at least one child" clause is emitted directly as
+ * (¬parent ∨ child₁ ∨ ... ∨ childₙ), since it is already a valid CNF clause
+ * and does not require Tseitin decomposition.
  *
  * @param relation The OR relation (must have at least 1 child)
  * @throws std::runtime_error if relation has no children
@@ -165,19 +166,13 @@ void RelationEncoder::encode_or(std::shared_ptr<Relation> relation) {
         child_vars.push_back(cnf_model.get_variable(child->get_name()));
     }
 
-    // Encode "at least one child" constraint
-    if (mode == CNFMode::TSEITIN && children.size() > 2) {
-        // TSEITIN: Use tree decomposition for 3-CNF
-        int or_result = encode_or_tree(child_vars);
-        cnf_model.add_clause({-parent_var, or_result});
-    } else {
-        // STRAIGHTFORWARD: Direct encoding (may have >3 literals)
-        std::vector<int> or_clause = {-parent_var};
-        for (int cv : child_vars) {
-            or_clause.push_back(cv);
-        }
-        cnf_model.add_clause(or_clause);
+    // Encode "at least one child" constraint: direct encoding
+    // The clause (¬parent ∨ c1 ∨ ... ∨ cn) is already valid CNF
+    std::vector<int> or_clause = {-parent_var};
+    for (int cv : child_vars) {
+        or_clause.push_back(cv);
     }
+    cnf_model.add_clause(or_clause);
 
     // Each child implies parent (always 2 literals)
     for (int child_var : child_vars) {
@@ -196,9 +191,9 @@ void RelationEncoder::encode_or(std::shared_ptr<Relation> relation) {
  * 2. For each pair (i,j): (¬childᵢ ∨ ¬childⱼ) - at most one child (pairwise)
  * 3. For each child i: (¬childᵢ ∨ parent) - child implies parent
  *
- * TSEITIN mode (3-CNF with auxiliary variables):
- * Uses tree decomposition for "at least one" to ensure ≤3 literals.
- * Pairwise "at most one" already has 2 literals per clause.
+ * In both modes, the "at least one child" clause is emitted directly as
+ * (¬parent ∨ child₁ ∨ ... ∨ childₙ), since it is already a valid CNF clause.
+ * Pairwise "at most one" clauses already have 2 literals per clause.
  *
  * @param relation The alternative relation (must have at least 2 children)
  * @throws std::runtime_error if relation has fewer than 2 children
@@ -219,19 +214,13 @@ void RelationEncoder::encode_alternative(std::shared_ptr<Relation> relation) {
         child_vars.push_back(cnf_model.get_variable(child->get_name()));
     }
 
-    // Encode "at least one child" constraint
-    if (mode == CNFMode::TSEITIN && children.size() > 2) {
-        // TSEITIN: Use tree decomposition for 3-CNF
-        int or_result = encode_or_tree(child_vars);
-        cnf_model.add_clause({-parent_var, or_result});
-    } else {
-        // STRAIGHTFORWARD: Direct encoding
-        std::vector<int> or_clause = {-parent_var};
-        for (int cv : child_vars) {
-            or_clause.push_back(cv);
-        }
-        cnf_model.add_clause(or_clause);
+    // Encode "at least one child" constraint: direct encoding
+    // The clause (¬parent ∨ c1 ∨ ... ∨ cn) is already valid CNF
+    std::vector<int> or_clause = {-parent_var};
+    for (int cv : child_vars) {
+        or_clause.push_back(cv);
     }
+    cnf_model.add_clause(or_clause);
 
     // Encode "at most one child" constraint (pairwise - already 2 literals)
     for (size_t i = 0; i < child_vars.size(); ++i) {
@@ -259,8 +248,8 @@ void RelationEncoder::encode_alternative(std::shared_ptr<Relation> relation) {
  *       Add clause: (¬parent ∨ ¬(exactly C are selected))
  * - For each child: (¬child ∨ parent)
  *
- * TSEITIN mode (3-CNF with auxiliary variables):
- * When clauses would exceed 3 literals, uses OR tree decomposition.
+ * In both modes, cardinality clauses are emitted directly since they are
+ * already valid CNF disjunctions.
  *
  * Complexity: Can generate many clauses for complex cardinalities.
  * Number of clauses ≈ Σ C(n,k) for invalid counts.
@@ -311,19 +300,12 @@ void RelationEncoder::encode_cardinality(std::shared_ptr<Relation> relation) {
                 }
             }
 
-            // Add clause based on mode
-            if (mode == CNFMode::TSEITIN && combo_lits.size() > 2) {
-                // TSEITIN: Use OR tree to keep clauses at ≤3 literals
-                int or_result = encode_or_tree(combo_lits);
-                cnf_model.add_clause({first_lit, or_result});
-            } else {
-                // STRAIGHTFORWARD or small clause: Direct encoding
-                std::vector<int> clause = {first_lit};
-                for (int lit : combo_lits) {
-                    clause.push_back(lit);
-                }
-                cnf_model.add_clause(clause);
+            // Direct encoding: the clause is already valid CNF
+            std::vector<int> clause = {first_lit};
+            for (int lit : combo_lits) {
+                clause.push_back(lit);
             }
+            cnf_model.add_clause(clause);
         }
     }
 
@@ -383,55 +365,3 @@ std::vector<std::vector<int>> RelationEncoder::generate_combinations(int n, int 
     return result;
 }
 
-/**
- * @brief Builds an OR tree with auxiliary variables for 3-CNF encoding
- *
- * Recursively decomposes an n-ary OR into binary ORs using auxiliary
- * variables. Each binary OR produces 3 clauses with at most 3 literals:
- * - (¬aux ∨ v1 ∨ v2): aux implies (v1 ∨ v2)
- * - (aux ∨ ¬v1): v1 implies aux
- * - (aux ∨ ¬v2): v2 implies aux
- *
- * For n variables, creates O(n) auxiliary variables and O(3n) clauses,
- * all with at most 3 literals (3-CNF compliant).
- *
- * @param vars Vector of variable IDs (can be positive or negative literals)
- * @return Variable ID representing the OR of all inputs
- */
-int RelationEncoder::encode_or_tree(const std::vector<int>& vars) {
-    if (vars.empty()) {
-        // Should not happen, but handle gracefully
-        return 0;
-    }
-
-    if (vars.size() == 1) {
-        // Single variable: return as-is
-        return vars[0];
-    }
-
-    if (vars.size() == 2) {
-        // Base case: create aux = (v1 ∨ v2)
-        int aux = cnf_model.create_auxiliary_variable("or_tree");
-
-        // aux ↔ (v1 ∨ v2) requires 3 clauses:
-        // (¬aux ∨ v1 ∨ v2): aux implies at least one of v1, v2
-        cnf_model.add_clause({-aux, vars[0], vars[1]});
-        // (aux ∨ ¬v1): v1 implies aux
-        cnf_model.add_clause({aux, -vars[0]});
-        // (aux ∨ ¬v2): v2 implies aux
-        cnf_model.add_clause({aux, -vars[1]});
-
-        return aux;
-    }
-
-    // Recursive case: split in half and combine
-    size_t mid = vars.size() / 2;
-    std::vector<int> left_half(vars.begin(), vars.begin() + mid);
-    std::vector<int> right_half(vars.begin() + mid, vars.end());
-
-    int left_result = encode_or_tree(left_half);
-    int right_result = encode_or_tree(right_half);
-
-    // Combine the two halves
-    return encode_or_tree({left_result, right_result});
-}

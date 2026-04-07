@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
 
     // Display configuration
     std::cout << "Converting " << input_file << " to " << output_file << std::endl;
-    std::cout << "Mode: " << (mode == uvl2dimacs::ConversionMode::TSEITIN ? "Tseitin (3-CNF)" : "Straightforward") << std::endl;
+    std::cout << "Mode: " << (mode == uvl2dimacs::ConversionMode::TSEITIN ? "Tseitin" : "Straightforward") << std::endl;
     if (use_backbone) {
         std::cout << "Backbone simplification: ENABLED" << std::endl;
     }
@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
 
         if (mode == uvl2dimacs::ConversionMode::TSEITIN) {
             std::cout << std::endl;
-            std::cout << "  Note: Tseitin mode guarantees all clauses have ≤3 literals (3-CNF)" << std::endl;
+            std::cout << "  Note: Tseitin mode introduces auxiliary variables for cross-tree constraints" << std::endl;
         }
 
         return 0;

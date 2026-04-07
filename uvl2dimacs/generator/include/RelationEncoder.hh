@@ -53,14 +53,16 @@
  * @see CNFModel for the CNF representation
  * @see FMToCNF for the overall transformation process
  *
- * In TSEITIN mode, the encoder uses tree-based decomposition to ensure all
- * clauses have at most 3 literals (3-CNF). This introduces auxiliary variables
- * but guarantees uniform clause structure.
+ * Feature tree relation clauses are always emitted directly (arbitrary clause
+ * length) in both modes, since they are already valid CNF disjunctions. The
+ * Tseitin transformation with auxiliary variables is only applied to cross-tree
+ * constraint expressions (see ASTNode), where it prevents exponential clause
+ * growth from nested boolean operations.
  *
  * Example:
  * @code
  * CNFModel cnf;
- * RelationEncoder encoder(cnf, CNFMode::TSEITIN);  // 3-CNF encoding
+ * RelationEncoder encoder(cnf, CNFMode::TSEITIN);
  * encoder.encode_relation(mandatory_relation);
  * @endcode
  */
@@ -164,22 +166,6 @@ private:
      */
     std::vector<std::vector<int>> generate_combinations(int n, int k);
 
-    /**
-     * @brief Builds an OR tree with auxiliary variables for 3-CNF encoding
-     *
-     * Recursively decomposes an n-ary OR into binary ORs using auxiliary
-     * variables. Each binary OR produces 3 clauses with at most 3 literals.
-     *
-     * For n variables, creates O(n) auxiliary variables and O(n) clauses,
-     * all with at most 3 literals (3-CNF compliant).
-     *
-     * @param vars Vector of variable IDs to OR together
-     * @return Variable ID representing the result (aux var or original if single)
-     *
-     * Example: encode_or_tree({1, 2, 3, 4}) creates:
-     *   aux1 = (1 | 2), aux2 = (3 | 4), result = (aux1 | aux2)
-     */
-    int encode_or_tree(const std::vector<int>& vars);
 };
 
 #endif // RELATIONENCODER_H

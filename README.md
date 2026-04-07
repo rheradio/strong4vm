@@ -110,6 +110,7 @@ Output: `bin/strong4vm`
 -   `-t, --threads N` - Number of threads for graph generation (default: 1).
 -   `-o, --output DIR` - Output directory (default: same as input file)
 -   `-k, --keep-dimacs` - Keep intermediate DIMACS file (UVL input only)
+-   `-e, --enable-tseitin` - Enable Tseitin transformation for UVL conversion (introduces auxiliary variables for cross-tree constraints to prevent exponential clause growth; feature tree relations are encoded directly)
 -   `-h, --help` - Display help message
 
 ### 🔗 API
@@ -134,7 +135,7 @@ As the following figure shows, Strong4VM consists of three main components: two 
 
 ### 🔄 uvl2dimacs Architecture
 
-Multi-layer design for converting UVL feature models to CNF format using ANTLR4 parser.
+Multi-layer design for converting UVL feature models to CNF format using ANTLR4 parser. Supports two conversion modes: **Straightforward** (direct conversion, fewer variables, potentially longer clauses) and **Tseitin** (introduces auxiliary variables for cross-tree constraint expressions to prevent exponential clause growth; feature tree relations are always encoded directly since they are already valid CNF disjunctions).
 
 **For detailed architecture, see [Doxygen Documentation](docs/html/group__UVL2Dimacs.html)**
 
