@@ -158,6 +158,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a30761771fad86fdc0407adbf3f068fa5" id="r_a30761771fad86fdc0407adbf3f068fa5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFeatureModelBuilder.html#a30761771fad86fdc0407adbf3f068fa5">exitCardinalityGroup</a> (UVLCppParser::CardinalityGroupContext *ctx) override</td></tr>
 <tr class="memdesc:a30761771fad86fdc0407adbf3f068fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when exiting a cardinality group (min..max children selected)  <br /></td></tr>
 <tr class="separator:a30761771fad86fdc0407adbf3f068fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6be18a0f2f15ddb41c9b7075d18a35d" id="r_ad6be18a0f2f15ddb41c9b7075d18a35d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFeatureModelBuilder.html#ad6be18a0f2f15ddb41c9b7075d18a35d">enterConstraintLine</a> (UVLCppParser::ConstraintLineContext *ctx) override</td></tr>
+<tr class="memdesc:ad6be18a0f2f15ddb41c9b7075d18a35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when entering a constraint line — resets per-constraint state.  <br /></td></tr>
+<tr class="separator:ad6be18a0f2f15ddb41c9b7075d18a35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e242c7678aece1862eb43519915ff1f" id="r_a9e242c7678aece1862eb43519915ff1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFeatureModelBuilder.html#a9e242c7678aece1862eb43519915ff1f">exitConstraintLine</a> (UVLCppParser::ConstraintLineContext *ctx) override</td></tr>
 <tr class="memdesc:a9e242c7678aece1862eb43519915ff1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when exiting a constraint line.  <br /></td></tr>
 <tr class="separator:a9e242c7678aece1862eb43519915ff1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -257,7 +260,7 @@ UVLCppParserBaseListener for the base listener interface</dd></dl>
 <div class="line">antlr4::tree::ParseTreeWalker::DEFAULT.walk(&amp;builder, parser.featureModel());</div>
 <div class="line"><span class="keyword">auto</span> model = builder.<a class="code hl_function" href="classFeatureModelBuilder.html#a04622b22f0380b95ac2ddc6cc9fe802c">get_feature_model</a>();</div>
 <div class="ttc" id="aclassFeatureModelBuilder_html"><div class="ttname"><a href="classFeatureModelBuilder.html">FeatureModelBuilder</a></div><div class="ttdoc">Builds a FeatureModel from ANTLR UVL parse tree.</div><div class="ttdef"><b>Definition</b> <a href="FeatureModelBuilder_8hh_source.html#l00056">FeatureModelBuilder.hh:56</a></div></div>
-<div class="ttc" id="aclassFeatureModelBuilder_html_a04622b22f0380b95ac2ddc6cc9fe802c"><div class="ttname"><a href="classFeatureModelBuilder.html#a04622b22f0380b95ac2ddc6cc9fe802c">FeatureModelBuilder::get_feature_model</a></div><div class="ttdeci">std::shared_ptr&lt; FeatureModel &gt; get_feature_model() const</div><div class="ttdoc">Gets the constructed feature model.</div><div class="ttdef"><b>Definition</b> <a href="FeatureModelBuilder_8hh_source.html#l00085">FeatureModelBuilder.hh:85</a></div></div>
+<div class="ttc" id="aclassFeatureModelBuilder_html_a04622b22f0380b95ac2ddc6cc9fe802c"><div class="ttname"><a href="classFeatureModelBuilder.html#a04622b22f0380b95ac2ddc6cc9fe802c">FeatureModelBuilder::get_feature_model</a></div><div class="ttdeci">std::shared_ptr&lt; FeatureModel &gt; get_feature_model() const</div><div class="ttdoc">Gets the constructed feature model.</div><div class="ttdef"><b>Definition</b> <a href="FeatureModelBuilder_8hh_source.html#l00086">FeatureModelBuilder.hh:86</a></div></div>
 </div><!-- fragment --> 
 <p class="definition">Definition at line <a class="el" href="FeatureModelBuilder_8hh_source.html#l00056">56</a> of file <a class="el" href="FeatureModelBuilder_8hh_source.html">FeatureModelBuilder.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -309,6 +312,34 @@ UVLCppParserBaseListener for the base listener interface</dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad6be18a0f2f15ddb41c9b7075d18a35d" name="ad6be18a0f2f15ddb41c9b7075d18a35d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6be18a0f2f15ddb41c9b7075d18a35d">&#9670;&#160;</a></span>enterConstraintLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void enterConstraintLine </td>
+          <td>(</td>
+          <td class="paramtype">UVLCppParser::ConstraintLineContext *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when entering a constraint line — resets per-constraint state. </p>
+
+</div>
+</div>
 <a id="a6d69e5ffb6c0e0dcb015a54747c0d097" name="a6d69e5ffb6c0e0dcb015a54747c0d097"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6d69e5ffb6c0e0dcb015a54747c0d097">&#9670;&#160;</a></span>enterFeature()</h2>
 
@@ -1390,12 +1421,12 @@ UVLCppParserBaseListener for the base listener interface</dd></dl>
 <p>Should be called after the parse tree has been walked.</p>
 <dl class="section return"><dt>Returns</dt><dd>Shared pointer to the built feature model </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="FeatureModelBuilder_8hh_source.html#l00085">85</a> of file <a class="el" href="FeatureModelBuilder_8hh_source.html">FeatureModelBuilder.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FeatureModelBuilder_8hh_source.html#l00086">86</a> of file <a class="el" href="FeatureModelBuilder_8hh_source.html">FeatureModelBuilder.hh</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/mnt/c/strong4vm/uvl2dimacs/generator/include/<a class="el" href="FeatureModelBuilder_8hh_source.html">FeatureModelBuilder.hh</a></li>
+<li>/mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/generator/include/<a class="el" href="FeatureModelBuilder_8hh_source.html">FeatureModelBuilder.hh</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

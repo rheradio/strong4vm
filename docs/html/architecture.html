@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('architecture.html',''); initResizable(
 System Overview</h1>
 <p><img src="../figures/architecture.png" alt="Architecture Diagram" class="inline"/></p>
 <p>Strong4VM implements a three-stage pipeline for analyzing variability models:</p>
-<div class="fragment"><div class="line">UVL Feature Model  →  [UVL2Dimacs]  →  DIMACS CNF  →  [Dimacs2Graphs + Backbone Solver]  →  Graphs</div>
+<div class="fragment"><div class="line">UVL Feature Model  →  [UVL2Dimacs + BackboneSimplifier]  →  Simplified DIMACS CNF  →  [Dimacs2Graphs + BoneDigger]  →  Graphs</div>
 </div><!-- fragment --><p>Each stage transforms the input data, ultimately producing strong transitive dependency and conflict graphs along with core and dead feature lists.</p>
 <h1><a class="anchor" id="autotoc_md65"></a>
 Component Architecture</h1>
@@ -116,6 +116,8 @@ Component Architecture</h1>
 <div class="line">Generator Layer (CNF Transformation)</div>
 <div class="line">    ↓</div>
 <div class="line">Writer Layer (DIMACS output)</div>
+<div class="line">    ↓</div>
+<div class="line">BackboneSimplifier (backbone_solver subprocess → simplified DIMACS)</div>
 </div><!-- fragment --><p><b>Key Classes</b>:</p><ul>
 <li><code><a class="el" href="classFeatureModel.html" title="Represents a complete UVL feature model.">FeatureModel</a></code> - Represents the complete feature model structure</li>
 <li><code><a class="el" href="classFMToCNF.html" title="Transforms a feature model into a CNF formula.">FMToCNF</a></code> - Orchestrates CNF transformation</li>
@@ -123,6 +125,7 @@ Component Architecture</h1>
 <li><code><a class="el" href="classASTNode.html" title="Node in an Abstract Syntax Tree representing constraint expressions.">ASTNode</a></code> - Abstract syntax tree node representation</li>
 <li><code><a class="el" href="classCNFModel.html" title="Represents a CNF (Conjunctive Normal Form) formula with variable mappings.">CNFModel</a></code> - Represents the CNF formula</li>
 <li><code><a class="el" href="classDimacsWriter.html" title="Writes CNF models to DIMACS format.">DimacsWriter</a></code> - Outputs standard DIMACS format</li>
+<li><code>BackboneSimplifier</code> - Calls <code>backbone_solver -r -a 5</code> as subprocess; removes backbone-satisfied clauses and adds unit clauses for backbone literals, reducing formula size by 30–50%</li>
 </ul>
 <p><b>Transformation Modes</b>:</p><ol type="1">
 <li><b>Straightforward Mode</b> (default)<ul>
@@ -138,6 +141,12 @@ Component Architecture</h1>
 </ul>
 </li>
 </ol>
+<p><b>Backbone Simplification</b> (enabled by default in <a class="el" href="namespacestrong4vm.html">strong4vm</a>):</p><ul>
+<li>Invokes <code>backbone_solver -r -a 5 &lt;file&gt;</code> as a subprocess after DIMACS generation</li>
+<li>Identifies backbone literals (features that are core or dead in all configurations)</li>
+<li>Removes clauses satisfied by those literals; adds explicit unit clauses for them</li>
+<li>The <code>backbone_solver</code> binary is expected at <code>&lt;exe_dir&gt;/../backbone_solver/bin/backbone_solver</code></li>
+</ul>
 <p><b>Namespace</b>: <code><a class="el" href="namespaceuvl2dimacs.html">uvl2dimacs</a></code></p>
 <h2><a class="anchor" id="autotoc_md67"></a>
 2. Dimacs2Graphs: CNF to Graph Generator</h2>
@@ -165,8 +174,9 @@ Component Architecture</h1>
 </ul>
 <p><b>Namespace</b>: <code><a class="el" href="namespacedimacs2graphs.html">dimacs2graphs</a></code></p>
 <h2><a class="anchor" id="autotoc_md68"></a>
-3. Backbone Solver: Detection Engine</h2>
-<p><b>Purpose</b>: High-performance SAT backbone detection using MiniSat with optimization heuristics.</p>
+3. BoneDigger: Backbone Detection Engine</h2>
+<p><b>Purpose</b>: High-performance SAT backbone detection using MiniSat with three detection strategies. BoneDigger is shared between <a class="el" href="namespacedimacs2graphs.html">dimacs2graphs</a> (via API) and <a class="el" href="namespaceuvl2dimacs.html">uvl2dimacs</a> (as a subprocess for backbone simplification).</p>
+<p><b>Location</b>: <code>uvl2dimacs/backbone_solver/</code></p>
 <p><b>Architecture</b>: Template method pattern with detector strategies</p>
 <div class="fragment"><div class="line">DIMACS Formula</div>
 <div class="line">    ↓</div>
@@ -174,30 +184,34 @@ Component Architecture</h1>
 <div class="line">    ↓</div>
 <div class="line">Detector Strategy (algorithm selection)</div>
 <div class="line">    ↓</div>
-<div class="line">MiniSat Interface (IPASIR)</div>
+<div class="line">Extended MiniSat Interface</div>
 <div class="line">    ↓</div>
 <div class="line">Backbone Results (positive/negative literals)</div>
 </div><!-- fragment --><p><b>Detector Algorithms</b>:</p>
 <ol type="1">
-<li><b>CheckCandidatesOneByOne</b> (default, with activity bumping)<ul>
-<li>Uses SAT solver activity heuristics</li>
-<li>Bumps variable activities for faster solving</li>
-<li>Best performance in most cases</li>
+<li><b>CheckCandidatesOneByOne</b> (<code>one</code>) — default, recommended<ul>
+<li>Upper-bound iterative elimination with activity bumping</li>
+<li>Bumps variable activities to guide the solver toward relevant solutions</li>
 </ul>
 </li>
-<li><b>CheckCandidatesOneByOneWithoutAttention</b> (baseline)<ul>
-<li>No activity bumping</li>
-<li>Simpler but generally slower</li>
+<li><b>FastOnCliffsSlowOnPlains</b> (<code>flatland</code>)<ul>
+<li>Adaptive strategy switching between rapid elimination (cliffs) and careful verification (plains)</li>
+<li>Based on convergence rate detection</li>
+</ul>
+</li>
+<li><b>RushAndPray</b> (<code>rush</code>)<ul>
+<li>Rush-and-verify approach: starts from an initial solution, iteratively refines candidates</li>
+<li>Used by BackboneSimplifier for fast formula preprocessing</li>
 </ul>
 </li>
 </ol>
 <p><b>Key Classes</b>:</p><ul>
 <li><code>BackBone</code> - Base class defining template method pattern</li>
-<li><code>BackboneSolverAPI</code> - High-level interface for backbone computation</li>
+<li><code>BoneDiggerAPI</code> - High-level PIMPL interface for backbone computation, includes <code>compute_backbone_with_assumptions()</code> for per-variable analysis in <a class="el" href="namespacedimacs2graphs.html">dimacs2graphs</a></li>
 <li><code><a class="el" href="classLiteralSet.html" title="Efficient bit-set for storing MiniSat literals.">LiteralSet</a></code> - Efficient data structure for literal management</li>
 <li><code><a class="el" href="classDIMACSReader.html" title="Parser for DIMACS CNF format files.">DIMACSReader</a></code> - Parses DIMACS files</li>
 </ul>
-<p><b>Namespace</b>: <code><a class="el" href="namespacebackbone__solver.html">backbone_solver</a></code></p>
+<p><b>Namespace</b>: <code>bonedigger</code></p>
 <h1><a class="anchor" id="autotoc_md69"></a>
 Design Patterns</h1>
 <h2><a class="anchor" id="autotoc_md70"></a>
@@ -220,9 +234,9 @@ Thread Safety Pattern</h2>
 <p><b>Critical Design Requirement</b>: Backbone Solver API is NOT thread-safe.</p>
 <p><b>Pre-initialization Pattern</b> (used in Dimacs2Graphs):</p>
 <div class="fragment"><div class="line"><span class="comment">// CORRECT: Initialize solvers sequentially in main thread</span></div>
-<div class="line">std::vector&lt;BackboneSolverAPI*&gt; solvers;</div>
+<div class="line">std::vector&lt;BoneDiggerAPI*&gt; solvers;</div>
 <div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_threads; i++) {</div>
-<div class="line">    solvers.push_back(<span class="keyword">new</span> BackboneSolverAPI());</div>
+<div class="line">    solvers.push_back(<span class="keyword">new</span> BoneDiggerAPI());</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Then use solvers in parallel</span></div>
@@ -269,7 +283,8 @@ Complete Pipeline Flow</h2>
 <li>ANTLR4 parser generates AST</li>
 <li>AST traversal builds <code><a class="el" href="classFeatureModel.html" title="Represents a complete UVL feature model.">FeatureModel</a></code></li>
 <li>CNF transformation produces <code><a class="el" href="classCNFModel.html" title="Represents a CNF (Conjunctive Normal Form) formula with variable mappings.">CNFModel</a></code></li>
-<li>DIMACS writer outputs .dimacs file</li>
+<li>DIMACS writer outputs intermediate .dimacs file</li>
+<li><b>Backbone simplification</b>: BoneDigger (RushAndPray) identifies backbone literals; clauses satisfied by them are removed and unit clauses are added, reducing formula size by 30–50%</li>
 </ul>
 </li>
 <li><b>Analysis Stage</b>:<ul>
@@ -352,14 +367,9 @@ File Organization</h1>
 <div class="line">│   └── cli/                # Standalone CLI tool</div>
 <div class="line">├── dimacs2graphs/          # DIMACS to graphs generator</div>
 <div class="line">│   ├── api/                # Graph generation API</div>
-<div class="line">│   ├── cli/                # Standalone CLI tool</div>
-<div class="line">│   └── backbone_solver/    # Backbone detection engine</div>
-<div class="line">│       └── src/</div>
-<div class="line">│           ├── api/        # Backbone Solver API</div>
-<div class="line">│           ├── detectors/  # Detection algorithms</div>
-<div class="line">│           ├── data_structures/  # LiteralSet, etc.</div>
-<div class="line">│           ├── io/         # DIMACS file reading</div>
-<div class="line">│           └── minisat_interface/  # SAT solver integration</div>
+<div class="line">│   └── cli/                # Standalone CLI tool</div>
+<div class="line">├── backbone_solver/        # Runtime backbone solver binary</div>
+<div class="line">│   └── bin/                # backbone_solver executable (auto-built by `make`)</div>
 <div class="line">└── docs/                   # Documentation (this file!)</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md80"></a>
 Build System Architecture</h1>
@@ -415,9 +425,11 @@ Component Reuse</h2>
 <div class="line">Dimacs2GraphsAPI analyzer;</div>
 <div class="line">analyzer.generateGraphs(<span class="stringliteral">&quot;formula.dimacs&quot;</span>, <span class="stringliteral">&quot;./output&quot;</span>, 4);</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// Use only Backbone Solver</span></div>
-<div class="line">BackboneSolverAPI solver;</div>
-<div class="line"><span class="keyword">auto</span> backbone = solver.computeBackbone(<span class="stringliteral">&quot;formula.dimacs&quot;</span>);</div>
+<div class="line"><span class="comment">// Use only BoneDigger backbone solver</span></div>
+<div class="line">BoneDiggerAPI solver;</div>
+<div class="line">solver.read_dimacs(<span class="stringliteral">&quot;formula.dimacs&quot;</span>);</div>
+<div class="line">solver.create_backbone_detector(<span class="stringliteral">&quot;one&quot;</span>);</div>
+<div class="line"><span class="keyword">auto</span> backbone = solver.compute_backbone();</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md84"></a>
 Performance Considerations</h1>
 <h2><a class="anchor" id="autotoc_md85"></a>
@@ -450,7 +462,7 @@ Adding New Backbone Detectors</h2>
 <p>Implement the <code>BackBone</code> interface:</p><ol type="1">
 <li>Inherit from <code>BackBone</code> base class</li>
 <li>Implement pure virtual methods</li>
-<li>Register in <code>BackboneSolverAPI::create_backbone_detector()</code></li>
+<li>Register in <code>BoneDiggerAPI::create_backbone_detector()</code></li>
 </ol>
 <h2><a class="anchor" id="autotoc_md90"></a>
 Adding New Output Formats</h2>

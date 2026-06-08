@@ -3,13 +3,17 @@ var hierarchy =
     [ "AnalysisConfig", "structstrong4vm_1_1AnalysisConfig.html", null ],
     [ "AnalysisResult", "structstrong4vm_1_1AnalysisResult.html", null ],
     [ "ASTNode", "classASTNode.html", null ],
-    [ "BackBone", "classbackbone__solver_1_1BackBone.html", [
-      [ "CheckCandidatesOneByOne", "classbackbone__solver_1_1CheckCandidatesOneByOne.html", null ],
-      [ "CheckCandidatesOneByOneWithoutAttention", "classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html", null ]
+    [ "BackBone", "classbonedigger_1_1BackBone.html", [
+      [ "CheckCandidatesOneByOne", "classbonedigger_1_1CheckCandidatesOneByOne.html", null ],
+      [ "FastOnCliffsSlowOnPlains", "classbonedigger_1_1FastOnCliffsSlowOnPlains.html", null ],
+      [ "RushAndPray", "classbonedigger_1_1RushAndPray.html", null ]
     ] ],
-    [ "BackboneSolverAPI", "classbackbone__solver_1_1BackboneSolverAPI.html", null ],
+    [ "BackboneSimplifier", "classuvl2dimacs_1_1BackboneSimplifier.html", null ],
+    [ "BoneDiggerAPI", "classbonedigger_1_1BoneDiggerAPI.html", null ],
     [ "CNFModel", "classCNFModel.html", null ],
     [ "const_infinite_LiteralSetIterator", "classconst__infinite__LiteralSetIterator.html", null ],
+    [ "const_LiteralSetIterator", "classconst__LiteralSetIterator.html", null ],
+    [ "const_LitIterator", "classconst__LitIterator.html", null ],
     [ "Constraint", "classConstraint.html", null ],
     [ "ConversionResult", "structuvl2dimacs_1_1ConversionResult.html", null ],
     [ "Dimacs2GraphsAPI", "classdimacs2graphs_1_1Dimacs2GraphsAPI.html", null ],
@@ -19,13 +23,11 @@ var hierarchy =
       [ "Feature", "classFeature.html", null ]
     ] ],
     [ "FeatureModel", "classFeatureModel.html", null ],
+    [ "FlatlandTester", "classFlatlandTester.html", null ],
     [ "FMToCNF", "classFMToCNF.html", null ],
-    [ "Impl", "classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html", null ],
+    [ "Impl", "classbonedigger_1_1BoneDiggerAPI_1_1Impl.html", null ],
     [ "Impl", "classDimacs2GraphsAPI_1_1Impl.html", null ],
     [ "Impl", "classstrong4vm_1_1Strong4VMAPI_1_1Impl.html", null ],
-    [ "iterator", null, [
-      [ "const_LiteralSetIterator", "classconst__LiteralSetIterator.html", null ]
-    ] ],
     [ "LiteralSet", "classLiteralSet.html", null ],
     [ "LitSet", "classLitSet.html", null ],
     [ "Reader", "classReader.html", null ],
@@ -40,8 +42,5 @@ var hierarchy =
     ] ],
     [ "exception", null, [
       [ "DIMACSReaderException", "classDIMACSReaderException.html", null ]
-    ] ],
-    [ "iterator", null, [
-      [ "const_LitIterator", "classconst__LitIterator.html", null ]
     ] ]
 ];

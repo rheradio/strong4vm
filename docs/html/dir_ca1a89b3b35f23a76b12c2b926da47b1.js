@@ -1,6 +1,7 @@
 var dir_ca1a89b3b35f23a76b12c2b926da47b1 =
 [
     [ "ASTNode.hh", "ASTNode_8hh.html", "ASTNode_8hh" ],
+    [ "BackboneSimplifier.hh", "BackboneSimplifier_8hh.html", "BackboneSimplifier_8hh" ],
     [ "CNFMode.hh", "CNFMode_8hh.html", "CNFMode_8hh" ],
     [ "CNFModel.hh", "CNFModel_8hh.html", "CNFModel_8hh" ],
     [ "Constraint.hh", "Constraint_8hh.html", "Constraint_8hh" ],

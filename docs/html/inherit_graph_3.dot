@@ -5,9 +5,11 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BackBone",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbackbone__solver_1_1BackBone.html",tooltip="Abstract base class for backbone detection algorithms."];
+  Node0 [id="Node000000",label="BackBone",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbonedigger_1_1BackBone.html",tooltip="Abstract base class for backbone detection algorithms."];
   Node0 -> Node1 [id="edge1_Node000000_Node000001",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node1 [id="Node000001",label="CheckCandidatesOneByOne",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbackbone__solver_1_1CheckCandidatesOneByOne.html",tooltip="Fast backbone detector using upper-bound iterative elimination."];
+  Node1 [id="Node000001",label="CheckCandidatesOneByOne",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbonedigger_1_1CheckCandidatesOneByOne.html",tooltip="Fast backbone detector using upper-bound iterative elimination."];
   Node0 -> Node2 [id="edge2_Node000000_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node2 [id="Node000002",label="CheckCandidatesOneByOneWithout\lAttention",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html",tooltip="Upper-bound backbone detector without activity bumping."];
+  Node2 [id="Node000002",label="FastOnCliffsSlowOnPlains",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbonedigger_1_1FastOnCliffsSlowOnPlains.html",tooltip="Adaptive backbone detector with cliff/plain strategy."];
+  Node0 -> Node3 [id="edge3_Node000000_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="RushAndPray",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbonedigger_1_1RushAndPray.html",tooltip="Experimental backbone detector with rush and verify strategy."];
 }

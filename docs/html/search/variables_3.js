@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['end_5fvar_0',['end_var',['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a0cdd7cdd45a0ab9a935354cc5529de04',1,'Dimacs2GraphsAPI::Impl::ThreadWorker']]],
-  ['error_5fmessage_1',['error_message',['../structstrong4vm_1_1AnalysisResult.html#aa623ecc9262a4cb482b06564eafa7616',1,'strong4vm::AnalysisResult::error_message'],['../structuvl2dimacs_1_1ConversionResult.html#aa623ecc9262a4cb482b06564eafa7616',1,'uvl2dimacs::ConversionResult::error_message'],['../classDimacs2GraphsAPI_1_1Impl.html#a06e03f0daa47577a2a89ef867d6ae5c9',1,'dimacs2graphs::Dimacs2GraphsAPI::Impl::error_message']]],
-  ['error_5fmsg_2',['error_msg',['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a92f1181efe2f3630dbbc18a8342f1fcf',1,'Dimacs2GraphsAPI::Impl::ThreadWorker']]],
-  ['excludes_5fgraph_5ffile_3',['excludes_graph_file',['../structstrong4vm_1_1AnalysisResult.html#a8dc6f5b6c6b65672e049fcf8cf42914a',1,'strong4vm::AnalysisResult']]],
-  ['excludes_5flist_4',['excludes_list',['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a555ca9a021f05ade731d5a8521800902',1,'Dimacs2GraphsAPI::Impl::ThreadWorker']]]
+  ['dead_5ffeatures_0',['dead_features',['../structstrong4vm_1_1AnalysisResult.html#a3c9c190c191d5deae00bebf24de3cc74',1,'strong4vm::AnalysisResult']]],
+  ['dead_5ffeatures_5ffile_1',['dead_features_file',['../structstrong4vm_1_1AnalysisResult.html#a1deddaaecbee9e2fd0f1ec8a82d5dd2a',1,'strong4vm::AnalysisResult']]],
+  ['default_5fconversion_5fmode_2',['default_conversion_mode',['../classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#a2f481150fc9927263f1313c41bcfd512',1,'strong4vm::Strong4VMAPI::Impl']]],
+  ['default_5fdetector_3',['default_detector',['../classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#a1e86696fc1c86b6325d6d2a377cae6e0',1,'strong4vm::Strong4VMAPI::Impl']]],
+  ['default_5fnum_5fthreads_4',['default_num_threads',['../classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#aece164cb3a1c6908acc4b16f9e7d3b17',1,'strong4vm::Strong4VMAPI::Impl']]],
+  ['detector_5',['detector',['../structstrong4vm_1_1AnalysisConfig.html#a6ac7d66c2877f198161c5f3f56749c69',1,'strong4vm::AnalysisConfig']]],
+  ['dimacs_5ffile_6',['dimacs_file',['../structstrong4vm_1_1AnalysisResult.html#a306b4d31a14946e522ff010b6e5ff887',1,'strong4vm::AnalysisResult']]]
 ];

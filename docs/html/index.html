@@ -133,9 +133,10 @@ Components</h1>
 <li>Produces Pajek .net graph files</li>
 </ul>
 </li>
-<li><b>Backbone Solver</b> - High-performance backbone detection engine<ul>
-<li>Activity bumping heuristics for efficient solving</li>
+<li><b>BoneDigger</b> - High-performance backbone detection engine<ul>
+<li>Three detection strategies: CheckCandidatesOneByOne, FastOnCliffsSlowOnPlains, RushAndPray</li>
 <li>Identifies core (always enabled) and dead (never enabled) features</li>
+<li>Also used for backbone simplification of UVL-converted formulas</li>
 <li>MiniSat-based implementation</li>
 </ul>
 </li>
@@ -143,7 +144,7 @@ Components</h1>
 <p>See the <a class="el" href="architecture.html">Architecture</a> page for detailed design information.</p>
 <h1><a class="anchor" id="autotoc_md34"></a>
 Pipeline Overview</h1>
-<div class="fragment"><div class="line">UVL Feature Model  →  [UVL2Dimacs]  →  DIMACS CNF  →  [Dimacs2Graphs + Backbone Solver]  →  Graphs</div>
+<div class="fragment"><div class="line">UVL Feature Model  →  [UVL2Dimacs + BackboneSimplifier]  →  Simplified DIMACS  →  [Dimacs2Graphs + BoneDigger]  →  Graphs</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md35"></a>
 Output Files</h1>
 <p>For input file <code>model.uvl</code> or <code>model.dimacs</code>, Strong4VM generates:</p>

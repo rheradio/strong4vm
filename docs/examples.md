@@ -316,35 +316,29 @@ int main() {
 ### Backbone Detection Only
 
 ```cpp
-#include <backbone_solver/BackboneSolverAPI.hh>
+#include <api/BoneDiggerAPI.hh>
 #include <iostream>
 
 int main() {
     // Create solver instance
-    backbone_solver::BackboneSolverAPI solver;
+    bonedigger::BoneDiggerAPI solver;
 
     // Load DIMACS file
-    if (!solver.loadDimacs("formula.dimacs")) {
+    if (!solver.read_dimacs("formula.dimacs")) {
         std::cerr << "Failed to load DIMACS file!" << std::endl;
         return 1;
     }
 
-    // Compute backbone
-    backbone_solver::BackboneResult result = solver.computeBackbone();
+    // Select detector and compute backbone
+    solver.create_backbone_detector("one");  // "one", "flatland", or "rush"
+    std::vector<int> backbone = solver.compute_backbone();
 
-    if (result.success) {
-        std::cout << "Backbone computation successful!" << std::endl;
-        std::cout << "Positive backbone (core): " << result.positive_backbone.size() << std::endl;
-        std::cout << "Negative backbone (dead): " << result.negative_backbone.size() << std::endl;
-
-        // Print core features
-        std::cout << "\nCore features:" << std::endl;
-        for (int lit : result.positive_backbone) {
-            std::cout << "  Variable " << lit << std::endl;
-        }
-    } else {
-        std::cerr << "Backbone computation failed!" << std::endl;
-        return 1;
+    std::cout << "Backbone size: " << backbone.size() << std::endl;
+    for (int lit : backbone) {
+        if (lit > 0)
+            std::cout << "  Core: variable " << lit << std::endl;
+        else
+            std::cout << "  Dead: variable " << -lit << std::endl;
     }
 
     return 0;

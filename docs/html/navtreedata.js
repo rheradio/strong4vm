@@ -26,43 +26,43 @@ var NAVTREE =
 [
   [ "Strong4VM", "index.html", [
     [ "Strong4VM Documentation", "index.html", "index" ],
-    [ "Strong4VM", "md__2mnt_2c_2strong4vm_2README.html", [
-      [ "📋 Overview", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md1", null ],
-      [ "🚀 Quick Start", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md2", [
-        [ "💾 Installation", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md3", null ],
-        [ "💻 Basic Usage", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md4", null ],
-        [ "📁 Output Files", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md5", null ]
+    [ "Strong4VM", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html", [
+      [ "📋 Overview", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md1", null ],
+      [ "🚀 Quick Start", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md2", [
+        [ "💾 Installation", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md3", null ],
+        [ "💻 Basic Usage", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md4", null ],
+        [ "📁 Output Files", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md5", null ]
       ] ],
-      [ "🏗️ Building", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md6", [
-        [ "📦 Prerequisites", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md7", null ],
-        [ "🔨 Building Strong4VM (Unified CLI)", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md8", null ]
+      [ "🏗️ Building", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md6", [
+        [ "📦 Prerequisites", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md7", null ],
+        [ "🔨 Building Strong4VM (Unified CLI)", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md8", null ]
       ] ],
-      [ "📖 Usage", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md9", [
-        [ "🎯 CLI", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md10", null ],
-        [ "🔗 API", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md11", null ]
+      [ "📖 Usage", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md9", [
+        [ "🎯 CLI", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md10", null ],
+        [ "🔗 API", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md11", null ]
       ] ],
-      [ "🏛️ Architecture", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md12", [
-        [ "🔍 Architecture Overview", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md13", null ],
-        [ "🔄 uvl2dimacs Architecture", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md14", null ],
-        [ "📊 dimacs2graphs Architecture", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md15", null ],
-        [ "🧠 Backbone Solver Architecture", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md16", null ]
+      [ "🏛️ Architecture", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md12", [
+        [ "🔍 Architecture Overview", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md13", null ],
+        [ "🔄 uvl2dimacs Architecture", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md14", null ],
+        [ "📊 dimacs2graphs Architecture", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md15", null ],
+        [ "🧠 Backbone Solver Architecture (BoneDigger)", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md16", null ]
       ] ],
-      [ "📄 Input Formats", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md17", [
-        [ "📝 UVL Format", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md18", null ],
-        [ "🔢 DIMACS CNF Format", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md19", null ]
+      [ "📄 Input Formats", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md17", [
+        [ "📝 UVL Format", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md18", null ],
+        [ "🔢 DIMACS CNF Format", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md19", null ]
       ] ],
-      [ "📚 Documentation", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md20", [
-        [ "📖 Generating Documentation", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md21", null ],
-        [ "📁 Project Structure", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md22", null ]
+      [ "📚 Documentation", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md20", [
+        [ "📖 Generating Documentation", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md21", null ],
+        [ "📁 Project Structure", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md22", null ]
       ] ],
-      [ "⚠️ Limitations", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md23", null ],
-      [ "🔧 Troubleshooting", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md24", [
-        [ "🛠️ Build Issues", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md25", null ]
+      [ "⚠️ Limitations", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md23", null ],
+      [ "🔧 Troubleshooting", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md24", [
+        [ "🛠️ Build Issues", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md25", null ]
       ] ],
-      [ "📜 License, Authors & Funding", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md26", [
-        [ "⚖️ Licensing", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md27", null ],
-        [ "👥 Authors", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md28", null ],
-        [ "💰 Funding", "md__2mnt_2c_2strong4vm_2README.html#autotoc_md29", null ]
+      [ "📜 License, Authors & Funding", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md26", [
+        [ "⚖️ Licensing", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md27", null ],
+        [ "👥 Authors", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md28", null ],
+        [ "💰 Funding", "md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html#autotoc_md29", null ]
       ] ]
     ] ],
     [ "Getting Started with Strong4VM", "getting_started.html", [
@@ -101,7 +101,7 @@ var NAVTREE =
       [ "Component Architecture", "architecture.html#autotoc_md65", [
         [ "1. UVL2Dimacs: Feature Model to CNF Converter", "architecture.html#autotoc_md66", null ],
         [ "2. Dimacs2Graphs: CNF to Graph Generator", "architecture.html#autotoc_md67", null ],
-        [ "3. Backbone Solver: Detection Engine", "architecture.html#autotoc_md68", null ]
+        [ "3. BoneDigger: Backbone Detection Engine", "architecture.html#autotoc_md68", null ]
       ] ],
       [ "Design Patterns", "architecture.html#autotoc_md69", [
         [ "PIMPL Idiom (Strong4VM API)", "architecture.html#autotoc_md70", null ],
@@ -179,7 +179,7 @@ var NAVTREE =
         [ "Large Formula Scalability", "limitations.html#autotoc_md124", null ]
       ] ],
       [ "Thread Safety Limitations", "limitations.html#autotoc_md125", [
-        [ "Backbone Solver API", "limitations.html#autotoc_md126", null ]
+        [ "BoneDigger API (Backbone Solver)", "limitations.html#autotoc_md126", null ]
       ] ],
       [ "File Format Limitations", "limitations.html#autotoc_md127", [
         [ "UVL Parser", "limitations.html#autotoc_md128", null ],
@@ -250,9 +250,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "ASTNode_8hh.html",
-"classFeatureModelBuilder.html#a51240ef73a6e8fd03fe4889951ae64a9",
-"examples.html#autotoc_md102",
-"structstrong4vm_1_1AnalysisConfig.html#af4e770284e23503e20bcd597001cbeb3"
+"classFeatureModelBuilder.html#a010f2d5b15a868b817590e11e86018a3",
+"classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#aeddeadda2f5f758685805d11658aa8f5",
+"namespaces.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

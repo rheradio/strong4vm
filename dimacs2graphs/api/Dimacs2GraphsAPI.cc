@@ -33,12 +33,12 @@
  * **Threading Architecture (CRITICAL)**
  *
  * The implementation uses a pre-initialization pattern to ensure thread safety:
- * 1. Main thread creates and initializes all BackboneSolverAPI instances sequentially
+ * 1. Main thread creates and initializes all BoneDiggerAPI instances sequentially
  * 2. Each thread receives a pre-initialized solver instance (no initialization in worker threads)
  * 3. Worker threads only perform variable processing using their assigned solver
  * 4. Results are collected in thread-local buffers and merged in the main thread
  *
- * This pattern is required because BackboneSolverAPI is NOT thread-safe during initialization.
+ * This pattern is required because BoneDiggerAPI is NOT thread-safe during initialization.
  * Violating this pattern (e.g., creating solvers inside worker threads) will cause data races
  * and undefined behavior.
  *
@@ -48,19 +48,19 @@
  * - Static work partitioning ensures balanced load distribution
  * - Progress monitoring with atomic counters (low overhead)
  *
- * @warning BackboneSolverAPI is NOT thread-safe. Each thread must use a separate solver
+ * @warning BoneDiggerAPI is NOT thread-safe. Each thread must use a separate solver
  *          instance, and all instances must be created and initialized in the main thread
  *          BEFORE spawning worker threads.
  *
  * @see Dimacs2GraphsAPI.hh for the public API interface
- * @see BackboneSolverAPI for the underlying SAT-based backbone detection
+ * @see BoneDiggerAPI for the underlying SAT-based backbone detection
  *
  * @author Dimacs2Graphs Team
  * @date 2024
  */
 
 #include "Dimacs2GraphsAPI.hh"
-#include "../backbone_solver/src/api/BackboneSolverAPI.hh"
+#include "../../uvl2dimacs/backbone_solver/src/api/BoneDiggerAPI.hh"
 #include <stdlib.h>
 #include <string.h>
 #include <vector>
@@ -79,7 +79,7 @@
 
 using namespace std;
 using namespace dimacs2graphs;
-using namespace backbone_solver;
+using namespace bonedigger;
 
 /**
  * @class Dimacs2GraphsAPI::Impl
@@ -92,7 +92,7 @@ using namespace backbone_solver;
  * - **Information Hiding**: Keeps implementation details private
  *
  * Encapsulated components:
- * - BackboneSolverAPI instance for SAT-based backbone detection
+ * - BoneDiggerAPI instance for SAT-based backbone detection
  * - Formula statistics (number of variables and clauses)
  * - Global backbone vector (core and dead features)
  * - File path utilities (basename extraction, directory handling, path normalization)
@@ -101,7 +101,7 @@ using namespace backbone_solver;
  */
 class Dimacs2GraphsAPI::Impl {
 public:
-    BackboneSolverAPI bone_api;
+    BoneDiggerAPI bone_api;
     int num_variables;
     int num_clauses;
     vector<int> global_backbone;
@@ -168,7 +168,7 @@ public:
      *
      * Parses the DIMACS problem line (p cnf [vars] [clauses]) to extract
      * the number of clauses. This information is stored separately as it's
-     * not provided by the BackboneSolverAPI.
+     * not provided by the BoneDiggerAPI.
      *
      * @param dimacs_path Path to the DIMACS file
      * @param clauses Output parameter to store the clause count
@@ -242,9 +242,20 @@ public:
                         string name = full_name.str();
                         feature_map[var_number] = name;
 
-                        // Check if this is an auxiliary variable (starts with "aux_")
-                        if (name.size() >= 4 && name.substr(0, 4) == "aux_") {
-                            // Ensure aux_vars vector is large enough
+                        // Check if this is an auxiliary variable (starts with "aux_"
+                        // or matches k!\d+ as used by KconfigReader Tseitin encoding)
+                        bool is_aux_var = (name.size() >= 4 && name.substr(0, 4) == "aux_");
+                        if (!is_aux_var && name.size() >= 3 &&
+                            name[0] == 'k' && name[1] == '!') {
+                            is_aux_var = true;
+                            for (size_t i = 2; i < name.size(); ++i) {
+                                if (!isdigit(static_cast<unsigned char>(name[i]))) {
+                                    is_aux_var = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (is_aux_var) {
                             if (var_number >= static_cast<int>(aux_vars.size())) {
                                 aux_vars.resize(var_number + 1, false);
                             }
@@ -269,11 +280,11 @@ public:
      * Each ThreadWorker instance represents a worker thread that processes a subset
      * of variables to generate requires and excludes edges. The worker maintains
      * thread-local buffers for edge accumulation and uses a pre-initialized
-     * BackboneSolverAPI instance.
+     * BoneDiggerAPI instance.
      *
-     * **CRITICAL REQUIREMENT**: The BackboneSolverAPI instance must be created and
+     * **CRITICAL REQUIREMENT**: The BoneDiggerAPI instance must be created and
      * initialized in the main thread before being passed to the worker. Workers must
-     * NEVER initialize solver instances themselves, as BackboneSolverAPI is not
+     * NEVER initialize solver instances themselves, as BoneDiggerAPI is not
      * thread-safe during initialization.
      *
      * @note Pre-initialization pattern: Solvers are created sequentially in the main
@@ -285,7 +296,7 @@ public:
         int end_idx;
 
         // Thread-local resources (pre-initialized API passed from main thread)
-        BackboneSolverAPI* bone_api;
+        BoneDiggerAPI* bone_api;
         stringstream requires_list;
         stringstream excludes_list;
 
@@ -308,7 +319,7 @@ public:
          * @param tid Thread identifier
          * @param start First index in vars_to_process (inclusive)
          * @param end Last index in vars_to_process (inclusive)
-         * @param api Pre-initialized BackboneSolverAPI instance (created in main thread)
+         * @param api Pre-initialized BoneDiggerAPI instance (created in main thread)
          * @param bb Global backbone vector (indexed array for O(1) lookup)
          * @param aux Auxiliary variables flags (true if variable is aux_)
          * @param vars Reference to vars_to_process vector
@@ -316,7 +327,7 @@ public:
          * @param progress Atomic counter for progress tracking
          */
         ThreadWorker(int tid, int start, int end,
-                    BackboneSolverAPI* api,
+                    BoneDiggerAPI* api,
                     const vector<int>& bb, const vector<bool>& aux,
                     const vector<int>& vars, int num_vars,
                     atomic<int>* progress)
@@ -422,7 +433,7 @@ public:
      * **Threading Strategy:**
      * - Single-threaded mode: Sequential processing with immediate output
      * - Multi-threaded mode:
-     *   1. Pre-create all BackboneSolverAPI instances in main thread (CRITICAL)
+     *   1. Pre-create all BoneDiggerAPI instances in main thread (CRITICAL)
      *   2. Create ThreadWorker instances with pre-initialized solvers
      *   3. Launch worker threads with static range partitioning
      *   4. Monitor progress with atomic counter
@@ -442,7 +453,7 @@ public:
      * @note The formula must be satisfiable. UNSAT formulas are not supported.
      * @note Thread count exceeding CPU cores will fail with an error message.
      *
-     * @see BackboneSolverAPI::create_backbone_detector() for available detector algorithms
+     * @see BoneDiggerAPI::create_backbone_detector() for available detector algorithms
      * @see ThreadWorker for parallel processing implementation
      */
     bool generate_graphs_impl(
@@ -498,7 +509,7 @@ public:
         map<int, string> feature_map;
         vector<bool> aux_vars(num_variables + 1, false);
         if (filter_auxiliary) {
-            cout << "Filtering auxiliary (aux_*) variables from output..." << endl;
+            cout << "Filtering auxiliary (aux_*, k!\\d+) variables from output..." << endl;
             if (!read_feature_names(dimacs_path, feature_map, aux_vars)) {
                 return false;
             }
@@ -615,11 +626,11 @@ public:
             // Multi-threaded mode
             atomic<int> progress_counter(0);
 
-            // Pre-create and initialize BackboneSolverAPI instances (single-threaded)
+            // Pre-create and initialize BoneDiggerAPI instances (single-threaded)
             cout << "Initializing " << effective_threads << " backbone solver instances..." << endl;
-            vector<unique_ptr<BackboneSolverAPI>> apis;
+            vector<unique_ptr<BoneDiggerAPI>> apis;
             for (int t = 0; t < effective_threads; t++) {
-                apis.emplace_back(make_unique<BackboneSolverAPI>());
+                apis.emplace_back(make_unique<BoneDiggerAPI>());
                 if (!apis[t]->read_dimacs(dimacs_path)) {
                     error_message = "Failed to load DIMACS for thread " + to_string(t);
                     cerr << error_message << endl;

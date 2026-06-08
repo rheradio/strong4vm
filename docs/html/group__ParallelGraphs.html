@@ -108,10 +108,10 @@ Classes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Multi-threaded generation of dependency graphs using parallel backbone solving. </p>
-<h2><a class="anchor" id="autotoc_md162"></a>
+<h2><a class="anchor" id="autotoc_md163"></a>
 Overview</h2>
 <p>The Parallel Graph Generation component analyzes Boolean formulas to extract feature dependencies and conflicts using SAT-based backbone detection. The analysis is parallelized across multiple threads for performance on large formulas.</p>
-<h2><a class="anchor" id="autotoc_md163"></a>
+<h2><a class="anchor" id="autotoc_md164"></a>
 Algorithm: Parallel Backbone Solving</h2>
 <p>The graph generation algorithm systematically tests each variable in the formula to determine its relationships with other variables:</p>
 <p><b>For each variable v:</b></p><ol type="1">
@@ -128,7 +128,7 @@ Algorithm: Parallel Backbone Solving</h2>
 </ul>
 </li>
 </ol>
-<h2><a class="anchor" id="autotoc_md164"></a>
+<h2><a class="anchor" id="autotoc_md165"></a>
 Parallel Execution Strategy</h2>
 <p>To accelerate processing of large formulas with hundreds or thousands of variables, the algorithm uses <b>multi-threaded parallel processing</b> with a critical thread safety pattern:</p>
 <p><b>Pre-Initialization Pattern (CRITICAL):</b> </p><div class="fragment"><div class="line">Main Thread:</div>
@@ -144,12 +144,12 @@ Parallel Execution Strategy</h2>
 <div class="line">     - Compute backbone with assumptions</div>
 <div class="line">     - Extract requires/excludes relationships</div>
 <div class="line">     - Store results in thread-local buffers</div>
-<div class="line">  6. Return results to <a class="code hl_function" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> thread</div>
+<div class="line">  6. Return results to <a class="code hl_function" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> thread</div>
 <div class="line"> </div>
 <div class="line">Main Thread:</div>
 <div class="line">  7. Merge results from all threads</div>
 <div class="line">  8. Write output files</div>
-<div class="ttc" id="aapi_2api__example_8cc_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> <a href="api_2api__example_8cc_source.html#l00014">api_example.cc:14</a></div></div>
+<div class="ttc" id="adimacs2graphs_2api_2api__example_8cc_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> <a href="dimacs2graphs_2api_2api__example_8cc_source.html#l00014">api_example.cc:14</a></div></div>
 </div><!-- fragment --><p><b>Why Pre-Initialization?</b></p><ul>
 <li>BackboneSolverAPI is NOT thread-safe during initialization</li>
 <li>File I/O and solver setup must occur in the main thread</li>
@@ -168,7 +168,7 @@ Parallel Execution Strategy</h2>
 </ul>
 </li>
 </ul>
-<h2><a class="anchor" id="autotoc_md165"></a>
+<h2><a class="anchor" id="autotoc_md166"></a>
 Performance Characteristics</h2>
 <p><b>Scalability:</b></p><ul>
 <li>Near-linear speedup for formulas with &gt;100 variables</li>
@@ -185,7 +185,7 @@ Performance Characteristics</h2>
 <li>Large formulas (&gt;500 vars): up to CPU core count</li>
 <li>API validates thread count ≤ available CPU cores (fail-fast if exceeded)</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md166"></a>
+<h2><a class="anchor" id="autotoc_md167"></a>
 Output Files</h2>
 <p>The algorithm generates four output files:</p>
 <p><b>Graph Files (Pajek .net format):</b></p><ul>
@@ -196,7 +196,7 @@ Output Files</h2>
 <li><code>[basename]__core.txt</code>: Variables that are always true (positive backbone)</li>
 <li><code>[basename]__dead.txt</code>: Variables that are always false (negative backbone)</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md167"></a>
+<h2><a class="anchor" id="autotoc_md168"></a>
 API Usage</h2>
 <p>Basic parallel graph generation: </p><div class="fragment"><div class="line"><a class="code hl_class" href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html">dimacs2graphs::Dimacs2GraphsAPI</a> api;</div>
 <div class="line"><span class="keywordtype">bool</span> success = api.<a class="code hl_function" href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html#ae990e997034cc3ff020fcbf912f8c23f">generate_graphs</a>(</div>
@@ -210,9 +210,9 @@ API Usage</h2>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Processed &quot;</span> &lt;&lt; num_vars &lt;&lt; <span class="stringliteral">&quot; variables in parallel&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassdimacs2graphs_1_1Dimacs2GraphsAPI_html"><div class="ttname"><a href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html">dimacs2graphs::Dimacs2GraphsAPI</a></div><div class="ttdoc">Main API class for generating transitive graphs from DIMACS CNF formulas.</div><div class="ttdef"><b>Definition</b> <a href="Dimacs2GraphsAPI_8hh_source.html#l00152">Dimacs2GraphsAPI.hh:152</a></div></div>
-<div class="ttc" id="aclassdimacs2graphs_1_1Dimacs2GraphsAPI_html_a26d88999e87506faaf8f49c8a456c0aa"><div class="ttname"><a href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html#a26d88999e87506faaf8f49c8a456c0aa">dimacs2graphs::Dimacs2GraphsAPI::get_num_variables</a></div><div class="ttdeci">int get_num_variables() const</div><div class="ttdoc">Get the number of variables in the last processed formula.</div><div class="ttdef"><b>Definition</b> <a href="Dimacs2GraphsAPI_8cc_source.html#l00722">Dimacs2GraphsAPI.cc:722</a></div></div>
-<div class="ttc" id="aclassdimacs2graphs_1_1Dimacs2GraphsAPI_html_ae990e997034cc3ff020fcbf912f8c23f"><div class="ttname"><a href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html#ae990e997034cc3ff020fcbf912f8c23f">dimacs2graphs::Dimacs2GraphsAPI::generate_graphs</a></div><div class="ttdeci">bool generate_graphs(const std::string &amp;dimacs_file, const std::string &amp;output_folder=&quot;&quot;, const std::string &amp;detector=&quot;one&quot;, int num_of_threads=1)</div><div class="ttdoc">Generate graph files from a DIMACS CNF formula.</div><div class="ttdef"><b>Definition</b> <a href="Dimacs2GraphsAPI_8cc_source.html#l00709">Dimacs2GraphsAPI.cc:709</a></div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md168"></a>
+<div class="ttc" id="aclassdimacs2graphs_1_1Dimacs2GraphsAPI_html_a26d88999e87506faaf8f49c8a456c0aa"><div class="ttname"><a href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html#a26d88999e87506faaf8f49c8a456c0aa">dimacs2graphs::Dimacs2GraphsAPI::get_num_variables</a></div><div class="ttdeci">int get_num_variables() const</div><div class="ttdoc">Get the number of variables in the last processed formula.</div><div class="ttdef"><b>Definition</b> <a href="Dimacs2GraphsAPI_8cc_source.html#l00857">Dimacs2GraphsAPI.cc:857</a></div></div>
+<div class="ttc" id="aclassdimacs2graphs_1_1Dimacs2GraphsAPI_html_ae990e997034cc3ff020fcbf912f8c23f"><div class="ttname"><a href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html#ae990e997034cc3ff020fcbf912f8c23f">dimacs2graphs::Dimacs2GraphsAPI::generate_graphs</a></div><div class="ttdeci">bool generate_graphs(const std::string &amp;dimacs_file, const std::string &amp;output_folder=&quot;&quot;, const std::string &amp;detector=&quot;one&quot;, int num_of_threads=1)</div><div class="ttdoc">Generate graph files from a DIMACS CNF formula.</div><div class="ttdef"><b>Definition</b> <a href="Dimacs2GraphsAPI_8cc_source.html#l00844">Dimacs2GraphsAPI.cc:844</a></div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md169"></a>
 Thread Safety</h2>
 <p><b>CRITICAL REQUIREMENT:</b></p><ul>
 <li>BackboneSolverAPI instances MUST be created and initialized in the main thread</li>
@@ -220,7 +220,7 @@ Thread Safety</h2>
 <li>Each thread must receive a fully initialized solver instance</li>
 <li>Violating this causes race conditions and undefined behavior</li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd>Dimacs2GraphsAPI Main <a class="el" href="group__API.html" title="Public API for programmatic backbone computation.">BackboneSolver API</a> class for parallel graph generation </dd>
+<dl class="section see"><dt>See also</dt><dd>Dimacs2GraphsAPI Main <a class="el" href="group__API.html" title="Public API for programmatic backbone computation.">BoneDigger API</a> class for parallel graph generation </dd>
 <dd>
 BackboneSolverAPI Underlying backbone detection engine (<a class="el" href="ASTNode_8hh.html#a2ac96f966195d4f802d9a147375b0644a10df3d67626099df882920ba6552f16d" title="Logical NOT (~A)">NOT</a> thread-safe during init) </dd></dl>
 </div><!-- contents -->

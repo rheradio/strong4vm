@@ -240,10 +240,8 @@ int main(int argc, char* argv[]) {
 
     dimacs2graphs::Dimacs2GraphsAPI graph_api;
 
-    // When Tseitin mode is used, filter auxiliary variables from output
-    if (use_tseitin) {
-        graph_api.set_filter_auxiliary(true);
-    }
+    // Always filter auxiliary variables (aux_* and k!\d+ Tseitin vars) from output
+    graph_api.set_filter_auxiliary(true);
 
     // Use the basename without path for graph generation
     std::string dimacs_basename = get_basename(dimacs_file);

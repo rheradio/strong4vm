@@ -132,7 +132,7 @@ Simple Analysis (Complete Pipeline)</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Strong4VMAPI_8hh.html">strong4vm/Strong4VMAPI.hh</a>&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
 <div class="line">    <a class="code hl_class" href="classstrong4vm_1_1Strong4VMAPI.html">strong4vm::Strong4VMAPI</a> api;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Configure analysis</span></div>
@@ -162,15 +162,15 @@ Simple Analysis (Complete Pipeline)</h2>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="aStrong4VMAPI_8hh_html"><div class="ttname"><a href="Strong4VMAPI_8hh.html">Strong4VMAPI.hh</a></div><div class="ttdoc">High-level C++ API for Strong4VM - Feature Model to Strong Transitive Graphs.</div></div>
-<div class="ttc" id="aapi_2api__example_8cc_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> <a href="api_2api__example_8cc_source.html#l00014">api_example.cc:14</a></div></div>
-<div class="ttc" id="aclassstrong4vm_1_1Strong4VMAPI_html"><div class="ttname"><a href="classstrong4vm_1_1Strong4VMAPI.html">strong4vm::Strong4VMAPI</a></div><div class="ttdoc">Main API class for Strong4VM analysis.</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00161">Strong4VMAPI.hh:161</a></div></div>
-<div class="ttc" id="aclassstrong4vm_1_1Strong4VMAPI_html_ad245776be23387a7d489040f36583b91"><div class="ttname"><a href="classstrong4vm_1_1Strong4VMAPI.html#ad245776be23387a7d489040f36583b91">strong4vm::Strong4VMAPI::analyze</a></div><div class="ttdeci">AnalysisResult analyze(const std::string &amp;input_file, const std::string &amp;output_dir=&quot;&quot;)</div><div class="ttdoc">Analyze a feature model or CNF formula (simple interface)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8cc_source.html#l00455">Strong4VMAPI.cc:455</a></div></div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html">strong4vm::AnalysisConfig</a></div><div class="ttdoc">Configuration options for Strong4VM analysis.</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00048">Strong4VMAPI.hh:48</a></div></div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a08963f7335eef295237ab460863bc3d5"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a08963f7335eef295237ab460863bc3d5">strong4vm::AnalysisConfig::num_threads</a></div><div class="ttdeci">int num_threads</div><div class="ttdoc">Number of threads for parallel processing (default: 1)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00060">Strong4VMAPI.hh:60</a></div></div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a1b0c64f96f273a87b519e6919b3af36f"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a1b0c64f96f273a87b519e6919b3af36f">strong4vm::AnalysisConfig::keep_dimacs</a></div><div class="ttdeci">bool keep_dimacs</div><div class="ttdoc">Keep intermediate DIMACS file (default: false)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00056">Strong4VMAPI.hh:56</a></div></div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a349e14923b76a99417517ba333ed4a0b"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a349e14923b76a99417517ba333ed4a0b">strong4vm::AnalysisConfig::input_file</a></div><div class="ttdeci">std::string input_file</div><div class="ttdoc">Path to input file (.uvl or .dimacs)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00050">Strong4VMAPI.hh:50</a></div></div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a7012a1bb32452b3f81c52546c45f0bc2"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a7012a1bb32452b3f81c52546c45f0bc2">strong4vm::AnalysisConfig::output_dir</a></div><div class="ttdeci">std::string output_dir</div><div class="ttdoc">Output directory (default: same as input file)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00051">Strong4VMAPI.hh:51</a></div></div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisResult_html_a2ba7d62da65ff95eae9aa4c64e05fe5d"><div class="ttname"><a href="structstrong4vm_1_1AnalysisResult.html#a2ba7d62da65ff95eae9aa4c64e05fe5d">strong4vm::AnalysisResult::num_variables</a></div><div class="ttdeci">int num_variables</div><div class="ttdoc">Number of variables in the CNF.</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00096">Strong4VMAPI.hh:96</a></div></div>
+<div class="ttc" id="aclassstrong4vm_1_1Strong4VMAPI_html"><div class="ttname"><a href="classstrong4vm_1_1Strong4VMAPI.html">strong4vm::Strong4VMAPI</a></div><div class="ttdoc">Main API class for Strong4VM analysis.</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00164">Strong4VMAPI.hh:164</a></div></div>
+<div class="ttc" id="aclassstrong4vm_1_1Strong4VMAPI_html_ad245776be23387a7d489040f36583b91"><div class="ttname"><a href="classstrong4vm_1_1Strong4VMAPI.html#ad245776be23387a7d489040f36583b91">strong4vm::Strong4VMAPI::analyze</a></div><div class="ttdeci">AnalysisResult analyze(const std::string &amp;input_file, const std::string &amp;output_dir=&quot;&quot;)</div><div class="ttdoc">Analyze a feature model or CNF formula (simple interface)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8cc_source.html#l00459">Strong4VMAPI.cc:459</a></div></div>
+<div class="ttc" id="adimacs2graphs_2api_2api__example_8cc_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> <a href="dimacs2graphs_2api_2api__example_8cc_source.html#l00014">api_example.cc:14</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html">strong4vm::AnalysisConfig</a></div><div class="ttdoc">Configuration options for Strong4VM analysis.</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00049">Strong4VMAPI.hh:49</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a08963f7335eef295237ab460863bc3d5"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a08963f7335eef295237ab460863bc3d5">strong4vm::AnalysisConfig::num_threads</a></div><div class="ttdeci">int num_threads</div><div class="ttdoc">Number of threads for parallel processing (default: 1)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00061">Strong4VMAPI.hh:61</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a1b0c64f96f273a87b519e6919b3af36f"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a1b0c64f96f273a87b519e6919b3af36f">strong4vm::AnalysisConfig::keep_dimacs</a></div><div class="ttdeci">bool keep_dimacs</div><div class="ttdoc">Keep intermediate DIMACS file (default: false)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00057">Strong4VMAPI.hh:57</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a349e14923b76a99417517ba333ed4a0b"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a349e14923b76a99417517ba333ed4a0b">strong4vm::AnalysisConfig::input_file</a></div><div class="ttdeci">std::string input_file</div><div class="ttdoc">Path to input file (.uvl or .dimacs)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00051">Strong4VMAPI.hh:51</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a7012a1bb32452b3f81c52546c45f0bc2"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a7012a1bb32452b3f81c52546c45f0bc2">strong4vm::AnalysisConfig::output_dir</a></div><div class="ttdeci">std::string output_dir</div><div class="ttdoc">Output directory (default: same as input file)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00052">Strong4VMAPI.hh:52</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisResult_html_a2ba7d62da65ff95eae9aa4c64e05fe5d"><div class="ttname"><a href="structstrong4vm_1_1AnalysisResult.html#a2ba7d62da65ff95eae9aa4c64e05fe5d">strong4vm::AnalysisResult::num_variables</a></div><div class="ttdeci">int num_variables</div><div class="ttdoc">Number of variables in the CNF.</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00097">Strong4VMAPI.hh:97</a></div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md98"></a>
 Advanced Analysis with Custom Configuration</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Strong4VMAPI_8hh.html">strong4vm/Strong4VMAPI.hh</a>&gt;</span></div>
@@ -179,7 +179,7 @@ Advanced Analysis with Custom Configuration</h2>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>fs = std::filesystem;</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
 <div class="line">    <span class="keywordflow">if</span> (argc &lt; 2) {</div>
 <div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Usage: &quot;</span> &lt;&lt; argv[0] &lt;&lt; <span class="stringliteral">&quot; &lt;input_file&gt; [output_dir] [num_threads]&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">        <span class="keywordflow">return</span> 1;</div>
@@ -245,8 +245,8 @@ Advanced Analysis with Custom Configuration</h2>
 <div class="line">}</div>
 <div class="ttc" id="anamespacestrong4vm_html_a5fc772c800c3d40d2b95564e8a839bababe39b16c2f60af24dc781002eb331981"><div class="ttname"><a href="namespacestrong4vm.html#a5fc772c800c3d40d2b95564e8a839bababe39b16c2f60af24dc781002eb331981">strong4vm::InputType::DIMACS</a></div><div class="ttdeci">@ DIMACS</div><div class="ttdoc">DIMACS CNF formula.</div></div>
 <div class="ttc" id="anamespacestrong4vm_html_a5fc772c800c3d40d2b95564e8a839babac7c6109106b3cba057d5c361e5ba03ef"><div class="ttname"><a href="namespacestrong4vm.html#a5fc772c800c3d40d2b95564e8a839babac7c6109106b3cba057d5c361e5ba03ef">strong4vm::InputType::UVL</a></div><div class="ttdeci">@ UVL</div><div class="ttdoc">Universal Variability Language feature model.</div></div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a52bc6edf8f6effbee713acb96b3f731d"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a52bc6edf8f6effbee713acb96b3f731d">strong4vm::AnalysisConfig::input_type</a></div><div class="ttdeci">InputType input_type</div><div class="ttdoc">Input file type (default: AUTO)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00052">Strong4VMAPI.hh:52</a></div></div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_af4e770284e23503e20bcd597001cbeb3"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#af4e770284e23503e20bcd597001cbeb3">strong4vm::AnalysisConfig::conversion_mode</a></div><div class="ttdeci">ConversionMode conversion_mode</div><div class="ttdoc">CNF conversion mode (default: STRAIGHTFORWARD)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00055">Strong4VMAPI.hh:55</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_a52bc6edf8f6effbee713acb96b3f731d"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#a52bc6edf8f6effbee713acb96b3f731d">strong4vm::AnalysisConfig::input_type</a></div><div class="ttdeci">InputType input_type</div><div class="ttdoc">Input file type (default: AUTO)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00053">Strong4VMAPI.hh:53</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisConfig_html_af4e770284e23503e20bcd597001cbeb3"><div class="ttname"><a href="structstrong4vm_1_1AnalysisConfig.html#af4e770284e23503e20bcd597001cbeb3">strong4vm::AnalysisConfig::conversion_mode</a></div><div class="ttdeci">ConversionMode conversion_mode</div><div class="ttdoc">CNF conversion mode (default: STRAIGHTFORWARD)</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00056">Strong4VMAPI.hh:56</a></div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md99"></a>
 Batch Processing with API</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="Strong4VMAPI_8hh.html">strong4vm/Strong4VMAPI.hh</a>&gt;</span></div>
@@ -256,7 +256,7 @@ Batch Processing with API</h2>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>fs = std::filesystem;</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[]) {</div>
 <div class="line">    <span class="keywordflow">if</span> (argc &lt; 3) {</div>
 <div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Usage: &quot;</span> &lt;&lt; argv[0] &lt;&lt; <span class="stringliteral">&quot; &lt;input_dir&gt; &lt;output_dir&gt; [num_threads]&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">        <span class="keywordflow">return</span> 1;</div>
@@ -315,7 +315,7 @@ Batch Processing with API</h2>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> (failure_count &gt; 0) ? 1 : 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="astructstrong4vm_1_1AnalysisResult_html_aa623ecc9262a4cb482b06564eafa7616"><div class="ttname"><a href="structstrong4vm_1_1AnalysisResult.html#aa623ecc9262a4cb482b06564eafa7616">strong4vm::AnalysisResult::error_message</a></div><div class="ttdeci">std::string error_message</div><div class="ttdoc">Error message if analysis failed.</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00084">Strong4VMAPI.hh:84</a></div></div>
+<div class="ttc" id="astructstrong4vm_1_1AnalysisResult_html_aa623ecc9262a4cb482b06564eafa7616"><div class="ttname"><a href="structstrong4vm_1_1AnalysisResult.html#aa623ecc9262a4cb482b06564eafa7616">strong4vm::AnalysisResult::error_message</a></div><div class="ttdeci">std::string error_message</div><div class="ttdoc">Error message if analysis failed.</div><div class="ttdef"><b>Definition</b> <a href="Strong4VMAPI_8hh_source.html#l00085">Strong4VMAPI.hh:85</a></div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md100"></a>
 Component-Specific Examples</h1>
 <h2><a class="anchor" id="autotoc_md101"></a>
@@ -323,7 +323,7 @@ UVL to DIMACS Conversion Only</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="UVL2Dimacs_8hh.html">uvl2dimacs/UVL2Dimacs.hh</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
 <div class="line">    <span class="comment">// Create converter instance</span></div>
 <div class="line">    uvl2dimacs::UVL2DimacsAPI converter;</div>
 <div class="line"> </div>
@@ -352,7 +352,7 @@ DIMACS to Graphs Only</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;dimacs2graphs/Dimacs2GraphsAPI.hh&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
 <div class="line">    <span class="comment">// Create analyzer instance</span></div>
 <div class="line">    <a class="code hl_class" href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html">dimacs2graphs::Dimacs2GraphsAPI</a> analyzer;</div>
 <div class="line"> </div>
@@ -381,40 +381,38 @@ DIMACS to Graphs Only</h2>
 <div class="ttc" id="aclassdimacs2graphs_1_1Dimacs2GraphsAPI_html"><div class="ttname"><a href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html">dimacs2graphs::Dimacs2GraphsAPI</a></div><div class="ttdoc">Main API class for generating transitive graphs from DIMACS CNF formulas.</div><div class="ttdef"><b>Definition</b> <a href="Dimacs2GraphsAPI_8hh_source.html#l00152">Dimacs2GraphsAPI.hh:152</a></div></div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md103"></a>
 Backbone Detection Only</h2>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;backbone_solver/BackboneSolverAPI.hh&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="BoneDiggerAPI_8hh.html">api/BoneDiggerAPI.hh</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
 <div class="line">    <span class="comment">// Create solver instance</span></div>
-<div class="line">    <a class="code hl_class" href="classbackbone__solver_1_1BackboneSolverAPI.html">backbone_solver::BackboneSolverAPI</a> solver;</div>
+<div class="line">    <a class="code hl_class" href="classbonedigger_1_1BoneDiggerAPI.html">bonedigger::BoneDiggerAPI</a> solver;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Load DIMACS file</span></div>
-<div class="line">    <span class="keywordflow">if</span> (!solver.loadDimacs(<span class="stringliteral">&quot;formula.dimacs&quot;</span>)) {</div>
+<div class="line">    <span class="keywordflow">if</span> (!solver.<a class="code hl_function" href="classbonedigger_1_1BoneDiggerAPI.html#a6fa2f781f0e65a541b774f62051cdfca">read_dimacs</a>(<span class="stringliteral">&quot;formula.dimacs&quot;</span>)) {</div>
 <div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Failed to load DIMACS file!&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">        <span class="keywordflow">return</span> 1;</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    <span class="comment">// Compute backbone</span></div>
-<div class="line">    backbone_solver::BackboneResult result = solver.computeBackbone();</div>
+<div class="line">    <span class="comment">// Select detector and compute backbone</span></div>
+<div class="line">    solver.<a class="code hl_function" href="classbonedigger_1_1BoneDiggerAPI.html#a3346834ef157966c67a274b4d9338035">create_backbone_detector</a>(<span class="stringliteral">&quot;one&quot;</span>);  <span class="comment">// &quot;one&quot;, &quot;flatland&quot;, or &quot;rush&quot;</span></div>
+<div class="line">    std::vector&lt;int&gt; backbone = solver.<a class="code hl_function" href="classbonedigger_1_1BoneDiggerAPI.html#a12b1b5463690036b43a353487ed72ab2">compute_backbone</a>();</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span> (result.success) {</div>
-<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Backbone computation successful!&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Positive backbone (core): &quot;</span> &lt;&lt; result.positive_backbone.size() &lt;&lt; std::endl;</div>
-<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Negative backbone (dead): &quot;</span> &lt;&lt; result.negative_backbone.size() &lt;&lt; std::endl;</div>
-<div class="line"> </div>
-<div class="line">        <span class="comment">// Print core features</span></div>
-<div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;\nCore features:&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> lit : result.positive_backbone) {</div>
-<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;  Variable &quot;</span> &lt;&lt; lit &lt;&lt; std::endl;</div>
-<div class="line">        }</div>
-<div class="line">    } <span class="keywordflow">else</span> {</div>
-<div class="line">        std::cerr &lt;&lt; <span class="stringliteral">&quot;Backbone computation failed!&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Backbone size: &quot;</span> &lt;&lt; backbone.size() &lt;&lt; std::endl;</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> lit : backbone) {</div>
+<div class="line">        <span class="keywordflow">if</span> (lit &gt; 0)</div>
+<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;  Core: variable &quot;</span> &lt;&lt; lit &lt;&lt; std::endl;</div>
+<div class="line">        <span class="keywordflow">else</span></div>
+<div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;  Dead: variable &quot;</span> &lt;&lt; -lit &lt;&lt; std::endl;</div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassbackbone__solver_1_1BackboneSolverAPI_html"><div class="ttname"><a href="classbackbone__solver_1_1BackboneSolverAPI.html">backbone_solver::BackboneSolverAPI</a></div><div class="ttdoc">Main API class for backbone computation using PIMPL pattern.</div><div class="ttdef"><b>Definition</b> <a href="BackboneSolverAPI_8hh_source.html#l00128">BackboneSolverAPI.hh:128</a></div></div>
+<div class="ttc" id="aBoneDiggerAPI_8hh_html"><div class="ttname"><a href="BoneDiggerAPI_8hh.html">BoneDiggerAPI.hh</a></div><div class="ttdoc">Public C++ API for computing backbones of Boolean formulas.</div></div>
+<div class="ttc" id="aclassbonedigger_1_1BoneDiggerAPI_html"><div class="ttname"><a href="classbonedigger_1_1BoneDiggerAPI.html">bonedigger::BoneDiggerAPI</a></div><div class="ttdoc">Main API class for backbone computation using PIMPL pattern.</div><div class="ttdef"><b>Definition</b> <a href="BoneDiggerAPI_8hh_source.html#l00130">BoneDiggerAPI.hh:130</a></div></div>
+<div class="ttc" id="aclassbonedigger_1_1BoneDiggerAPI_html_a12b1b5463690036b43a353487ed72ab2"><div class="ttname"><a href="classbonedigger_1_1BoneDiggerAPI.html#a12b1b5463690036b43a353487ed72ab2">bonedigger::BoneDiggerAPI::compute_backbone</a></div><div class="ttdeci">vector&lt; int &gt; compute_backbone()</div><div class="ttdoc">Compute the backbone using the created detector.</div><div class="ttdef"><b>Definition</b> <a href="BoneDiggerAPI_8cc_source.html#l00373">BoneDiggerAPI.cc:373</a></div></div>
+<div class="ttc" id="aclassbonedigger_1_1BoneDiggerAPI_html_a3346834ef157966c67a274b4d9338035"><div class="ttname"><a href="classbonedigger_1_1BoneDiggerAPI.html#a3346834ef157966c67a274b4d9338035">bonedigger::BoneDiggerAPI::create_backbone_detector</a></div><div class="ttdeci">bool create_backbone_detector(const string &amp;bb_detector=&quot;simple&quot;)</div><div class="ttdoc">Create a backbone detector for the last read DIMACS file.</div><div class="ttdef"><b>Definition</b> <a href="BoneDiggerAPI_8cc_source.html#l00369">BoneDiggerAPI.cc:369</a></div></div>
+<div class="ttc" id="aclassbonedigger_1_1BoneDiggerAPI_html_a6fa2f781f0e65a541b774f62051cdfca"><div class="ttname"><a href="classbonedigger_1_1BoneDiggerAPI.html#a6fa2f781f0e65a541b774f62051cdfca">bonedigger::BoneDiggerAPI::read_dimacs</a></div><div class="ttdeci">bool read_dimacs(const string &amp;file_name)</div><div class="ttdoc">Read a DIMACS CNF file.</div><div class="ttdef"><b>Definition</b> <a href="BoneDiggerAPI_8cc_source.html#l00365">BoneDiggerAPI.cc:365</a></div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md104"></a>
 Building and Running Examples</h1>
 <h2><a class="anchor" id="autotoc_md105"></a>

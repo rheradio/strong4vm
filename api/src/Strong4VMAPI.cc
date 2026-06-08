@@ -216,7 +216,9 @@ public:
      * @return String identifier for dimacs2graphs API
      */
     std::string detector_to_string(BackboneDetector detector) const {
-        return (detector == BackboneDetector::ONE) ? "one" : "without";
+        if (detector == BackboneDetector::FLATLAND) return "flatland";
+        if (detector == BackboneDetector::RUSH) return "rush";
+        return "one";  // ONE is the default
     }
 
     /**
@@ -338,6 +340,7 @@ public:
             result.num_constraints = uvl_result.num_constraints;
             result.num_variables = uvl_result.num_variables;
             result.num_clauses = uvl_result.num_clauses;
+            result.num_skipped_constraints = uvl_result.num_skipped_constraints;
 
             if (verbose) {
                 std::cout << "\nConversion successful!\n";
@@ -368,6 +371,7 @@ public:
         }
 
         dimacs2graphs::Dimacs2GraphsAPI graph_api;
+        graph_api.set_filter_auxiliary(true);
 
         std::string detector_str = detector_to_string(config.detector);
         bool graph_success = graph_api.generate_graphs(

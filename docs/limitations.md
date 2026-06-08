@@ -141,16 +141,16 @@ Required RAM ≈ 60 MB × num_threads + 100 MB (base overhead)
 
 ## Thread Safety Limitations
 
-### Backbone Solver API
+### BoneDigger API (Backbone Solver)
 
-**Critical Limitation**: `BackboneSolverAPI` is NOT thread-safe.
+**Critical Limitation**: `BoneDiggerAPI` is NOT thread-safe during initialization.
 
 **Correct Usage** (Pre-initialization Pattern):
 ```cpp
 // ✓ CORRECT: Initialize in main thread
-std::vector<BackboneSolverAPI*> solvers;
+std::vector<BoneDiggerAPI*> solvers;
 for (int i = 0; i < num_threads; i++) {
-    solvers.push_back(new BackboneSolverAPI());
+    solvers.push_back(new BoneDiggerAPI());
 }
 
 // Then use in parallel
@@ -166,7 +166,7 @@ for (int var = 0; var < num_vars; var++) {
 // ✗ WRONG: Never initialize inside parallel region
 #pragma omp parallel
 {
-    BackboneSolverAPI solver;  // RACE CONDITION!
+    BoneDiggerAPI solver;  // RACE CONDITION!
     solver.analyze(...);
 }
 ```

@@ -1,0 +1,26 @@
+# Compiled object files and static libraries
+*.o
+*.a
+*.d
+
+# Built binaries
+/bin/
+backbone_solver/bin/
+dimacs2graphs/bin/
+api/bin/
+
+# CMake and component build directories
+uvl2dimacs/build/
+uvl2dimacs/third_party/build/
+uvl2dimacs/backbone_solver/bin/
+uvl2dimacs/backbone_solver/src/minisat/build/
+
+# Generated source (produced by build scripts)
+cli/icon_embedded.hh
+
+# Generated Doxygen documentation
+docs/html/
+
+# Tool output files written alongside input examples
+examples/*.net
+examples/*.txt

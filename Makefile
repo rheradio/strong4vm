@@ -56,10 +56,11 @@ ANTLR4_LIB = $(UVL2DIMACS_DIR)/third_party/build/runtime/libantlr4-runtime.a
 
 # Dimacs2Graphs dependencies
 DIMACS2GRAPHS_API = $(DIMACS2GRAPHS_DIR)/api/Dimacs2GraphsAPI.o
-BACKBONE_SOLVER_DIR = $(DIMACS2GRAPHS_DIR)/backbone_solver/src
-BACKBONE_SOLVER_OBJS = $(BACKBONE_SOLVER_DIR)/api/BackboneSolverAPI.o \
+BACKBONE_SOLVER_DIR = $(UVL2DIMACS_DIR)/backbone_solver/src
+BACKBONE_SOLVER_OBJS = $(BACKBONE_SOLVER_DIR)/api/BoneDiggerAPI.o \
                   $(BACKBONE_SOLVER_DIR)/detectors/CheckCandidatesOneByOne.o \
-                  $(BACKBONE_SOLVER_DIR)/detectors/CheckCandidatesOneByOneWithoutAttention.o \
+                  $(BACKBONE_SOLVER_DIR)/detectors/FastOnCliffsSlowOnPlains.o \
+                  $(BACKBONE_SOLVER_DIR)/detectors/RushAndPray.o \
                   $(BACKBONE_SOLVER_DIR)/io/DIMACSReader.o \
                   $(BACKBONE_SOLVER_DIR)/data_structures/LiteralSet.o \
                   $(BACKBONE_SOLVER_DIR)/minisat_interface/minisat_aux.o
@@ -71,7 +72,7 @@ INCLUDES = -I$(UVL2DIMACS_DIR)/api/include \
            -I$(UVL2DIMACS_DIR)/parser/include \
            -I$(UVL2DIMACS_DIR)/third_party/runtime/src \
            -I$(DIMACS2GRAPHS_DIR)/api \
-           -I$(DIMACS2GRAPHS_DIR)/backbone_solver/src
+           -I$(UVL2DIMACS_DIR)/backbone_solver/src
 
 # Libraries
 LIBS = $(UVL2DIMACS_API_LIB) \
@@ -135,7 +136,7 @@ $(ICON_HEADER): figures/icon.txt $(ICON_GENERATOR)
 	@chmod +x $(ICON_GENERATOR)
 	@cd $(CLI_DIR) && bash generate_icon_header.sh
 
-$(STRONG4VM_TARGET): $(STRONG4VM_SRC) $(ICON_HEADER) $(LIBS) | $(BIN_DIR)
+$(STRONG4VM_TARGET): $(STRONG4VM_SRC) $(ICON_HEADER) $(LIBS) backbone_solver/bin/backbone_solver | $(BIN_DIR)
 	@echo "========================================="
 	@echo "Building Strong4VM..."
 	@echo "========================================="
@@ -165,6 +166,11 @@ $(DIMACS2GRAPHS_API): $(BACKBONE_SOLVER_OBJS)
 $(BACKBONE_SOLVER_OBJS) $(MINISAT_LIB):
 	@echo "Building Backbone Solver..."
 	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) CXX=$(CXX)
+
+backbone_solver/bin/backbone_solver: $(BACKBONE_SOLVER_OBJS)
+	@mkdir -p backbone_solver/bin
+	@cp $(UVL2DIMACS_DIR)/backbone_solver/bin/backbone_solver backbone_solver/bin/backbone_solver
+	@echo "backbone_solver binary placed at backbone_solver/bin/backbone_solver"
 
 # Build API
 .PHONY: api
@@ -201,6 +207,7 @@ clean-all: clean
 	@echo "Deep cleaning Dimacs2Graphs..."
 	@$(MAKE) -C $(DIMACS2GRAPHS_DIR) distclean
 	@rm -rf $(BIN_DIR)
+	@rm -rf backbone_solver/bin
 	@echo "Deep clean complete"
 
 # Install

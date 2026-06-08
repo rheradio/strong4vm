@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Strong4VM: /mnt/c/strong4vm/dimacs2graphs/api/Dimacs2GraphsAPI.cc File Reference</title>
+<title>Strong4VM: /mnt/c/improving_strong4vm/strong4vm/dimacs2graphs/api/Dimacs2GraphsAPI.cc File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('Dimacs2GraphsAPI_8cc.html',''); initRe
 <p>Implementation of the Dimacs2GraphsAPI class for generating dependency graphs from DIMACS CNF formulas.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="Dimacs2GraphsAPI_8hh_source.html">Dimacs2GraphsAPI.hh</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="BackboneSolverAPI_8hh_source.html">../backbone_solver/src/api/BackboneSolverAPI.hh</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="BoneDiggerAPI_8hh_source.html">../../uvl2dimacs/backbone_solver/src/api/BoneDiggerAPI.hh</a>&quot;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -162,22 +162,22 @@ Classes</h2></td></tr>
 </ul>
 <p><b>Threading Architecture (CRITICAL)</b></p>
 <p>The implementation uses a pre-initialization pattern to ensure thread safety:</p><ol type="1">
-<li>Main thread creates and initializes all BackboneSolverAPI instances sequentially</li>
+<li>Main thread creates and initializes all BoneDiggerAPI instances sequentially</li>
 <li>Each thread receives a pre-initialized solver instance (no initialization in worker threads)</li>
 <li>Worker threads only perform variable processing using their assigned solver</li>
 <li>Results are collected in thread-local buffers and merged in the main thread</li>
 </ol>
-<p>This pattern is required because BackboneSolverAPI is NOT thread-safe during initialization. Violating this pattern (e.g., creating solvers inside worker threads) will cause data races and undefined behavior.</p>
+<p>This pattern is required because BoneDiggerAPI is NOT thread-safe during initialization. Violating this pattern (e.g., creating solvers inside worker threads) will cause data races and undefined behavior.</p>
 <p><b>Performance Characteristics</b></p><ul>
 <li>Thread count limited to CPU cores (fail-fast validation)</li>
 <li>Memory requirement: approximately 60-70 MB per thread</li>
 <li>Static work partitioning ensures balanced load distribution</li>
 <li>Progress monitoring with atomic counters (low overhead)</li>
 </ul>
-<dl class="section warning"><dt>Warning</dt><dd>BackboneSolverAPI is NOT thread-safe. Each thread must use a separate solver instance, and all instances must be created and initialized in the main thread BEFORE spawning worker threads.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="Dimacs2GraphsAPI_8hh.html">Dimacs2GraphsAPI.hh</a> for the public <a class="el" href="group__API.html" title="Public API for programmatic backbone computation.">BackboneSolver API</a> interface </dd>
+<dl class="section warning"><dt>Warning</dt><dd>BoneDiggerAPI is NOT thread-safe. Each thread must use a separate solver instance, and all instances must be created and initialized in the main thread BEFORE spawning worker threads.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="Dimacs2GraphsAPI_8hh.html">Dimacs2GraphsAPI.hh</a> for the public <a class="el" href="group__API.html" title="Public API for programmatic backbone computation.">BoneDigger API</a> interface </dd>
 <dd>
-BackboneSolverAPI for the underlying SAT-based backbone detection</dd></dl>
+BoneDiggerAPI for the underlying SAT-based backbone detection</dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Dimacs2Graphs Team </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024 </dd></dl>
 

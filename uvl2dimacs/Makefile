@@ -76,9 +76,14 @@ ifeq ($(ARCH),x86_64)
         # Xeon with AVX-512 support
         ARCH_FLAGS := -march=native -mtune=native
     else
-        # Generic x86_64 - use baseline that works everywhere
-        # Use -march=x86-64-v2 for better compatibility (SSE4.2, POPCNT)
-        ARCH_FLAGS := -march=x86-64-v2 -mtune=generic
+        # Generic x86_64 - use x86-64-v2 if the compiler supports it (GCC 11+),
+        # otherwise fall back to plain x86-64 for older toolchains
+        _MARCH_TEST := $(shell echo "" | $(CXX) -march=x86-64-v2 -x c++ - -fsyntax-only 2>&1)
+        ifeq ($(findstring bad value,$(_MARCH_TEST)),)
+            ARCH_FLAGS := -march=x86-64-v2 -mtune=generic
+        else
+            ARCH_FLAGS := -march=x86-64 -mtune=generic
+        endif
     endif
 else ifeq ($(ARCH),arm64)
     ifeq ($(OS),macos)
@@ -123,19 +128,18 @@ OPT_FLAGS := $(BASE_OPT_FLAGS) $(ARCH_FLAGS) $(LTO_FLAGS)
 CMAKE_FLAGS := -DCMAKE_BUILD_TYPE=Release \
                -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON \
                -DCMAKE_CXX_FLAGS_RELEASE="$(OPT_FLAGS)" \
-               -DCMAKE_C_FLAGS_RELEASE="$(OPT_FLAGS)"
 
 ANTLR4_CMAKE_FLAGS := -DANTLR_BUILD_CPP_TESTS=OFF \
                       -DANTLR_BUILD_SHARED=OFF \
+                      -DDISABLE_WARNINGS=ON \
                       -DCMAKE_CXX_FLAGS_RELEASE="$(OPT_FLAGS)" \
-                      -DCMAKE_C_FLAGS_RELEASE="$(OPT_FLAGS)"
-
+       
 # Output directories
 DOCS_DIR := $(PROJECT_ROOT)/docs
 
 # Default target
 .PHONY: all
-all: antlr4-runtime uvl2dimacs api
+all: antlr4-runtime uvl2dimacs api examples backbone_solver
 
 # Help target
 .PHONY: help
@@ -149,7 +153,7 @@ help:
 	@echo "  antlr4-runtime   - Build ANTLR4 C++ runtime"
 	@echo "  uvl2dimacs       - Build uvl2dimacs translator"
 	@echo "  api              - Build API library"
-	@echo "  examples         - Build API examples (simple_convert, tseitin_convert, batch_convert)"
+	@echo "  examples         - Build API examples (simple_convert, tseitin_convert, batch_convert, backbone_convert)"
 	@echo "  backbone_solver  - Build backbone solver for tests"
 	@echo ""
 	@echo "Test Targets:"
@@ -182,7 +186,7 @@ $(ANTLR4_LIB):
 	@echo "========================================="
 	@if [ ! -f "$(ANTLR4_DIR)/CMakeLists.txt" ]; then \
 		echo "Error: ANTLR4 source not found in $(ANTLR4_DIR)"; \
-		echo "Please ensure antlr4-cpp-runtime is extracted to third_party/"; \
+		echo "Please ensure antlr4-cpp-runtime is extracted to antlr/"; \
 		exit 1; \
 	fi
 	@mkdir -p $(ANTLR4_BUILD)
@@ -229,18 +233,19 @@ $(BUILD_DIR)/libuvl2dimacs_api.a: antlr4-runtime uvl2dimacs
 
 # Build API examples
 .PHONY: examples
-examples: $(BUILD_DIR)/simple_convert $(BUILD_DIR)/tseitin_convert $(BUILD_DIR)/batch_convert
+examples: $(BUILD_DIR)/simple_convert $(BUILD_DIR)/tseitin_convert $(BUILD_DIR)/batch_convert $(BUILD_DIR)/backbone_convert
 
 $(BUILD_DIR)/simple_convert: api
 	@echo "========================================="
 	@echo "Building API Examples..."
 	@echo "========================================="
 	@# Examples are built as part of the main build
-	@if [ -f "$(BUILD_DIR)/simple_convert" ] && [ -f "$(BUILD_DIR)/tseitin_convert" ] && [ -f "$(BUILD_DIR)/batch_convert" ]; then \
+	@if [ -f "$(BUILD_DIR)/simple_convert" ] && [ -f "$(BUILD_DIR)/tseitin_convert" ] && [ -f "$(BUILD_DIR)/batch_convert" ] && [ -f "$(BUILD_DIR)/backbone_convert" ]; then \
 		echo "API examples built successfully"; \
 		echo "  - $(BUILD_DIR)/simple_convert"; \
 		echo "  - $(BUILD_DIR)/tseitin_convert"; \
 		echo "  - $(BUILD_DIR)/batch_convert"; \
+		echo "  - $(BUILD_DIR)/backbone_convert"; \
 	else \
 		echo "Warning: Examples not found, they should be built with uvl2dimacs"; \
 	fi
@@ -250,6 +255,9 @@ $(BUILD_DIR)/tseitin_convert: api
 
 $(BUILD_DIR)/batch_convert: api
 	@# This is a placeholder - batch_convert is built together with simple_convert
+
+$(BUILD_DIR)/backbone_convert: api
+	@# This is a placeholder - backbone_convert is built together with simple_convert
 
 # Build backbone solver for tests
 BACKBONE_DIR := $(PROJECT_ROOT)/backbone_solver
@@ -360,6 +368,10 @@ install: uvl2dimacs examples
 	@if [ -f "$(BUILD_DIR)/batch_convert" ]; then \
 		cp $(BUILD_DIR)/batch_convert $(HOME)/bin/; \
 		echo "Installed batch_convert to $(HOME)/bin/"; \
+	fi
+	@if [ -f "$(BUILD_DIR)/backbone_convert" ]; then \
+		cp $(BUILD_DIR)/backbone_convert $(HOME)/bin/; \
+		echo "Installed backbone_convert to $(HOME)/bin/"; \
 	fi
 	@echo "Installed to $(HOME)/bin/uvl2dimacs"
 	@echo "Make sure $(HOME)/bin is in your PATH"

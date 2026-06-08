@@ -39,9 +39,10 @@ Strong4VM consists of three integrated components forming a complete analysis pi
    - SAT-based analysis for dependency and conflict detection
    - Produces Pajek .net graph files
 
-3. **Backbone Solver** - High-performance backbone detection engine
-   - Activity bumping heuristics for efficient solving
+3. **BoneDigger** - High-performance backbone detection engine
+   - Three detection strategies: CheckCandidatesOneByOne, FastOnCliffsSlowOnPlains, RushAndPray
    - Identifies core (always enabled) and dead (never enabled) features
+   - Also provides optional backbone simplification of UVL-converted formulas (disabled by default)
    - MiniSat-based implementation
 
 See the @ref architecture "Architecture" page for detailed design information.
@@ -49,7 +50,7 @@ See the @ref architecture "Architecture" page for detailed design information.
 ## Pipeline Overview
 
 ```
-UVL Feature Model  →  [UVL2Dimacs]  →  DIMACS CNF  →  [Dimacs2Graphs + Backbone Solver]  →  Graphs
+UVL Feature Model  →  [UVL2Dimacs]  →  DIMACS  →  [Dimacs2Graphs + BoneDigger]  →  Graphs
 ```
 
 ## Output Files

@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="Dimacs2GraphsAPI",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classdimacs2graphs_1_1Dimacs2GraphsAPI.html",tooltip="Main API class for generating transitive graphs from DIMACS CNF formulas."];
+  Node0 [id="Node000000",label="const_LitIterator",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classconst__LitIterator.html",tooltip="Forward iterator for LitSet."];
 }

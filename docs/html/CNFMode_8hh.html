@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Strong4VM: /mnt/c/strong4vm/uvl2dimacs/generator/include/CNFMode.hh File Reference</title>
+<title>Strong4VM: /mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/generator/include/CNFMode.hh File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -139,39 +139,39 @@ Enumerations</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Conversion modes for generating CNF from feature models. </p>
-<p>Specifies the strategy for converting constraint expressions to CNF:</p>
+<p>Specifies the strategy for converting cross-tree constraint expressions to CNF. <a class="el" href="classFeature.html" title="Represents a feature node in the UVL feature tree.">Feature</a> tree relation clauses (OR groups, ALTERNATIVE groups, CARDINALITY) are always emitted directly as CNF disjunctions of arbitrary length in both modes.</p>
 <p><b>STRAIGHTFORWARD Mode</b>:</p><ul>
-<li>Direct conversion without introducing auxiliary variables</li>
+<li>Converts cross-tree constraints via NNF + distribution law</li>
+<li>No auxiliary variables introduced</li>
 <li>Uses only the original feature variables</li>
-<li>Results in fewer total variables</li>
-<li>May produce longer clauses (potential clause explosion for complex constraints)</li>
-<li>Better when formula size (number of clauses) is more important than clause length</li>
+<li>May produce exponentially many clauses for deeply nested expressions</li>
 </ul>
 <p><b>TSEITIN Mode</b>:</p><ul>
-<li>Uses Tseitin transformation with auxiliary variables</li>
-<li>Introduces helper variables to decompose complex expressions</li>
-<li>Results in more variables but shorter, more uniform clauses (typically 3-CNF)</li>
-<li>Prevents clause explosion for deeply nested expressions</li>
-<li>Better for SAT solvers that perform well on 3-CNF</li>
+<li>Uses Tseitin transformation with auxiliary variables for cross-tree constraints</li>
+<li>Introduces one helper variable per Boolean sub-expression</li>
+<li>Produces linear-size output for constraint expressions (max 3 literals per clause)</li>
+<li>Prevents clause explosion for deeply nested Boolean expressions</li>
+<li><a class="el" href="classFeature.html" title="Represents a feature node in the UVL feature tree.">Feature</a> tree relation clauses are still emitted directly (arbitrary length)</li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classASTNode.html#ad20d6c601b6d12537da97f46128b7118" title="Converts this AST to CNF clauses.">ASTNode::get_clauses()</a> for conversion implementation </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classASTNode.html#ad20d6c601b6d12537da97f46128b7118" title="Converts this AST to CNF clauses.">ASTNode::get_clauses()</a> for cross-tree constraint conversion </dd>
+<dd>
+<a class="el" href="classRelationEncoder.html" title="Encodes feature model relations as CNF clauses.">RelationEncoder</a> for feature tree relation encoding </dd>
 <dd>
 <a class="el" href="classFMToCNF.html#a78ffc2137bfb912e4461459d5ac7e334" title="Transforms the feature model to CNF.">FMToCNF::transform()</a> for feature model transformation</dd></dl>
-<p>Example trade-offs: </p><div class="fragment"><div class="line"><span class="comment">// Expression: (A &amp; B) | (C &amp; D)</span></div>
+<p>Example trade-offs: </p><div class="fragment"><div class="line"><span class="comment">// OR group with 4 children — emitted identically in both modes:</span></div>
+<div class="line"><span class="comment">// Clause: (-parent | c1 | c2 | c3 | c4)</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// STRAIGHTFORWARD: 4 clauses, 2-4 literals each</span></div>
-<div class="line"><span class="comment">// Clauses: (A|C), (A|D), (B|C), (B|D)</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// TSEITIN: 7 clauses, 2-3 literals each, +2 auxiliary variables</span></div>
-<div class="line"><span class="comment">// Introduces: T1 = (A &amp; B), T2 = (C &amp; D), result = (T1 | T2)</span></div>
+<div class="line"><span class="comment">// Cross-tree constraint (A =&gt; (B | C | D)):</span></div>
+<div class="line"><span class="comment">// STRAIGHTFORWARD: 1 clause with 4 literals: (-A | B | C | D)</span></div>
+<div class="line"><span class="comment">// TSEITIN: uses aux variables, all clauses have at most 3 literals</span></div>
 </div><!-- fragment --> <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af2e1a72f99e16438c039ed7ab2eb7f65a6fa44c3c8b15de8ac24c33914186694a" name="af2e1a72f99e16438c039ed7ab2eb7f65a6fa44c3c8b15de8ac24c33914186694a"></a>TSEITIN&#160;</td><td class="fielddoc"><p>Use Tseitin transformation with auxiliary variables (more vars, shorter clauses) </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af2e1a72f99e16438c039ed7ab2eb7f65a6fa44c3c8b15de8ac24c33914186694a" name="af2e1a72f99e16438c039ed7ab2eb7f65a6fa44c3c8b15de8ac24c33914186694a"></a>TSEITIN&#160;</td><td class="fielddoc"><p>Tseitin transformation: auxiliary variables for cross-tree constraints. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3" name="af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3"></a>STRAIGHTFORWARD&#160;</td><td class="fielddoc"><p>Direct conversion without auxiliary variables (fewer vars, potentially longer clauses) </p>
+<tr><td class="fieldname"><a id="af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3" name="af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3"></a>STRAIGHTFORWARD&#160;</td><td class="fielddoc"><p>Direct conversion: no auxiliary variables, potentially longer clauses. </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="CNFMode_8hh_source.html#l00048">48</a> of file <a class="el" href="CNFMode_8hh_source.html">CNFMode.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CNFMode_8hh_source.html#l00049">49</a> of file <a class="el" href="CNFMode_8hh_source.html">CNFMode.hh</a>.</p>
 
 </div>
 </div>

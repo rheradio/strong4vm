@@ -31,10 +31,11 @@ UVL2DIMACS_LIBS := $(UVL2DIMACS_BUILD)/libuvl2dimacs_api.a \
 
 # Dimacs2Graphs dependencies
 DIMACS2GRAPHS_API := ../dimacs2graphs/api/Dimacs2GraphsAPI.o
-BACKBONE_SOLVER_DIR := ../dimacs2graphs/backbone_solver/src
-BACKBONE_SOLVER_OBJS := $(BACKBONE_SOLVER_DIR)/api/BackboneSolverAPI.o \
+BACKBONE_SOLVER_DIR := ../uvl2dimacs/backbone_solver/src
+BACKBONE_SOLVER_OBJS := $(BACKBONE_SOLVER_DIR)/api/BoneDiggerAPI.o \
                    $(BACKBONE_SOLVER_DIR)/detectors/CheckCandidatesOneByOne.o \
-                   $(BACKBONE_SOLVER_DIR)/detectors/CheckCandidatesOneByOneWithoutAttention.o \
+                   $(BACKBONE_SOLVER_DIR)/detectors/FastOnCliffsSlowOnPlains.o \
+                   $(BACKBONE_SOLVER_DIR)/detectors/RushAndPray.o \
                    $(BACKBONE_SOLVER_DIR)/io/DIMACSReader.o \
                    $(BACKBONE_SOLVER_DIR)/data_structures/LiteralSet.o \
                    $(BACKBONE_SOLVER_DIR)/minisat_interface/minisat_aux.o

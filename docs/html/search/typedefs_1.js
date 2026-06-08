@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['range_0',['Range',['../DIMACSReader_8hh.html#afedca1f5f73af75f34691ca08cd394f8',1,'DIMACSReader.hh']]]
+  ['difference_5ftype_0',['difference_type',['../classconst__LiteralSetIterator.html#ace405568d0b2f3fad4990044252c7732',1,'const_LiteralSetIterator::difference_type'],['../classconst__LitIterator.html#ace405568d0b2f3fad4990044252c7732',1,'const_LitIterator::difference_type']]]
 ];

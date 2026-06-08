@@ -7,5 +7,6 @@ var classdimacs2graphs_1_1Dimacs2GraphsAPI =
     [ "get_error_message", "classdimacs2graphs_1_1Dimacs2GraphsAPI.html#a8bcc9acab822c147d395a6e358a922e7", null ],
     [ "get_global_backbone", "classdimacs2graphs_1_1Dimacs2GraphsAPI.html#a9dbbbe7abc12aa9572cd182ff9d0744a", null ],
     [ "get_num_clauses", "classdimacs2graphs_1_1Dimacs2GraphsAPI.html#a6a996ad83d35b9370de6c7a608971df7", null ],
-    [ "get_num_variables", "classdimacs2graphs_1_1Dimacs2GraphsAPI.html#a26d88999e87506faaf8f49c8a456c0aa", null ]
+    [ "get_num_variables", "classdimacs2graphs_1_1Dimacs2GraphsAPI.html#a26d88999e87506faaf8f49c8a456c0aa", null ],
+    [ "set_filter_auxiliary", "classdimacs2graphs_1_1Dimacs2GraphsAPI.html#a166cfe25b100caf775b8ccfcdb57ea52", null ]
 ];

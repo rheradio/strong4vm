@@ -188,12 +188,12 @@ Large Formula Scalability</h2>
 <h1><a class="anchor" id="autotoc_md125"></a>
 Thread Safety Limitations</h1>
 <h2><a class="anchor" id="autotoc_md126"></a>
-Backbone Solver API</h2>
-<p><b>Critical Limitation</b>: <code>BackboneSolverAPI</code> is NOT thread-safe.</p>
+BoneDigger API (Backbone Solver)</h2>
+<p><b>Critical Limitation</b>: <code>BoneDiggerAPI</code> is NOT thread-safe during initialization.</p>
 <p><b>Correct Usage</b> (Pre-initialization Pattern): </p><div class="fragment"><div class="line"><span class="comment">// ✓ CORRECT: Initialize in main thread</span></div>
-<div class="line">std::vector&lt;BackboneSolverAPI*&gt; solvers;</div>
+<div class="line">std::vector&lt;BoneDiggerAPI*&gt; solvers;</div>
 <div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_threads; i++) {</div>
-<div class="line">    solvers.push_back(<span class="keyword">new</span> BackboneSolverAPI());</div>
+<div class="line">    solvers.push_back(<span class="keyword">new</span> BoneDiggerAPI());</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Then use in parallel</span></div>
@@ -205,7 +205,7 @@ Backbone Solver API</h2>
 </div><!-- fragment --><p><b>Incorrect Usage</b>: </p><div class="fragment"><div class="line"><span class="comment">// ✗ WRONG: Never initialize inside parallel region</span></div>
 <div class="line"><span class="preprocessor">#pragma omp parallel</span></div>
 <div class="line">{</div>
-<div class="line">    BackboneSolverAPI solver;  <span class="comment">// RACE CONDITION!</span></div>
+<div class="line">    BoneDiggerAPI solver;  <span class="comment">// RACE CONDITION!</span></div>
 <div class="line">    solver.analyze(...);</div>
 <div class="line">}</div>
 </div><!-- fragment --><p><b>Why This Matters</b>: Violating this pattern leads to:</p><ul>
@@ -418,7 +418,7 @@ See Also</h1>
 <li><a class="el" href="getting_started.html">Getting Started with Strong4VM</a> for installation and setup</li>
 <li><a class="el" href="examples.html">Strong4VM Usage Examples</a> for usage patterns</li>
 <li><a class="el" href="architecture.html">Strong4VM Architecture</a> for system design</li>
-<li><a class="el" href="md__2mnt_2c_2strong4vm_2README.html">README</a> for quick reference </li>
+<li><a class="el" href="md__2mnt_2c_2improving__strong4vm_2strong4vm_2README.html">README</a> for quick reference </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

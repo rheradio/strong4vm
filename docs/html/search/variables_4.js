@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['global_5fbackbone_0',['global_backbone',['../structstrong4vm_1_1AnalysisResult.html#adc2fbda0d6a454258683ff24ed4f9611',1,'strong4vm::AnalysisResult::global_backbone'],['../classDimacs2GraphsAPI_1_1Impl.html#a142347b7bb0de2918ca730012f6dad86',1,'dimacs2graphs::Dimacs2GraphsAPI::Impl::global_backbone']]],
-  ['global_5fbb_1',['global_bb',['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#af4d26af72875b55e114cfb913d3365aa',1,'Dimacs2GraphsAPI::Impl::ThreadWorker']]]
+  ['end_5fidx_0',['end_idx',['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a45bcfdba78fb870f06c1a0240f841412',1,'Dimacs2GraphsAPI::Impl::ThreadWorker']]],
+  ['error_5fmessage_1',['error_message',['../structstrong4vm_1_1AnalysisResult.html#aa623ecc9262a4cb482b06564eafa7616',1,'strong4vm::AnalysisResult::error_message'],['../structuvl2dimacs_1_1ConversionResult.html#aa623ecc9262a4cb482b06564eafa7616',1,'uvl2dimacs::ConversionResult::error_message'],['../classDimacs2GraphsAPI_1_1Impl.html#a06e03f0daa47577a2a89ef867d6ae5c9',1,'dimacs2graphs::Dimacs2GraphsAPI::Impl::error_message']]],
+  ['error_5fmsg_2',['error_msg',['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a92f1181efe2f3630dbbc18a8342f1fcf',1,'Dimacs2GraphsAPI::Impl::ThreadWorker']]],
+  ['excludes_5fgraph_5ffile_3',['excludes_graph_file',['../structstrong4vm_1_1AnalysisResult.html#a8dc6f5b6c6b65672e049fcf8cf42914a',1,'strong4vm::AnalysisResult']]],
+  ['excludes_5flist_4',['excludes_list',['../structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html#a555ca9a021f05ade731d5a8521800902',1,'Dimacs2GraphsAPI::Impl::ThreadWorker']]]
 ];

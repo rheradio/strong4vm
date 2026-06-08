@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['last_5fresult_0',['last_result',['../classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#a009754beabc700d4263cd649b88dd3d8',1,'strong4vm::Strong4VMAPI::Impl']]]
+  ['input_5ffile_0',['input_file',['../structstrong4vm_1_1AnalysisConfig.html#a349e14923b76a99417517ba333ed4a0b',1,'strong4vm::AnalysisConfig::input_file'],['../structstrong4vm_1_1AnalysisResult.html#a349e14923b76a99417517ba333ed4a0b',1,'strong4vm::AnalysisResult::input_file']]],
+  ['input_5ftype_1',['input_type',['../structstrong4vm_1_1AnalysisConfig.html#a52bc6edf8f6effbee713acb96b3f731d',1,'strong4vm::AnalysisConfig::input_type'],['../structstrong4vm_1_1AnalysisResult.html#a52bc6edf8f6effbee713acb96b3f731d',1,'strong4vm::AnalysisResult::input_type']]]
 ];

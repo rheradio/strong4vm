@@ -14,7 +14,7 @@ However, these constraints result in numerous additional indirect relationships 
 
 **✨ Key Features:**
 
--   🎯 Unified interface: Unified interface: Single tool for UVL or DIMACS inputs. The [Universal Variability Language](https://universal-variability-language.github.io/) (UVL) is the standard notation for variability models; however, Strong4VM can also generate graphs for the Boolean translations of any variability model notation. This is made possible by its support for DIMACS files. For example, it can generate graphs using [KconfigReader](https://github.com/ckaestne/kconfigreader) first to convert Kconfig files (used in Linux, BusyBox, axTLS, and more) into Boolean formulas.
+-   🎯 Unified interface: Single tool for UVL or DIMACS inputs. The [Universal Variability Language](https://universal-variability-language.github.io/) (UVL) is the standard notation for variability models; however, Strong4VM can also generate graphs for the Boolean translations of any variability model notation. This is made possible by its support for DIMACS files. For example, it can generate graphs using [KconfigReader](https://github.com/ckaestne/kconfigreader) first to convert Kconfig files (used in Linux, BusyBox, axTLS, and more) into Boolean formulas.
 
 -   ⚡ High performance: Multi-threaded graph generation with configurable parallelism
 
@@ -26,6 +26,8 @@ However, these constraints result in numerous additional indirect relationships 
 
 ### 💾 Installation
 
+Strong4VM runs natively on **Linux** and **macOS**. On **Windows**, use the [Docker image](#-docker) instead — no native Windows build is supported.
+
 ``` bash
 # Navigate to the strong4vm
 cd strong4vm
@@ -35,24 +37,6 @@ make
 
 # Optional: Install to ~/bin
 make install
-```
-
-Strong4Vm has been tested on Linux and macOS.
-
-### 💻 Basic Usage
-
-``` bash
-# Analyze a UVL feature model
-./bin/strong4vm model.uvl
-
-# Analyze a DIMACS formula
-./bin/strong4vm formula.dimacs
-
-# Use 8 threads for fast processing
-./bin/strong4vm model.uvl -t 8
-
-# Custom output directory and keep DIMACS
-./bin/strong4vm model.uvl -o ./output -k
 ```
 
 ### 📁 Output Files
@@ -90,27 +74,96 @@ make help             # Show all available targets
 
 Output: `bin/strong4vm`
 
+## 🐳 Docker
+
+Strong4VM does not support native Windows builds. Docker is the recommended way to run it on Windows, and also works on Linux and macOS if you prefer not to install a local toolchain.
+
+### Prerequisites
+
+-   **Linux / macOS**: Docker Engine must be installed and the daemon running.
+-   **Windows**: [Docker Desktop](https://www.docker.com/products/docker-desktop/) must be installed and **running** before any `docker` command will work. Start it from the Start menu and wait until the whale icon in the system tray shows *"Docker Desktop is running"*.
+
+### Building the Image
+
+``` bash
+docker build -t strong4vm .
+```
+
+The image uses a two-stage build on Ubuntu 24.04: a builder stage that compiles all dependencies from scratch (ANTLR4 runtime, MiniSat, BoneDigger, strong4vm), and a slim runtime stage that contains only the resulting binaries. The first build takes around 5–10 minutes; subsequent builds are fast thanks to Docker layer caching.
+
+### Running
+
+The container's working directory is `/data`. The key idea is to **mount the folder that holds your model files** into that directory with `-v`, so the container can read your inputs and write its outputs back to your machine.
+
+Say you want to analyze the BusyBox feature model included in the `examples/` folder. Navigate to `examples/` and run the command for your shell:
+
+**Linux / macOS (bash/zsh)**
+``` bash
+cd examples
+docker run --rm -v $(pwd):/data strong4vm busybox_01.uvl
+```
+
+**Windows — Command Prompt**
+``` cmd
+cd examples
+docker run --rm -v %cd%:/data strong4vm busybox_01.uvl
+```
+
+**Windows — PowerShell**
+``` powershell
+cd examples
+$dir = $PWD.Path.Replace('\', '/')
+docker run --rm -v "${dir}:/data" strong4vm busybox_01.uvl
+```
+
+Strong4VM will read `busybox_01.uvl` from your local folder and write four files right next to it:
+
+```
+examples/
+├── busybox_01__requires.net   ← strong transitive dependency graph
+├── busybox_01__excludes.net   ← strong transitive conflict graph
+├── busybox_01__core.txt       ← features enabled in every valid configuration
+└── busybox_01__dead.txt       ← features disabled in every valid configuration
+```
+
+To send output to a separate folder, or to speed up analysis with multiple threads, add `-o` and `-t`:
+
+**Linux / macOS**
+``` bash
+docker run --rm -v $(pwd):/data strong4vm busybox_01.uvl -t 4 -o /data/results
+```
+
+**Windows — Command Prompt**
+``` cmd
+docker run --rm -v %cd%:/data strong4vm busybox_01.uvl -t 4 -o /data/results
+```
+
+**Windows — PowerShell**
+``` powershell
+$dir = $PWD.Path.Replace('\', '/')
+docker run --rm -v "${dir}:/data" strong4vm busybox_01.uvl -t 4 -o /data/results
+```
+
+DIMACS files work exactly the same way — just pass the `.dimacs` file instead of a `.uvl` file.
+
 ## 📖 Usage
 
 ### 🎯 CLI
 
 ``` bash
-# Basic usage
-./bin/strong4vm model.uvl
-./bin/strong4vm formula.dimacs
-
-# Advanced options
-./bin/strong4vm model.uvl -t 4              # Use 4 threads
-./bin/strong4vm model.uvl -o ./output -k    # Custom output + keep DIMACS
-./bin/strong4vm model.uvl -t 8 -o ./results # 8 threads + custom output
+./bin/strong4vm model.uvl                    # Analyze a UVL feature model
+./bin/strong4vm formula.dimacs               # Analyze a DIMACS formula
+./bin/strong4vm model.uvl -t 8               # Use 8 threads
+./bin/strong4vm model.uvl -o ./output -k     # Custom output dir + keep DIMACS
+./bin/strong4vm model.uvl -e                 # Enable Tseitin transformation
 ```
 
 **⚙️ Options:**
 
--   `-t, --threads N` - Number of threads for graph generation (default: 1).
--   `-o, --output DIR` - Output directory (default: same as input file)
+-   `-t, --threads N` - Number of threads for graph generation (default: 1)
+-   `-o, --output DIR` - Output directory (default: same directory as input file)
 -   `-k, --keep-dimacs` - Keep intermediate DIMACS file (UVL input only)
--   `-e, --enable-tseitin` - Enable Tseitin transformation for UVL conversion (introduces auxiliary variables for cross-tree constraints to prevent exponential clause growth; feature tree relations are encoded directly)
+-   `-e, --enable-tseitin` - Enable Tseitin transformation for cross-tree constraints (see [uvl2dimacs Architecture](#-uvl2dimacs-architecture))
 -   `-h, --help` - Display help message
 
 ### 🔗 API
@@ -135,19 +188,19 @@ As the following figure shows, Strong4VM consists of three main components: two 
 
 ### 🔄 uvl2dimacs Architecture
 
-Multi-layer design for converting UVL feature models to CNF format using ANTLR4 parser. Supports two conversion modes: **Straightforward** (direct conversion, fewer variables, potentially longer clauses) and **Tseitin** (introduces auxiliary variables for cross-tree constraint expressions to prevent exponential clause growth; feature tree relations are always encoded directly since they are already valid CNF disjunctions).
+Multi-layer design for converting UVL feature models to CNF format using ANTLR4 parser. Supports two conversion modes: **Straightforward** (default, direct conversion, fewer variables, potentially longer clauses) and **Tseitin** (introduces auxiliary variables for cross-tree constraint expressions to prevent exponential clause growth; feature tree relations are always encoded directly since they are already valid CNF disjunctions). An optional **backbone simplification** pass is available via the API (`set_backbone_simplification(true)`): BoneDigger identifies backbone literals and simplifies the DIMACS formula before graph analysis, reducing formula size by 30–50%. This pass is disabled by default in the strong4vm CLI and unified API.
 
 **For detailed architecture, see [Doxygen Documentation](docs/html/group__UVL2Dimacs.html)**
 
 ### 📊 dimacs2graphs Architecture
 
-Analyzes SAT formulas using backbone detection to generate dependency graphs. Supports multi-threaded parallel processing.
+Analyzes SAT formulas using backbone detection to generate dependency graphs. Supports multi-threaded parallel processing. Auxiliary variables (`aux_*` and `k!\d+`) are automatically excluded from backbone iteration and graph output.
 
 **For detailed architecture, see [Doxygen Documentation](docs/html/group__ParallelGraphs.html)**
 
-### 🧠 Backbone Solver Architecture
+### 🧠 Backbone Solver Architecture (BoneDigger)
 
-High-performance backbone detection engine using MiniSat with activity bumping heuristics.
+High-performance backbone detection engine (BoneDigger) using MiniSat with three detection strategies: **CheckCandidatesOneByOne** (reliable, activity-bumping), **FastOnCliffsSlowOnPlains** (adaptive cliff/plain), and **RushAndPray** (fast rush-and-verify). BoneDigger is also available for optional backbone simplification in uvl2dimacs (disabled by default in the strong4vm pipeline).
 
 **For detailed architecture, see [Doxygen Documentation](docs/html/group__API.html)**
 
@@ -170,6 +223,7 @@ p cnf <variables> <clauses>
 
 -   Lines starting with `c` are comments
 -   For dimacs2graphs, comments like `c <var_number> <feature_name>` map variables to feature names
+-   Variables whose names start with `aux_` or match `k!\d+` are treated as Tseitin auxiliary variables and automatically excluded from the graph output. The `k!\d+` pattern covers the naming convention used by [KconfigReader](https://github.com/ckaestne/kconfigreader)
 
 ## 📚 Documentation
 
@@ -183,7 +237,7 @@ make docs
 # Output: docs/html/index.html
 ```
 
-**Requirements:** - Doxygen 1.9.0+ - Graphviz (optional, for diagrams)
+**Requirements:** Doxygen 1.9.0+, Graphviz (optional, for diagrams)
 
 ### 📁 Project Structure
 
@@ -196,29 +250,29 @@ strong4vm/
 │   ├── src/                # Implementation
 │   ├── examples/           # Usage examples
 │   └── docs/               # API documentation
-├── uvl2dimacs/             # UVL to DIMACS converter
+├── uvl2dimacs/             # UVL to DIMACS converter + BoneDigger backbone solver
 │   ├── cli/                # CLI tool
 │   ├── api/                # C++ API (include/, src/, examples/)
-│   ├── generator/          # Core conversion logic
+│   ├── generator/          # Core conversion logic (includes BackboneSimplifier)
 │   ├── parser/             # ANTLR4 UVL parser
+│   ├── backbone_solver/    # BoneDigger backbone detection engine
+│   │   └── src/
+│   │       ├── api/        # BoneDiggerAPI
+│   │       ├── detectors/  # CheckCandidatesOneByOne, FastOnCliffsSlowOnPlains, RushAndPray
+│   │       ├── data_structures/ # LiteralSet
+│   │       ├── io/         # DIMACS file reading
+│   │       ├── minisat/    # MiniSat SAT solver
+│   │       └── minisat_interface/ # Extended MiniSat wrapper
 │   ├── build/              # CMake build artifacts
 │   ├── docs/               # Component documentation
 │   └── third_party/        # ANTLR4 runtime dependencies
 ├── dimacs2graphs/          # DIMACS to graphs generator
 │   ├── cli/                # CLI tool
 │   ├── api/                # C++ API
-│   ├── backbone_solver/    # Backbone detection engine
-│   │   ├── src/
-│   │   │   ├── api/        # Backbone Solver API
-│   │   │   ├── detectors/  # Detection algorithms
-│   │   │   ├── data_structures/ # Core data structures
-│   │   │   ├── io/         # Input/output handling
-│   │   │   ├── minisat/    # MiniSat SAT solver
-│   │   │   └── minisat_interface/ # IPASIR wrapper
-│   │   ├── bin/            # Built executables
-│   │   └── docs/           # Component documentation
 │   ├── bin/                # Component executables
 │   └── docs/               # Component documentation
+├── backbone_solver/        # Runtime backbone solver binary
+│   └── bin/                # backbone_solver executable (used by uvl2dimacs)
 ├── examples/               # Sample UVL feature models (45+ models)
 ├── figures/                # Architecture diagrams (architecture.png, icon.svg)
 ├── docs/                   # Generated Doxygen documentation
@@ -227,8 +281,6 @@ strong4vm/
 ```
 
 ## ⚠️ Limitations
-
-uvl2dimacs has the following Limitations
 
 1.  **Feature Cardinality:** UVL `cardinality [1..*]` notation not expanded (requires indexed feature generation)
 2.  **Arithmetic Constraints:** Comparison and arithmetic operators filtered out (requires SMT solver, not pure SAT)
@@ -250,8 +302,9 @@ make
 # Linux (Ubuntu/Debian)
 sudo apt-get install build-essential cmake zlib1g-dev
 
-# macOS
-brew install cmake zlib
+# macOS (Xcode CLT provides the compiler and make; Homebrew provides cmake)
+xcode-select --install
+brew install cmake
 ```
 
 ## 📜 License, Authors & Funding

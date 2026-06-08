@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['main_0',['main',['../api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;api_example.cc'],['../backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;api_example.cc']]],
+  ['main_0',['main',['../dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;api_example.cc'],['../uvl2dimacs_2backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;api_example.cc']]],
   ['mainpage_2emd_1',['mainpage.md',['../mainpage_8md.html',1,'']]],
   ['mandatory_2',['MANDATORY',['../classRelation.html#a1d1cfd8ffb84e947f82999c682b666a7ac25db15b6f91b287b5b3c8a515bd21ce',1,'Relation']]],
   ['match_3',['match',['../group__ParseUtils.html#ga18852b41e23d91af276423680a89effb',1,'parse_utils.hh']]],

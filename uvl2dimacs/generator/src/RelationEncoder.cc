@@ -28,7 +28,7 @@
  * @brief Constructs an encoder for the given CNF model
  *
  * @param model CNF model to add relation clauses to
- * @param conversion_mode CNF mode (STRAIGHTFORWARD or TSEITIN for 3-CNF)
+ * @param conversion_mode CNF mode (STRAIGHTFORWARD or TSEITIN)
  */
 RelationEncoder::RelationEncoder(CNFModel& model, CNFMode conversion_mode)
     : cnf_model(model), mode(conversion_mode) {
@@ -139,13 +139,13 @@ void RelationEncoder::encode_optional(std::shared_ptr<Relation> relation) {
  * Semantics: parent → (child₁ ∨ child₂ ∨ ... ∨ childₙ)
  * If parent is selected, at least one child must be selected.
  *
- * STRAIGHTFORWARD mode (n+1 clauses):
+ * CNF Encoding (n+1 clauses):
  * 1. (¬parent ∨ child₁ ∨ child₂ ∨ ... ∨ childₙ) - at least one child
  * 2. For each child i: (¬childᵢ ∨ parent) - child implies parent
  *
- * In both modes, the "at least one child" clause is emitted directly as
- * (¬parent ∨ child₁ ∨ ... ∨ childₙ), since it is already a valid CNF clause
- * and does not require Tseitin decomposition.
+ * This direct encoding is used in both STRAIGHTFORWARD and TSEITIN modes.
+ * Auxiliary variables are only introduced for cross-tree constraint expressions,
+ * not for feature tree relation clauses which are already valid CNF disjunctions.
  *
  * @param relation The OR relation (must have at least 1 child)
  * @throws std::runtime_error if relation has no children
@@ -166,8 +166,7 @@ void RelationEncoder::encode_or(std::shared_ptr<Relation> relation) {
         child_vars.push_back(cnf_model.get_variable(child->get_name()));
     }
 
-    // Encode "at least one child" constraint: direct encoding
-    // The clause (¬parent ∨ c1 ∨ ... ∨ cn) is already valid CNF
+    // Direct encoding: emit a single clause of arbitrary length
     std::vector<int> or_clause = {-parent_var};
     for (int cv : child_vars) {
         or_clause.push_back(cv);
@@ -186,14 +185,14 @@ void RelationEncoder::encode_or(std::shared_ptr<Relation> relation) {
  * Semantics: parent → (exactly one of children)
  * If parent is selected, exactly one child must be selected.
  *
- * STRAIGHTFORWARD mode (1 + n(n-1)/2 + n clauses = O(n²)):
+ * CNF Encoding (1 + n(n-1)/2 + n clauses = O(n²)):
  * 1. (¬parent ∨ child₁ ∨ child₂ ∨ ... ∨ childₙ) - at least one child
  * 2. For each pair (i,j): (¬childᵢ ∨ ¬childⱼ) - at most one child (pairwise)
  * 3. For each child i: (¬childᵢ ∨ parent) - child implies parent
  *
- * In both modes, the "at least one child" clause is emitted directly as
- * (¬parent ∨ child₁ ∨ ... ∨ childₙ), since it is already a valid CNF clause.
- * Pairwise "at most one" clauses already have 2 literals per clause.
+ * This direct encoding is used in both STRAIGHTFORWARD and TSEITIN modes.
+ * Auxiliary variables are only introduced for cross-tree constraint expressions,
+ * not for feature tree relation clauses which are already valid CNF disjunctions.
  *
  * @param relation The alternative relation (must have at least 2 children)
  * @throws std::runtime_error if relation has fewer than 2 children
@@ -214,15 +213,14 @@ void RelationEncoder::encode_alternative(std::shared_ptr<Relation> relation) {
         child_vars.push_back(cnf_model.get_variable(child->get_name()));
     }
 
-    // Encode "at least one child" constraint: direct encoding
-    // The clause (¬parent ∨ c1 ∨ ... ∨ cn) is already valid CNF
+    // Direct encoding: emit "at least one child" as a single clause of arbitrary length
     std::vector<int> or_clause = {-parent_var};
     for (int cv : child_vars) {
         or_clause.push_back(cv);
     }
     cnf_model.add_clause(or_clause);
 
-    // Encode "at most one child" constraint (pairwise - already 2 literals)
+    // Encode "at most one child" constraint (pairwise - always 2 literals)
     for (size_t i = 0; i < child_vars.size(); ++i) {
         for (size_t j = i + 1; j < child_vars.size(); ++j) {
             cnf_model.add_clause({-child_vars[i], -child_vars[j]});
@@ -241,15 +239,15 @@ void RelationEncoder::encode_alternative(std::shared_ptr<Relation> relation) {
  * Semantics: parent → (select between min and max children)
  * If parent is selected, between min and max children (inclusive) must be selected.
  *
- * STRAIGHTFORWARD mode (enumeration-based approach):
+ * Enumeration-based approach (used in both STRAIGHTFORWARD and TSEITIN modes):
  * - For each possible count k of selected children (0 to n):
  *   - If k is invalid (k < min or k > max):
  *     For each combination C of k children:
  *       Add clause: (¬parent ∨ ¬(exactly C are selected))
  * - For each child: (¬child ∨ parent)
  *
- * In both modes, cardinality clauses are emitted directly since they are
- * already valid CNF disjunctions.
+ * Clauses are emitted directly at arbitrary length. Auxiliary variables are only
+ * introduced for cross-tree constraint expressions, not for feature tree relations.
  *
  * Complexity: Can generate many clauses for complex cardinalities.
  * Number of clauses ≈ Σ C(n,k) for invalid counts.
@@ -289,21 +287,15 @@ void RelationEncoder::encode_cardinality(std::shared_ptr<Relation> relation) {
                 first_lit = -parent_var;
             }
 
-            // Build literals for "NOT(exactly this combination)"
-            std::vector<int> combo_lits;
+            // Build literals for "NOT(exactly this combination)" and emit directly
+            std::vector<int> clause = {first_lit};
             for (int i = 0; i < num_children; ++i) {
                 bool in_combo = std::find(combo.begin(), combo.end(), i) != combo.end();
                 if (in_combo) {
-                    combo_lits.push_back(-child_vars[i]);
+                    clause.push_back(-child_vars[i]);
                 } else {
-                    combo_lits.push_back(child_vars[i]);
+                    clause.push_back(child_vars[i]);
                 }
-            }
-
-            // Direct encoding: the clause is already valid CNF
-            std::vector<int> clause = {first_lit};
-            for (int lit : combo_lits) {
-                clause.push_back(lit);
             }
             cnf_model.add_clause(clause);
         }

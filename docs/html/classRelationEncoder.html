@@ -105,9 +105,9 @@ $(document).ready(function(){initNavTree('classRelationEncoder.html',''); initRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afb3e99f2eda16221ef281a7fe7878dd8" id="r_afb3e99f2eda16221ef281a7fe7878dd8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelationEncoder.html#afb3e99f2eda16221ef281a7fe7878dd8">RelationEncoder</a> (<a class="el" href="classCNFModel.html">CNFModel</a> &amp;model)</td></tr>
-<tr class="memdesc:afb3e99f2eda16221ef281a7fe7878dd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an encoder for the given CNF model.  <br /></td></tr>
-<tr class="separator:afb3e99f2eda16221ef281a7fe7878dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a165edf6d27c9b23af159ef8d0348d2a1" id="r_a165edf6d27c9b23af159ef8d0348d2a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelationEncoder.html#a165edf6d27c9b23af159ef8d0348d2a1">RelationEncoder</a> (<a class="el" href="classCNFModel.html">CNFModel</a> &amp;model, <a class="el" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a> conversion_mode=<a class="el" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a>)</td></tr>
+<tr class="memdesc:a165edf6d27c9b23af159ef8d0348d2a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an encoder for the given CNF model.  <br /></td></tr>
+<tr class="separator:a165edf6d27c9b23af159ef8d0348d2a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f69290100a28e61358a4d50a31a7c0b" id="r_a2f69290100a28e61358a4d50a31a7c0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelationEncoder.html#a2f69290100a28e61358a4d50a31a7c0b">~RelationEncoder</a> ()=default</td></tr>
 <tr class="memdesc:a2f69290100a28e61358a4d50a31a7c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <br /></td></tr>
 <tr class="separator:a2f69290100a28e61358a4d50a31a7c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,16 +147,18 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="classCNFModel.html" title="Represents a CNF (Conjunctive Normal Form) formula with variable mappings.">CNFModel</a> for the <a class="el" href="DIMACSReader_8hh.html#a944546e234bb3085461279df3c49fa6e" title="CNF formula represented as a vector of clauses (LitSets)">CNF</a> representation </dd>
 <dd>
 <a class="el" href="classFMToCNF.html" title="Transforms a feature model into a CNF formula.">FMToCNF</a> for the overall transformation process</dd></dl>
+<p><a class="el" href="classFeature.html" title="Represents a feature node in the UVL feature tree.">Feature</a> tree relation clauses are emitted directly at arbitrary length in both STRAIGHTFORWARD and TSEITIN modes. Auxiliary variables are only introduced for cross-tree constraint expressions (handled by ASTNode::tseitin_transform).</p>
 <p>Example: </p><div class="fragment"><div class="line"><a class="code hl_class" href="classCNFModel.html">CNFModel</a> cnf;</div>
-<div class="line"><a class="code hl_class" href="classRelationEncoder.html">RelationEncoder</a> encoder(cnf);</div>
-<div class="line">encoder.encode_relation(mandatory_relation);  <span class="comment">// Encodes parent &lt;=&gt; child</span></div>
+<div class="line"><a class="code hl_class" href="classRelationEncoder.html">RelationEncoder</a> encoder(cnf, <a class="code hl_enumvalue" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65a6fa44c3c8b15de8ac24c33914186694a">CNFMode::TSEITIN</a>);</div>
+<div class="line">encoder.encode_relation(mandatory_relation);</div>
+<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65a6fa44c3c8b15de8ac24c33914186694a"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65a6fa44c3c8b15de8ac24c33914186694a">CNFMode::TSEITIN</a></div><div class="ttdeci">@ TSEITIN</div><div class="ttdoc">Tseitin transformation: auxiliary variables for cross-tree constraints.</div></div>
 <div class="ttc" id="aclassCNFModel_html"><div class="ttname"><a href="classCNFModel.html">CNFModel</a></div><div class="ttdoc">Represents a CNF (Conjunctive Normal Form) formula with variable mappings.</div><div class="ttdef"><b>Definition</b> <a href="CNFModel_8hh_source.html#l00051">CNFModel.hh:51</a></div></div>
-<div class="ttc" id="aclassRelationEncoder_html"><div class="ttname"><a href="classRelationEncoder.html">RelationEncoder</a></div><div class="ttdoc">Encodes feature model relations as CNF clauses.</div><div class="ttdef"><b>Definition</b> <a href="RelationEncoder_8hh_source.html#l00062">RelationEncoder.hh:62</a></div></div>
+<div class="ttc" id="aclassRelationEncoder_html"><div class="ttname"><a href="classRelationEncoder.html">RelationEncoder</a></div><div class="ttdoc">Encodes feature model relations as CNF clauses.</div><div class="ttdef"><b>Definition</b> <a href="RelationEncoder_8hh_source.html#l00067">RelationEncoder.hh:67</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="RelationEncoder_8hh_source.html#l00062">62</a> of file <a class="el" href="RelationEncoder_8hh_source.html">RelationEncoder.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RelationEncoder_8hh_source.html#l00067">67</a> of file <a class="el" href="RelationEncoder_8hh_source.html">RelationEncoder.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afb3e99f2eda16221ef281a7fe7878dd8" name="afb3e99f2eda16221ef281a7fe7878dd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb3e99f2eda16221ef281a7fe7878dd8">&#9670;&#160;</a></span>RelationEncoder()</h2>
+<a id="a165edf6d27c9b23af159ef8d0348d2a1" name="a165edf6d27c9b23af159ef8d0348d2a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a165edf6d27c9b23af159ef8d0348d2a1">&#9670;&#160;</a></span>RelationEncoder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,8 +170,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classRelationEncoder.html">RelationEncoder</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classCNFModel.html">CNFModel</a> &amp;&#160;</td>
-          <td class="paramname"><em>model</em></td><td>)</td>
+          <td class="paramname"><em>model</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a>&#160;</td>
+          <td class="paramname"><em>conversion_mode</em> = <code><a class="el" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -183,6 +195,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">model</td><td>Reference to the CNF model where clauses will be added </td></tr>
+    <tr><td class="paramname">conversion_mode</td><td>CNF mode: STRAIGHTFORWARD (default) or TSEITIN </td></tr>
   </table>
   </dd>
 </dl>
@@ -245,7 +258,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/mnt/c/strong4vm/uvl2dimacs/generator/include/<a class="el" href="RelationEncoder_8hh_source.html">RelationEncoder.hh</a></li>
+<li>/mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/generator/include/<a class="el" href="RelationEncoder_8hh_source.html">RelationEncoder.hh</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

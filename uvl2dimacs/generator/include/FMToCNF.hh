@@ -56,6 +56,7 @@ private:
     std::shared_ptr<FeatureModel> source_model;  ///< The feature model to convert
     CNFModel cnf_model;                          ///< The resulting CNF model
     CNFMode mode;                                ///< Conversion mode for constraints
+    int skipped_constraints_count{0};            ///< Number of non-Boolean constraints skipped
 
 public:
     /**
@@ -85,6 +86,9 @@ public:
      * @see CNFMode for mode descriptions
      */
     CNFModel transform(CNFMode conversion_mode = CNFMode::STRAIGHTFORWARD);
+
+    /// Returns the number of constraints skipped due to arithmetic / non-Boolean operators.
+    int get_skipped_constraints() const { return skipped_constraints_count; }
 
 private:
     /**

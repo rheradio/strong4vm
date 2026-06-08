@@ -61,6 +61,7 @@ private:
 
     std::stack<std::shared_ptr<ASTNode>> ast_stack;           ///< Stack for building constraint ASTs
     int constraint_counter;                                   ///< Counter for auto-naming constraints
+    bool current_constraint_failed{false};                    ///< Set when a constraint cannot be parsed
 
 public:
     /**
@@ -137,6 +138,11 @@ public:
     void exitCardinalityGroup(UVLCppParser::CardinalityGroupContext *ctx) override;
 
     // Constraint parsing callbacks
+
+    /**
+     * @brief Called when entering a constraint line — resets per-constraint state
+     */
+    void enterConstraintLine(UVLCppParser::ConstraintLineContext *ctx) override;
 
     /**
      * @brief Called when exiting a constraint line

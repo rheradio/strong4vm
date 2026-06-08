@@ -2,6 +2,7 @@ var classFeatureModelBuilder =
 [
     [ "FeatureModelBuilder", "classFeatureModelBuilder.html#a739222a190a3791cf1d4c143797c82e3", null ],
     [ "~FeatureModelBuilder", "classFeatureModelBuilder.html#ac23e81eb86b2204a2c30f29285b9460a", null ],
+    [ "enterConstraintLine", "classFeatureModelBuilder.html#ad6be18a0f2f15ddb41c9b7075d18a35d", null ],
     [ "enterFeature", "classFeatureModelBuilder.html#a6d69e5ffb6c0e0dcb015a54747c0d097", null ],
     [ "exitAddExpression", "classFeatureModelBuilder.html#a010f2d5b15a868b817590e11e86018a3", null ],
     [ "exitAlternativeGroup", "classFeatureModelBuilder.html#ad74346f0dd62cb27df59a0b38c573c06", null ],

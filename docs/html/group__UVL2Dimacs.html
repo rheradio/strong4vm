@@ -147,48 +147,96 @@ UVL Grammar Basics</h2>
 <div class="line">    Electric =&gt; GPS</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md158"></a>
 Conversion Modes</h2>
-<p>The API supports two CNF transformation strategies:</p>
-<p><b>Straightforward (Default):</b></p><ul>
+<p>The API supports two CNF transformation strategies, each optimized for different use cases:</p>
+<p><b>Straightforward (Default - ConversionMode::STRAIGHTFORWARD):</b></p><ul>
 <li>Direct transformation using NNF (Negation Normal Form) and distribution law</li>
-<li>Fewer variables (1 variable per feature)</li>
-<li>May produce longer clauses for complex constraints</li>
-<li>Recommended for most use cases</li>
+<li>Fewer variables (1 variable per feature, no auxiliary variables)</li>
+<li>May produce longer clauses for complex constraints (no clause size limit)</li>
+<li>More compact representation (fewer total clauses)</li>
+<li><b>Best for:</b> Most models, simple to medium complexity, when variable count is important</li>
+<li><b>When to use:</b> General purpose feature models, simple Boolean constraints</li>
 </ul>
-<p><b>Tseitin:</b></p><ul>
-<li>Introduces auxiliary variables for subexpressions</li>
-<li>Produces 3-CNF (all clauses have ≤3 literals)</li>
-<li>More clauses but shorter, potentially faster for some solvers</li>
-<li>Recommended for formulas with deeply nested boolean expressions</li>
+<p><b>Tseitin (ConversionMode::TSEITIN):</b></p><ul>
+<li>Introduces auxiliary variables for Boolean sub-expressions in cross-tree constraints</li>
+<li><a class="el" href="classFeature.html" title="Represents a feature node in the UVL feature tree.">Feature</a> tree relation clauses (OR groups, ALTERNATIVE groups, CARDINALITY) are emitted directly as CNF disjunctions of arbitrary length — no decomposition</li>
+<li>Prevents exponential clause explosion in deeply nested cross-tree constraint expressions</li>
+<li><b>Best for:</b> Models with complex, deeply nested Boolean cross-tree constraints</li>
+<li><b>When to use:</b> Cross-tree constraints with many nested AND/OR/IMPLIES/IFF operations</li>
 </ul>
+<p><b>Comparison Table:</b></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Aspect   </th><th class="markdownTableHeadNone">Straightforward   </th><th class="markdownTableHeadNone">Tseitin    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Variables   </td><td class="markdownTableBodyNone">n features   </td><td class="markdownTableBodyNone">n features + m auxiliary    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Clauses   </td><td class="markdownTableBodyNone">Fewer total   </td><td class="markdownTableBodyNone">More total    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><a class="el" href="classFeature.html" title="Represents a feature node in the UVL feature tree.">Feature</a> tree relation clauses   </td><td class="markdownTableBodyNone">Direct (arbitrary length)   </td><td class="markdownTableBodyNone">Direct (arbitrary length)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Cross-tree constraint clauses   </td><td class="markdownTableBodyNone">May grow exponentially   </td><td class="markdownTableBodyNone">Linear size    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Technique   </td><td class="markdownTableBodyNone">NNF + distribution   </td><td class="markdownTableBodyNone">Tseitin auxiliary variables    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Best for   </td><td class="markdownTableBodyNone">General use   </td><td class="markdownTableBodyNone">Deeply nested cross-tree constraints   </td></tr>
+</table>
+<p>See docs/translation.md for detailed transformation rules and examples.</p>
 <h2><a class="anchor" id="autotoc_md159"></a>
+Backbone Simplification</h2>
+<p>Optional feature to reduce formula size while preserving solution count:</p><ul>
+<li><b>What it does</b>: Removes satisfied clauses and shortens others using backbone literals</li>
+<li><b>Backbone</b>: Set of literals that must be true/false in all satisfying assignments</li>
+<li><b>Performance</b>: Typical reduction of 30-50% in formula size</li>
+<li><b>Guarantees</b>: Preserves the exact number of satisfying assignments (verified by test suite)</li>
+<li><b>Works with</b>: Both STRAIGHTFORWARD and TSEITIN modes</li>
+<li><b>Requires</b>: backbone_solver executable (included in project)</li>
+</ul>
+<p>Enable with <code>set_backbone_simplification(true)</code> before calling <code>convert()</code>.</p>
+<h2><a class="anchor" id="autotoc_md160"></a>
 API Usage</h2>
-<p>Basic usage pattern: </p><div class="fragment"><div class="line"><a class="code hl_class" href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a> converter;</div>
-<div class="line">converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a2e69dfa61cd9b0bf02f82da4985aa397">set_mode</a>(ConversionMode::STRAIGHTFORWARD);</div>
+<p><b>Basic conversion (Straightforward mode):</b> </p><div class="fragment"><div class="line"><a class="code hl_class" href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a> converter;</div>
+<div class="line">converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a2e69dfa61cd9b0bf02f82da4985aa397">set_mode</a>(ConversionMode::STRAIGHTFORWARD);  <span class="comment">// Default mode</span></div>
 <div class="line"><span class="keyword">auto</span> result = converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a5214caaa61009153c94fc3657804ef17">convert</a>(<span class="stringliteral">&quot;model.uvl&quot;</span>, <span class="stringliteral">&quot;output.dimacs&quot;</span>);</div>
 <div class="line"><span class="keywordflow">if</span> (result.success) {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Features: &quot;</span> &lt;&lt; result.<a class="code hl_variable" href="structuvl2dimacs_1_1ConversionResult.html#aef0090071c7adec0cda2fafc090f4e26">num_features</a> &lt;&lt; std::endl;</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;CNF Variables: &quot;</span> &lt;&lt; result.num_variables &lt;&lt; std::endl;</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;CNF Clauses: &quot;</span> &lt;&lt; result.num_clauses &lt;&lt; std::endl;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a></div><div class="ttdoc">Main class for UVL to DIMACS conversion.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00174">UVL2Dimacs.hh:174</a></div></div>
+<div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a></div><div class="ttdoc">Main class for UVL to DIMACS conversion.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00261">UVL2Dimacs.hh:261</a></div></div>
 <div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html_a2e69dfa61cd9b0bf02f82da4985aa397"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html#a2e69dfa61cd9b0bf02f82da4985aa397">uvl2dimacs::UVL2Dimacs::set_mode</a></div><div class="ttdeci">void set_mode(ConversionMode mode)</div><div class="ttdoc">Set conversion mode.</div></div>
 <div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html_a5214caaa61009153c94fc3657804ef17"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html#a5214caaa61009153c94fc3657804ef17">uvl2dimacs::UVL2Dimacs::convert</a></div><div class="ttdeci">ConversionResult convert(const std::string &amp;input_file, const std::string &amp;output_file)</div><div class="ttdoc">Convert a UVL file to DIMACS format.</div></div>
-<div class="ttc" id="astructuvl2dimacs_1_1ConversionResult_html_aef0090071c7adec0cda2fafc090f4e26"><div class="ttname"><a href="structuvl2dimacs_1_1ConversionResult.html#aef0090071c7adec0cda2fafc090f4e26">uvl2dimacs::ConversionResult::num_features</a></div><div class="ttdeci">int num_features</div><div class="ttdoc">Number of features in the input model.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00131">UVL2Dimacs.hh:131</a></div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md160"></a>
+<div class="ttc" id="astructuvl2dimacs_1_1ConversionResult_html_aef0090071c7adec0cda2fafc090f4e26"><div class="ttname"><a href="structuvl2dimacs_1_1ConversionResult.html#aef0090071c7adec0cda2fafc090f4e26">uvl2dimacs::ConversionResult::num_features</a></div><div class="ttdeci">int num_features</div><div class="ttdoc">Number of features in the input model.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00214">UVL2Dimacs.hh:214</a></div></div>
+</div><!-- fragment --><p><b>Tseitin mode:</b> </p><div class="fragment"><div class="line"><a class="code hl_class" href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a> converter;</div>
+<div class="line">converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a2e69dfa61cd9b0bf02f82da4985aa397">set_mode</a>(ConversionMode::TSEITIN);  <span class="comment">// Use Tseitin transformation</span></div>
+<div class="line"><span class="keyword">auto</span> result = converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a5214caaa61009153c94fc3657804ef17">convert</a>(<span class="stringliteral">&quot;model.uvl&quot;</span>, <span class="stringliteral">&quot;output.dimacs&quot;</span>);</div>
+<div class="line"><span class="comment">// Auxiliary variables introduced for cross-tree constraint sub-expressions</span></div>
+<div class="line"><span class="keywordtype">int</span> aux_variables = result.<a class="code hl_variable" href="structuvl2dimacs_1_1ConversionResult.html#a2ba7d62da65ff95eae9aa4c64e05fe5d">num_variables</a> - result.num_features;</div>
+<div class="ttc" id="astructuvl2dimacs_1_1ConversionResult_html_a2ba7d62da65ff95eae9aa4c64e05fe5d"><div class="ttname"><a href="structuvl2dimacs_1_1ConversionResult.html#a2ba7d62da65ff95eae9aa4c64e05fe5d">uvl2dimacs::ConversionResult::num_variables</a></div><div class="ttdeci">int num_variables</div><div class="ttdoc">Number of variables in the CNF.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00219">UVL2Dimacs.hh:219</a></div></div>
+</div><!-- fragment --><p><b>With backbone simplification:</b> </p><div class="fragment"><div class="line"><a class="code hl_class" href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a> converter;</div>
+<div class="line">converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a2e69dfa61cd9b0bf02f82da4985aa397">set_mode</a>(ConversionMode::STRAIGHTFORWARD);</div>
+<div class="line">converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#ae6aa4e8ac14940c2bb96b31de8444d3f">set_backbone_simplification</a>(<span class="keyword">true</span>);  <span class="comment">// Reduces formula size by 30-50%</span></div>
+<div class="line"><span class="keyword">auto</span> result = converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a5214caaa61009153c94fc3657804ef17">convert</a>(<span class="stringliteral">&quot;model.uvl&quot;</span>, <span class="stringliteral">&quot;output.dimacs&quot;</span>);</div>
+<div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html_ae6aa4e8ac14940c2bb96b31de8444d3f"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html#ae6aa4e8ac14940c2bb96b31de8444d3f">uvl2dimacs::UVL2Dimacs::set_backbone_simplification</a></div><div class="ttdeci">void set_backbone_simplification(bool use_backbone)</div><div class="ttdoc">Enable or disable backbone simplification.</div></div>
+</div><!-- fragment --><p><b>Combining Tseitin and Backbone:</b> </p><div class="fragment"><div class="line"><a class="code hl_class" href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a> converter;</div>
+<div class="line">converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a2e69dfa61cd9b0bf02f82da4985aa397">set_mode</a>(ConversionMode::TSEITIN);</div>
+<div class="line">converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#ae6aa4e8ac14940c2bb96b31de8444d3f">set_backbone_simplification</a>(<span class="keyword">true</span>);</div>
+<div class="line"><span class="keyword">auto</span> result = converter.<a class="code hl_function" href="classuvl2dimacs_1_1UVL2Dimacs.html#a5214caaa61009153c94fc3657804ef17">convert</a>(<span class="stringliteral">&quot;model.uvl&quot;</span>, <span class="stringliteral">&quot;output.dimacs&quot;</span>);</div>
+<div class="line"><span class="comment">// Result: Simplified 3-CNF with backbone reduction</span></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md161"></a>
 Output Format</h2>
 <p>The generated DIMACS file contains:</p><ul>
 <li>Header: <code>p cnf [variables] [clauses]</code></li>
 <li>Variable mappings: <code>c [var_num] [feature_name]</code></li>
 <li>Clauses: Space-separated literals ending with 0</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md161"></a>
+<h2><a class="anchor" id="autotoc_md162"></a>
 Limitations</h2>
 <ul>
 <li><a class="el" href="classFeature.html" title="Represents a feature node in the UVL feature tree.">Feature</a> cardinality <code>[1..*]</code> not fully supported (requires indexed feature generation)</li>
 <li>Arithmetic constraints are filtered out (requires SMT solver, not pure SAT)</li>
 <li>No clause minimization or subsumption</li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__UVL2Dimacs.html" title="API for converting UVL feature models to CNF format with UVL grammar support.">UVL to DIMACS Conversion</a> Main <a class="el" href="group__API.html" title="Public API for programmatic backbone computation.">BackboneSolver API</a> class </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__UVL2Dimacs.html" title="API for converting UVL feature models to CNF format with UVL grammar support.">UVL to DIMACS Conversion</a> Main <a class="el" href="group__API.html" title="Public API for programmatic backbone computation.">BoneDigger API</a> class </dd>
 <dd>
 ConversionMode Enum for conversion strategies </dd>
 <dd>

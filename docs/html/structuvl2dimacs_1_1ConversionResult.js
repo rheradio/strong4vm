@@ -6,6 +6,7 @@ var structuvl2dimacs_1_1ConversionResult =
     [ "num_constraints", "structuvl2dimacs_1_1ConversionResult.html#abd406f244d4145ae5baf4ea059b5232d", null ],
     [ "num_features", "structuvl2dimacs_1_1ConversionResult.html#aef0090071c7adec0cda2fafc090f4e26", null ],
     [ "num_relations", "structuvl2dimacs_1_1ConversionResult.html#a139850a0832d5f4156c1b53257809804", null ],
+    [ "num_skipped_constraints", "structuvl2dimacs_1_1ConversionResult.html#a7c58d1692a40b60b0ac967c5499d92e4", null ],
     [ "num_variables", "structuvl2dimacs_1_1ConversionResult.html#a2ba7d62da65ff95eae9aa4c64e05fe5d", null ],
     [ "success", "structuvl2dimacs_1_1ConversionResult.html#a7960f9c558f9ee2c3d4a8fdea096fb56", null ]
 ];

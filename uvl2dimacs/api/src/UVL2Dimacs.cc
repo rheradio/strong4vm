@@ -31,6 +31,7 @@
 #include "FeatureModelBuilder.hh"
 #include "FMToCNF.hh"
 #include "DimacsWriter.hh"
+#include "BackboneSimplifier.hh"
 #include "CNFMode.hh"
 #include "UVLCppLexer.h"
 #include "UVLCppParser.h"
@@ -39,6 +40,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <unistd.h>
+#include <cstdio>
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#include <climits>
+#endif
 
 using namespace antlr4;
 using namespace antlr4::tree;
@@ -86,7 +93,8 @@ static CNFMode to_cnf_mode(ConversionMode mode) {
 // Constructor
 UVL2Dimacs::UVL2Dimacs(bool verbose)
     : verbose_(verbose)
-    , mode_(ConversionMode::STRAIGHTFORWARD) {
+    , mode_(ConversionMode::STRAIGHTFORWARD)
+    , use_backbone_(false) {
 }
 
 // Destructor
@@ -105,6 +113,16 @@ void UVL2Dimacs::set_mode(ConversionMode mode) {
 // Get current conversion mode
 ConversionMode UVL2Dimacs::get_mode() const {
     return mode_;
+}
+
+// Set backbone simplification
+void UVL2Dimacs::set_backbone_simplification(bool use_backbone) {
+    use_backbone_ = use_backbone;
+}
+
+// Get backbone simplification status
+bool UVL2Dimacs::get_backbone_simplification() const {
+    return use_backbone_;
 }
 
 // Convert with default mode
@@ -198,6 +216,7 @@ ConversionResult UVL2Dimacs::convert(const std::string& input_file,
         // Store CNF statistics
         result.num_variables = cnf_model.get_num_variables();
         result.num_clauses = cnf_model.get_num_clauses();
+        result.num_skipped_constraints = transformer.get_skipped_constraints();
 
         if (verbose_) {
             std::cout << "CNF model created:" << std::endl;
@@ -211,6 +230,68 @@ ConversionResult UVL2Dimacs::convert(const std::string& input_file,
         }
         DimacsWriter writer(cnf_model);
         writer.write_to_file(output_file);
+
+        // Apply backbone simplification if requested
+        if (use_backbone_) {
+            if (verbose_) {
+                std::cout << "Applying backbone simplification..." << std::endl;
+            }
+
+            // Find backbone_solver executable
+            std::string backbone_solver_path;
+
+            // Check in project directory first
+            char exe_path[1024];
+            bool exe_found = false;
+#ifdef __APPLE__
+            uint32_t buf_size = sizeof(exe_path);
+            if (_NSGetExecutablePath(exe_path, &buf_size) == 0)
+                exe_found = true;
+#else
+            ssize_t len = readlink("/proc/self/exe", exe_path, sizeof(exe_path) - 1);
+            if (len != -1) { exe_path[len] = '\0'; exe_found = true; }
+#endif
+            if (exe_found) {
+                std::string exe_dir = std::string(exe_path);
+                size_t last_slash = exe_dir.find_last_of("/\\");
+                if (last_slash != std::string::npos) {
+                    exe_dir = exe_dir.substr(0, last_slash);
+                }
+                backbone_solver_path = exe_dir + "/../backbone_solver/bin/backbone_solver";
+            }
+
+            // Check if backbone_solver exists
+            if (access(backbone_solver_path.c_str(), X_OK) != 0) {
+                // Try PATH
+                backbone_solver_path = "backbone_solver";
+            }
+
+            // Create temporary file for simplified output
+            std::string temp_output = output_file + ".simplified";
+
+            // Apply backbone simplification
+            BackboneSimplifier simplifier;
+            if (simplifier.simplify(output_file, temp_output, backbone_solver_path, verbose_)) {
+                // Replace original file with simplified version
+                if (std::rename(temp_output.c_str(), output_file.c_str()) != 0) {
+                    if (verbose_) {
+                        std::cerr << "Warning: Failed to replace original file with simplified version" << std::endl;
+                    }
+                    std::remove(temp_output.c_str());
+                } else {
+                    if (verbose_) {
+                        std::cout << "  Backbone size: " << simplifier.get_backbone_size() << std::endl;
+                        std::cout << "  Removed clauses: " << simplifier.get_removed_clauses() << std::endl;
+                        std::cout << "  Shortened clauses: " << simplifier.get_shortened_clauses() << std::endl;
+                    }
+                }
+            } else {
+                if (verbose_) {
+                    std::cerr << "Warning: Backbone simplification failed, keeping original output" << std::endl;
+                }
+                std::remove(temp_output.c_str());
+            }
+        }
 
         // Success!
         result.success = true;
@@ -305,6 +386,7 @@ std::string UVL2Dimacs::convert_to_string(const std::string& input_file,
         // Store CNF statistics
         result.num_variables = cnf_model.get_num_variables();
         result.num_clauses = cnf_model.get_num_clauses();
+        result.num_skipped_constraints = transformer.get_skipped_constraints();
 
         // Get DIMACS string
         DimacsWriter writer(cnf_model);

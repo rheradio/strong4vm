@@ -1,8 +1,11 @@
 # Makefile for dimacs2graphs project
-# Builds CLI, API, Backbone Solver, and example programs
+# Builds CLI, API, and example programs
 
 # Compiler settings
 CXX ?= g++
+
+# Detect OS (needed before compiler flag decisions)
+UNAME_S := $(shell uname -s)
 
 # Detect compiler type
 COMPILER_VERSION := $(shell $(CXX) --version 2>/dev/null)
@@ -21,21 +24,26 @@ ifeq ($(COMPILER),gcc)
     CXXFLAGS = -std=c++17 -O3 -march=native -flto=auto -Wall -Wextra
     LDFLAGS = -flto=auto -fuse-linker-plugin
 else ifeq ($(COMPILER),clang)
-    CXXFLAGS = -std=c++17 -O3 -march=native -flto=thin -Wall -Wextra
-    LDFLAGS = -flto=thin
+    ifeq ($(UNAME_S),Darwin)
+        CXXFLAGS = -std=c++17 -O3 -march=native -Wall -Wextra
+        LDFLAGS =
+    else
+        CXXFLAGS = -std=c++17 -O3 -march=native -flto=thin -Wall -Wextra
+        LDFLAGS = -flto=thin
+    endif
 endif
 
 # Directories
-BACKBONE_SOLVER_DIR = backbone_solver/src
-BACKBONE_SOLVER_BIN = backbone_solver/bin
+BACKBONE_SOLVER_DIR = ../uvl2dimacs/backbone_solver/src
 CLI_DIR = cli
 API_DIR = api
 BIN_DIR = bin
 
 # BoneDigger paths
-BACKBONE_SOLVER_API_OBJ = $(BACKBONE_SOLVER_DIR)/api/BackboneSolverAPI.o
+BACKBONE_SOLVER_API_OBJ = $(BACKBONE_SOLVER_DIR)/api/BoneDiggerAPI.o
 BACKBONE_SOLVER_DETECTOR_OBJS = $(BACKBONE_SOLVER_DIR)/detectors/CheckCandidatesOneByOne.o \
-                           $(BACKBONE_SOLVER_DIR)/detectors/CheckCandidatesOneByOneWithoutAttention.o
+                           $(BACKBONE_SOLVER_DIR)/detectors/FastOnCliffsSlowOnPlains.o \
+                           $(BACKBONE_SOLVER_DIR)/detectors/RushAndPray.o
 BACKBONE_SOLVER_IO_OBJ = $(BACKBONE_SOLVER_DIR)/io/DIMACSReader.o
 BACKBONE_SOLVER_DATA_STRUCTURES_OBJ = $(BACKBONE_SOLVER_DIR)/data_structures/LiteralSet.o
 BACKBONE_SOLVER_MINISAT_INTERFACE_OBJ = $(BACKBONE_SOLVER_DIR)/minisat_interface/minisat_aux.o
@@ -50,7 +58,6 @@ BACKBONE_SOLVER_OBJS = $(BACKBONE_SOLVER_API_OBJ) \
 # Targets
 CLI_TARGET = $(BIN_DIR)/dimacs2graphs
 API_EXAMPLE_TARGET = $(BIN_DIR)/api_example
-BACKBONE_SOLVER_CLI_TARGET = $(BACKBONE_SOLVER_BIN)/backbone_solver
 
 # Source files
 CLI_SRC = $(CLI_DIR)/dimacs2graphs.cc
@@ -62,8 +69,7 @@ API_OBJ = $(API_DIR)/Dimacs2GraphsAPI.o
 CLI_OBJ = $(CLI_DIR)/dimacs2graphs.o
 API_EXAMPLE_OBJ = $(API_DIR)/api_example.o
 
-# Detect OS for linking
-UNAME_S := $(shell uname -s)
+# Platform-specific linking flags
 ifeq ($(UNAME_S),Linux)
     LDLIBS = -lz -pthread
 else ifeq ($(UNAME_S),Darwin)
@@ -117,13 +123,10 @@ clean:
 	@echo "Cleaning project..."
 	@rm -f $(CLI_OBJ) $(API_OBJ) $(API_EXAMPLE_OBJ)
 	@rm -f $(CLI_TARGET) $(API_EXAMPLE_TARGET)
-	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) clean
 	@echo "Clean complete"
 
 .PHONY: distclean
 distclean: clean
-	@echo "Deep cleaning (including MiniSat)..."
-	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) distclean
 	@rm -rf $(BIN_DIR)
 	@echo "Deep clean complete"
 
@@ -138,7 +141,7 @@ help:
 	@echo "  cli         - Build dimacs2graphs CLI tool"
 	@echo "  api_example - Build API usage example"
 	@echo "  clean       - Remove build artifacts"
-	@echo "  distclean   - Remove all build artifacts including MiniSat"
+	@echo "  distclean   - Remove all build artifacts"
 	@echo "  help        - Show this help message"
 	@echo ""
 	@echo "Compiler options:"
@@ -177,15 +180,19 @@ $(BACKBONE_SOLVER_MINISAT_LIB):
 # Build individual Backbone Solver object files
 $(BACKBONE_SOLVER_API_OBJ): $(BACKBONE_SOLVER_MINISAT_LIB)
 	@echo "Building $@..."
-	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) CXX=$(CXX) api/BackboneSolverAPI.o
+	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) CXX=$(CXX) api/BoneDiggerAPI.o
 
 $(BACKBONE_SOLVER_DIR)/detectors/CheckCandidatesOneByOne.o: $(BACKBONE_SOLVER_MINISAT_LIB)
 	@echo "Building $@..."
 	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) CXX=$(CXX) detectors/CheckCandidatesOneByOne.o
 
-$(BACKBONE_SOLVER_DIR)/detectors/CheckCandidatesOneByOneWithoutAttention.o: $(BACKBONE_SOLVER_MINISAT_LIB)
+$(BACKBONE_SOLVER_DIR)/detectors/FastOnCliffsSlowOnPlains.o: $(BACKBONE_SOLVER_MINISAT_LIB)
 	@echo "Building $@..."
-	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) CXX=$(CXX) detectors/CheckCandidatesOneByOneWithoutAttention.o
+	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) CXX=$(CXX) detectors/FastOnCliffsSlowOnPlains.o
+
+$(BACKBONE_SOLVER_DIR)/detectors/RushAndPray.o: $(BACKBONE_SOLVER_MINISAT_LIB)
+	@echo "Building $@..."
+	@$(MAKE) -C $(BACKBONE_SOLVER_DIR) CXX=$(CXX) detectors/RushAndPray.o
 
 $(BACKBONE_SOLVER_IO_OBJ): $(BACKBONE_SOLVER_MINISAT_LIB)
 	@echo "Building $@..."

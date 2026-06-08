@@ -114,6 +114,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a78ffc2137bfb912e4461459d5ac7e334" id="r_a78ffc2137bfb912e4461459d5ac7e334"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCNFModel.html">CNFModel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFMToCNF.html#a78ffc2137bfb912e4461459d5ac7e334">transform</a> (<a class="el" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a> conversion_mode=<a class="el" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a>)</td></tr>
 <tr class="memdesc:a78ffc2137bfb912e4461459d5ac7e334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms the feature model to CNF.  <br /></td></tr>
 <tr class="separator:a78ffc2137bfb912e4461459d5ac7e334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45ac906c25009acaae6927782112a646" id="r_a45ac906c25009acaae6927782112a646"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFMToCNF.html#a45ac906c25009acaae6927782112a646">get_skipped_constraints</a> () const</td></tr>
+<tr class="memdesc:a45ac906c25009acaae6927782112a646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of constraints skipped due to arithmetic / non-Boolean operators.  <br /></td></tr>
+<tr class="separator:a45ac906c25009acaae6927782112a646"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Transforms a feature model into a CNF formula. </p>
@@ -145,7 +148,7 @@ Public Member Functions</h2></td></tr>
 <p>Example usage: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> feature_model = std::make_shared&lt;FeatureModel&gt;(root_feature);</div>
 <div class="line"><a class="code hl_class" href="classFMToCNF.html">FMToCNF</a> transformer(feature_model);</div>
 <div class="line"><a class="code hl_class" href="classCNFModel.html">CNFModel</a> cnf = transformer.transform(<a class="code hl_enumvalue" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a>);</div>
-<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a></div><div class="ttdeci">@ STRAIGHTFORWARD</div><div class="ttdoc">Direct conversion without auxiliary variables (fewer vars, potentially longer clauses)</div></div>
+<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a></div><div class="ttdeci">@ STRAIGHTFORWARD</div><div class="ttdoc">Direct conversion: no auxiliary variables, potentially longer clauses.</div></div>
 <div class="ttc" id="aclassCNFModel_html"><div class="ttname"><a href="classCNFModel.html">CNFModel</a></div><div class="ttdoc">Represents a CNF (Conjunctive Normal Form) formula with variable mappings.</div><div class="ttdef"><b>Definition</b> <a href="CNFModel_8hh_source.html#l00051">CNFModel.hh:51</a></div></div>
 <div class="ttc" id="aclassFMToCNF_html"><div class="ttname"><a href="classFMToCNF.html">FMToCNF</a></div><div class="ttdoc">Transforms a feature model into a CNF formula.</div><div class="ttdef"><b>Definition</b> <a href="FMToCNF_8hh_source.html#l00054">FMToCNF.hh:54</a></div></div>
 </div><!-- fragment --> 
@@ -213,6 +216,35 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a45ac906c25009acaae6927782112a646" name="a45ac906c25009acaae6927782112a646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45ac906c25009acaae6927782112a646">&#9670;&#160;</a></span>get_skipped_constraints()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int get_skipped_constraints </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of constraints skipped due to arithmetic / non-Boolean operators. </p>
+
+<p class="definition">Definition at line <a class="el" href="FMToCNF_8hh_source.html#l00091">91</a> of file <a class="el" href="FMToCNF_8hh_source.html">FMToCNF.hh</a>.</p>
+
+</div>
+</div>
 <a id="a78ffc2137bfb912e4461459d5ac7e334" name="a78ffc2137bfb912e4461459d5ac7e334"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78ffc2137bfb912e4461459d5ac7e334">&#9670;&#160;</a></span>transform()</h2>
 
@@ -248,7 +280,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/mnt/c/strong4vm/uvl2dimacs/generator/include/<a class="el" href="FMToCNF_8hh_source.html">FMToCNF.hh</a></li>
+<li>/mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/generator/include/<a class="el" href="FMToCNF_8hh_source.html">FMToCNF.hh</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

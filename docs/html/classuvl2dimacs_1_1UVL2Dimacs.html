@@ -120,6 +120,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a72eaed88344bf1c2e885e93da0a54124" id="r_a72eaed88344bf1c2e885e93da0a54124"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceuvl2dimacs.html#a8a444ef85241a1b920a3c3b6a166b86d">ConversionMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuvl2dimacs_1_1UVL2Dimacs.html#a72eaed88344bf1c2e885e93da0a54124">get_mode</a> () const</td></tr>
 <tr class="memdesc:a72eaed88344bf1c2e885e93da0a54124"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current conversion mode.  <br /></td></tr>
 <tr class="separator:a72eaed88344bf1c2e885e93da0a54124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6aa4e8ac14940c2bb96b31de8444d3f" id="r_ae6aa4e8ac14940c2bb96b31de8444d3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuvl2dimacs_1_1UVL2Dimacs.html#ae6aa4e8ac14940c2bb96b31de8444d3f">set_backbone_simplification</a> (bool use_backbone)</td></tr>
+<tr class="memdesc:ae6aa4e8ac14940c2bb96b31de8444d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable backbone simplification.  <br /></td></tr>
+<tr class="separator:ae6aa4e8ac14940c2bb96b31de8444d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f7b234b798ba816f369042de3039f95" id="r_a1f7b234b798ba816f369042de3039f95"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuvl2dimacs_1_1UVL2Dimacs.html#a1f7b234b798ba816f369042de3039f95">get_backbone_simplification</a> () const</td></tr>
+<tr class="memdesc:a1f7b234b798ba816f369042de3039f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if backbone simplification is enabled.  <br /></td></tr>
+<tr class="separator:a1f7b234b798ba816f369042de3039f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5214caaa61009153c94fc3657804ef17" id="r_a5214caaa61009153c94fc3657804ef17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structuvl2dimacs_1_1ConversionResult.html">ConversionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuvl2dimacs_1_1UVL2Dimacs.html#a5214caaa61009153c94fc3657804ef17">convert</a> (const std::string &amp;input_file, const std::string &amp;output_file)</td></tr>
 <tr class="memdesc:a5214caaa61009153c94fc3657804ef17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a UVL file to DIMACS format.  <br /></td></tr>
 <tr class="separator:a5214caaa61009153c94fc3657804ef17"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,12 +151,12 @@ Public Member Functions</h2></td></tr>
 <div class="line">} <span class="keywordflow">else</span> {</div>
 <div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;Error: &quot;</span> &lt;&lt; result.error_message &lt;&lt; std::endl;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a></div><div class="ttdoc">Main class for UVL to DIMACS conversion.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00174">UVL2Dimacs.hh:174</a></div></div>
+<div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html">uvl2dimacs::UVL2Dimacs</a></div><div class="ttdoc">Main class for UVL to DIMACS conversion.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00261">UVL2Dimacs.hh:261</a></div></div>
 <div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html_a5214caaa61009153c94fc3657804ef17"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html#a5214caaa61009153c94fc3657804ef17">uvl2dimacs::UVL2Dimacs::convert</a></div><div class="ttdeci">ConversionResult convert(const std::string &amp;input_file, const std::string &amp;output_file)</div><div class="ttdoc">Convert a UVL file to DIMACS format.</div></div>
 <div class="ttc" id="aclassuvl2dimacs_1_1UVL2Dimacs_html_ab4d3ca61fc3b4dc344b82d1034ddfe91"><div class="ttname"><a href="classuvl2dimacs_1_1UVL2Dimacs.html#ab4d3ca61fc3b4dc344b82d1034ddfe91">uvl2dimacs::UVL2Dimacs::set_verbose</a></div><div class="ttdeci">void set_verbose(bool verbose)</div><div class="ttdoc">Set verbose output mode.</div></div>
-<div class="ttc" id="astructuvl2dimacs_1_1ConversionResult_html_aef0090071c7adec0cda2fafc090f4e26"><div class="ttname"><a href="structuvl2dimacs_1_1ConversionResult.html#aef0090071c7adec0cda2fafc090f4e26">uvl2dimacs::ConversionResult::num_features</a></div><div class="ttdeci">int num_features</div><div class="ttdoc">Number of features in the input model.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00131">UVL2Dimacs.hh:131</a></div></div>
+<div class="ttc" id="astructuvl2dimacs_1_1ConversionResult_html_aef0090071c7adec0cda2fafc090f4e26"><div class="ttname"><a href="structuvl2dimacs_1_1ConversionResult.html#aef0090071c7adec0cda2fafc090f4e26">uvl2dimacs::ConversionResult::num_features</a></div><div class="ttdeci">int num_features</div><div class="ttdoc">Number of features in the input model.</div><div class="ttdef"><b>Definition</b> <a href="UVL2Dimacs_8hh_source.html#l00214">UVL2Dimacs.hh:214</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="UVL2Dimacs_8hh_source.html#l00174">174</a> of file <a class="el" href="UVL2Dimacs_8hh_source.html">UVL2Dimacs.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="UVL2Dimacs_8hh_source.html#l00261">261</a> of file <a class="el" href="UVL2Dimacs_8hh_source.html">UVL2Dimacs.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac1d4c3e219a299256f34d00d9c587e5b" name="ac1d4c3e219a299256f34d00d9c587e5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac1d4c3e219a299256f34d00d9c587e5b">&#9670;&#160;</a></span>UVL2Dimacs()</h2>
@@ -242,7 +248,7 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structuvl2dimacs_1_1ConversionResult.html" title="Result of a conversion operation.">ConversionResult</a> with success status and statistics </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="Strong4VMAPI_8cc_source.html#l00261">Strong4VMAPI::Impl::perform_analysis()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Strong4VMAPI_8cc_source.html#l00263">Strong4VMAPI::Impl::perform_analysis()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -384,6 +390,26 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a1f7b234b798ba816f369042de3039f95" name="a1f7b234b798ba816f369042de3039f95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f7b234b798ba816f369042de3039f95">&#9670;&#160;</a></span>get_backbone_simplification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool get_backbone_simplification </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if backbone simplification is enabled. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if backbone simplification is enabled </dd></dl>
+
+</div>
+</div>
 <a id="a72eaed88344bf1c2e885e93da0a54124" name="a72eaed88344bf1c2e885e93da0a54124"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72eaed88344bf1c2e885e93da0a54124">&#9670;&#160;</a></span>get_mode()</h2>
 
@@ -401,6 +427,51 @@ Here is the caller graph for this function:</div>
 
 <p>Get current conversion mode. </p>
 <dl class="section return"><dt>Returns</dt><dd>The current conversion mode </dd></dl>
+
+</div>
+</div>
+<a id="ae6aa4e8ac14940c2bb96b31de8444d3f" name="ae6aa4e8ac14940c2bb96b31de8444d3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6aa4e8ac14940c2bb96b31de8444d3f">&#9670;&#160;</a></span>set_backbone_simplification()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void set_backbone_simplification </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>use_backbone</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enable or disable backbone simplification. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">use_backbone</td><td>True to apply backbone simplification, false to disable</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>When enabled, the output DIMACS file will be simplified using backbone analysis. Backbone simplification:</p><ul>
+<li>Removes clauses that are always satisfied</li>
+<li>Shortens clauses by removing backbone literals</li>
+<li>Preserves the number of satisfying assignments (solution count)</li>
+<li>Typically reduces formula size by 30-50%</li>
+</ul>
+<p>Note: Requires backbone_solver executable in PATH or in project directory </p>
+
+<p class="reference">Referenced by <a class="el" href="Strong4VMAPI_8cc_source.html#l00263">Strong4VMAPI::Impl::perform_analysis()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classuvl2dimacs_1_1UVL2Dimacs_ae6aa4e8ac14940c2bb96b31de8444d3f_icgraph.png" border="0" usemap="#aclassuvl2dimacs_1_1UVL2Dimacs_ae6aa4e8ac14940c2bb96b31de8444d3f_icgraph" alt=""/></div>
+<map name="aclassuvl2dimacs_1_1UVL2Dimacs_ae6aa4e8ac14940c2bb96b31de8444d3f_icgraph" id="aclassuvl2dimacs_1_1UVL2Dimacs_ae6aa4e8ac14940c2bb96b31de8444d3f_icgraph">
+<area shape="rect" title="Enable or disable backbone simplification." alt="" coords="245,13,452,38"/>
+<area shape="rect" href="classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#ae491c69e6096f78564dc58d79de5d525" title="Execute the complete Strong4VM analysis pipeline." alt="" coords="5,5,197,45"/>
+<area shape="poly" title=" " alt="" coords="232,28,198,28,198,23,232,23"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -428,7 +499,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="Strong4VMAPI_8cc_source.html#l00261">Strong4VMAPI::Impl::perform_analysis()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Strong4VMAPI_8cc_source.html#l00263">Strong4VMAPI::Impl::perform_analysis()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -466,7 +537,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="Strong4VMAPI_8cc_source.html#l00261">Strong4VMAPI::Impl::perform_analysis()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Strong4VMAPI_8cc_source.html#l00263">Strong4VMAPI::Impl::perform_analysis()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -481,7 +552,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/mnt/c/strong4vm/uvl2dimacs/api/include/uvl2dimacs/<a class="el" href="UVL2Dimacs_8hh_source.html">UVL2Dimacs.hh</a></li>
+<li>/mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/api/include/uvl2dimacs/<a class="el" href="UVL2Dimacs_8hh_source.html">UVL2Dimacs.hh</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

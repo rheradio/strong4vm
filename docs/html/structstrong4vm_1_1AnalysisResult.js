@@ -15,6 +15,7 @@ var structstrong4vm_1_1AnalysisResult =
     [ "num_constraints", "structstrong4vm_1_1AnalysisResult.html#abd406f244d4145ae5baf4ea059b5232d", null ],
     [ "num_features", "structstrong4vm_1_1AnalysisResult.html#aef0090071c7adec0cda2fafc090f4e26", null ],
     [ "num_relations", "structstrong4vm_1_1AnalysisResult.html#a139850a0832d5f4156c1b53257809804", null ],
+    [ "num_skipped_constraints", "structstrong4vm_1_1AnalysisResult.html#a7c58d1692a40b60b0ac967c5499d92e4", null ],
     [ "num_variables", "structstrong4vm_1_1AnalysisResult.html#a2ba7d62da65ff95eae9aa4c64e05fe5d", null ],
     [ "requires_graph_file", "structstrong4vm_1_1AnalysisResult.html#a4a6d19f6e53ba5a81694dc30cf3ac6c2", null ],
     [ "success", "structstrong4vm_1_1AnalysisResult.html#a7960f9c558f9ee2c3d4a8fdea096fb56", null ]

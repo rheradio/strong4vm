@@ -34,6 +34,7 @@
 #include "FeatureModelBuilder.hh"
 #include "FMToCNF.hh"
 #include "DimacsWriter.hh"
+#include "BackboneSimplifier.hh"
 #include "UVLCppLexer.h"
 #include "UVLCppParser.h"
 #include "antlr4-runtime.h"
@@ -43,6 +44,11 @@
 #include <string>
 #include <chrono>
 #include <cstdlib>
+#include <unistd.h>
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
+#include <limits.h>
+#endif
 
 using namespace antlr4;
 using namespace antlr4::tree;
@@ -50,7 +56,8 @@ using namespace antlr4::tree;
 // Program information constants
 namespace {
     constexpr const char* PROGRAM_TITLE = "UVL2DIMACS: A UVL TRANSLATOR INTO BOOLEAN LOGIC, 2026";
-    constexpr const char* PROGRAM_AUTHORS = "Authors: Rubén Heradio, David Fernández Amorós, Ismael Abad Cardiel, Ernesto Aranda Escolástico";
+    constexpr const char* PROGRAM_AUTHORS_1 = "Authors: Rubén Heradio, David Fernández Amorós";
+    constexpr const char* PROGRAM_AUTHORS_2 = "         Ismael Abad Cardiel, Ernesto Aranda Escolástico";
 }
 
 /**
@@ -87,7 +94,7 @@ public:
  * @param out Output stream to write to
  */
 void print_banner(std::ostream& out) {
-    out << "###########################################################" << std::endl;
+    out << "##############################################################" << std::endl;
     out << "             _   ____        _                             " << std::endl;
     out << " _   ___   _| | |___ \\    __| (_)_ __ ___   __ _  ___ ___ " << std::endl;
     out << "| | | \\ \\ / / |   __) |  / _` | | '_ ` _ \\ / _` |/ __/ __|" << std::endl;
@@ -119,9 +126,9 @@ void print_banner(std::ostream& out) {
     out << "" << std::endl;
     out << "" << std::endl;
     out << "  " << PROGRAM_TITLE << std::endl;
-    out << "    " << PROGRAM_AUTHORS << std::endl;
-    out << "    " << std::endl;
-    out << "###########################################################" << std::endl;
+    out << "    " << PROGRAM_AUTHORS_1 << std::endl;
+    out << "    " << PROGRAM_AUTHORS_2 << std::endl;
+    out << "##############################################################" << std::endl;
     out << "" << std::endl;
     out << "" << std::endl;
 }
@@ -132,7 +139,7 @@ void print_banner(std::ostream& out) {
  */
 void print_usage(const char* program_name) {
     print_banner(std::cerr);
-    std::cerr << "Usage: " << program_name << " [-t|-s] <input.uvl> <output.dimacs>" << std::endl;
+    std::cerr << "Usage: " << program_name << " [-t|-s] [-b] <input.uvl> <output.dimacs>" << std::endl;
     std::cerr << std::endl;
     std::cerr << "Description:" << std::endl;
     std::cerr << "  Converts a UVL (Universal Variability Language) feature model" << std::endl;
@@ -141,6 +148,7 @@ void print_usage(const char* program_name) {
     std::cerr << "Options:" << std::endl;
     std::cerr << "  -s            Use straightforward conversion without auxiliary variables (default)" << std::endl;
     std::cerr << "  -t            Use Tseitin transformation with auxiliary variables" << std::endl;
+    std::cerr << "  -b            Simplify output using backbone" << std::endl;
     std::cerr << std::endl;
     std::cerr << "Arguments:" << std::endl;
     std::cerr << "  input.uvl     Path to input UVL file" << std::endl;
@@ -156,6 +164,7 @@ void print_usage(const char* program_name) {
 struct CommandLineArgs {
     CNFMode mode = CNFMode::STRAIGHTFORWARD;
     bool verbose = true;
+    bool use_backbone = false;
     std::string input_file;
     std::string output_file;
 };
@@ -177,6 +186,8 @@ CommandLineArgs parse_arguments(int argc, char* argv[]) {
             args.mode = CNFMode::TSEITIN;
         } else if (flag == "-s") {
             args.mode = CNFMode::STRAIGHTFORWARD;
+        } else if (flag == "-b") {
+            args.use_backbone = true;
         } else {
             std::cerr << "Error: Unknown flag '" << flag << "'" << std::endl;
             print_usage(argv[0]);
@@ -249,6 +260,73 @@ std::shared_ptr<FeatureModel> parse_uvl_file(const std::string& input_file, bool
     return feature_model;
 }
 
+/**
+ * @brief Apply backbone simplification to DIMACS file
+ * @param output_file Path to DIMACS file
+ * @param verbose Whether to print progress
+ * @return True if successful
+ */
+bool apply_backbone_simplification(const std::string& output_file, bool verbose) {
+    if (verbose) std::cout << "[6/6] Applying backbone simplification..." << std::endl;
+
+    // Find backbone_solver executable
+    std::string backbone_solver_path;
+
+    // Check in project directory first
+    char exe_path[PATH_MAX];
+    bool got_exe_path = false;
+#ifdef __APPLE__
+    uint32_t exe_path_size = sizeof(exe_path);
+    if (_NSGetExecutablePath(exe_path, &exe_path_size) == 0) {
+        got_exe_path = true;
+    }
+#else
+    ssize_t len = readlink("/proc/self/exe", exe_path, sizeof(exe_path) - 1);
+    if (len != -1) {
+        exe_path[len] = '\0';
+        got_exe_path = true;
+    }
+#endif
+    if (got_exe_path) {
+        std::string exe_dir = std::string(exe_path);
+        size_t last_slash = exe_dir.find_last_of("/\\");
+        if (last_slash != std::string::npos) {
+            exe_dir = exe_dir.substr(0, last_slash);
+        }
+        backbone_solver_path = exe_dir + "/../backbone_solver/bin/backbone_solver";
+    }
+
+    // Check if backbone_solver exists
+    if (access(backbone_solver_path.c_str(), X_OK) != 0) {
+        // Try PATH
+        backbone_solver_path = "backbone_solver";
+    }
+
+    // Create temporary file for simplified output
+    std::string temp_output = output_file + ".simplified";
+
+    // Apply backbone simplification
+    uvl2dimacs::BackboneSimplifier simplifier;
+    if (simplifier.simplify(output_file, temp_output, backbone_solver_path, verbose)) {
+        // Replace original file with simplified version
+        if (std::rename(temp_output.c_str(), output_file.c_str()) != 0) {
+            std::cerr << "Warning: Failed to replace original file with simplified version" << std::endl;
+            return false;
+        }
+
+        if (verbose) {
+            std::cout << "  Backbone size: " << simplifier.get_backbone_size() << std::endl;
+            std::cout << "  Removed clauses: " << simplifier.get_removed_clauses() << std::endl;
+            std::cout << "  Shortened clauses: " << simplifier.get_shortened_clauses() << std::endl;
+        }
+        return true;
+    } else {
+        std::cerr << "Warning: Backbone simplification failed, keeping original output" << std::endl;
+        std::remove(temp_output.c_str());
+        return false;
+    }
+}
+
 int main(int argc, char* argv[]) {
     // Parse command-line arguments
     CommandLineArgs args = parse_arguments(argc, argv);
@@ -284,6 +362,11 @@ int main(int argc, char* argv[]) {
         if (args.verbose) std::cout << "[5/5] Writing DIMACS file..." << std::endl;
         DimacsWriter writer(cnf_model);
         writer.write_to_file(args.output_file);
+
+        // Apply backbone simplification if requested
+        if (args.use_backbone) {
+            apply_backbone_simplification(args.output_file, args.verbose);
+        }
 
         // Calculate elapsed time
         auto end_time = std::chrono::high_resolution_clock::now();

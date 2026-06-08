@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Strong4VM: /mnt/c/strong4vm/dimacs2graphs/backbone_solver/src/detectors/CheckCandidatesOneByOne.cc File Reference</title>
+<title>Strong4VM: /mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/backbone_solver/src/detectors/CheckCandidatesOneByOne.cc File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,50 +95,14 @@ $(document).ready(function(){initNavTree('CheckCandidatesOneByOne_8cc.html','');
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of backbone detector with activity bumping heuristics.  
+<p>Implementation file for CheckCandidatesOneByOne.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &quot;<a class="el" href="CheckCandidatesOneByOne_8hh_source.html">CheckCandidatesOneByOne.hh</a>&quot;</code><br />
 </div>
 <p><a href="CheckCandidatesOneByOne_8cc_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of backbone detector with activity bumping heuristics. </p>
-<p>This file implements the CheckCandidatesOneByOne backbone detection algorithm, which systematically checks each candidate backbone literal using incremental SAT solving with activity bumping heuristics to guide the search.</p>
-<h2><a class="anchor" id="autotoc_md184"></a>
-Algorithm Overview</h2>
-<p>The backbone detection process works in three phases:</p>
-<p><b>Phase 1: Initialization</b></p><ol type="1">
-<li>Initialize SAT solver with all variables and clauses</li>
-<li>Find first satisfying assignment</li>
-<li>Initialize candidate set with literals from first solution</li>
-</ol>
-<p><b>Phase 2: Systematic Checking</b> For each candidate literal <code>l</code>:</p><ol type="1">
-<li>Assume <code>¬l</code> (opposite of candidate)</li>
-<li>Solve with assumptions and bump variable activity</li>
-<li>If UNSAT → <code>l</code> is backbone (must be true in all solutions)</li>
-<li>If SAT → Update candidates based on new solution</li>
-</ol>
-<p><b>Phase 3: Refinement</b></p><ul>
-<li>Remove non-backbone candidates from candidate set</li>
-<li>Learn from SAT solver conflicts to prune search space</li>
-<li>Leverage activity bumping to prioritize promising variables</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md185"></a>
-Activity Bumping Strategy</h2>
-<p>This detector uses MiniSat's variable activity heuristic to improve performance:</p><ul>
-<li>Variables involved in recent conflicts receive higher activity scores</li>
-<li>The SAT solver prioritizes high-activity variables when making decisions</li>
-<li>This guides the search toward conflict-prone areas, accelerating backbone detection</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md186"></a>
-Key Differences from WithoutAttention</h2>
-<ul>
-<li><b>This variant</b>: Uses bump_and_solve() to increase variable activity before solving</li>
-<li><b>WithoutAttention</b>: Uses plain solve() without activity manipulation</li>
-<li><b>Performance</b>: Activity bumping typically provides 2-3x speedup on large formulas</li>
-</ul>
-<dl class="section author"><dt>Author</dt><dd>Backbone Solver Team </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2024 </dd></dl>
+<div class="textblock"><p>Implementation file for CheckCandidatesOneByOne. </p>
 
 <p class="definition">Definition in file <a class="el" href="CheckCandidatesOneByOne_8cc_source.html">CheckCandidatesOneByOne.cc</a>.</p>
 </div></div><!-- contents -->
@@ -146,7 +110,7 @@ Key Differences from WithoutAttention</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_ce788acbb861987b58d09336a4dbd906.html">dimacs2graphs</a></li><li class="navelem"><a class="el" href="dir_369eb9855f7590b0ae417edc3728027e.html">backbone_solver</a></li><li class="navelem"><a class="el" href="dir_360cb99cb300b5274db0a2a628175677.html">src</a></li><li class="navelem"><a class="el" href="dir_9406f12aa7e6e790b15ed1c239fb3f75.html">detectors</a></li><li class="navelem"><a class="el" href="CheckCandidatesOneByOne_8cc.html">CheckCandidatesOneByOne.cc</a></li>
+    <li class="navelem"><a class="el" href="dir_006a4362bdc5bfecff52d93ca650ed02.html">uvl2dimacs</a></li><li class="navelem"><a class="el" href="dir_7e97955c4b3f9d8eaaea15caa7059bf5.html">backbone_solver</a></li><li class="navelem"><a class="el" href="dir_05c921079b0fb8391eb759ed9471410d.html">src</a></li><li class="navelem"><a class="el" href="dir_878a5c40e847aacd0e4dae1cd997276e.html">detectors</a></li><li class="navelem"><a class="el" href="CheckCandidatesOneByOne_8cc.html">CheckCandidatesOneByOne.cc</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

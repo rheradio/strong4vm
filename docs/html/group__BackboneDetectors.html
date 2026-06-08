@@ -102,44 +102,57 @@ $(document).ready(function(){initNavTree('group__BackboneDetectors.html',''); in
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbackbone__solver_1_1BackBone.html">BackBone</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for backbone detection algorithms.  <a href="classbackbone__solver_1_1BackBone.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbonedigger_1_1BackBone.html">BackBone</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for backbone detection algorithms.  <a href="classbonedigger_1_1BackBone.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbackbone__solver_1_1CheckCandidatesOneByOne.html">CheckCandidatesOneByOne</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast backbone detector using upper-bound iterative elimination.  <a href="classbackbone__solver_1_1CheckCandidatesOneByOne.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbonedigger_1_1CheckCandidatesOneByOne.html">CheckCandidatesOneByOne</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast backbone detector using upper-bound iterative elimination.  <a href="classbonedigger_1_1CheckCandidatesOneByOne.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html">CheckCandidatesOneByOneWithoutAttention</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper-bound backbone detector without activity bumping.  <a href="classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbonedigger_1_1FastOnCliffsSlowOnPlains.html">FastOnCliffsSlowOnPlains</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adaptive backbone detector with cliff/plain strategy.  <a href="classbonedigger_1_1FastOnCliffsSlowOnPlains.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbonedigger_1_1RushAndPray.html">RushAndPray</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Experimental backbone detector with rush and verify strategy.  <a href="classbonedigger_1_1RushAndPray.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Algorithms for computing the backbone of Boolean formulas. </p>
-<h2><a class="anchor" id="autotoc_md176"></a>
-Overview</h2>
-<p>The backbone of a Boolean formula is the set of literals that must have the same value in all satisfying assignments. BackboneSolver provides several algorithms for computing backbones, each with different performance characteristics.</p>
 <h2><a class="anchor" id="autotoc_md177"></a>
+Overview</h2>
+<p>The backbone of a Boolean formula is the set of literals that must have the same value in all satisfying assignments. BoneDigger provides several algorithms for computing backbones, each with different performance characteristics.</p>
+<h2><a class="anchor" id="autotoc_md178"></a>
 Available Detectors</h2>
-<p>BackboneSolver includes two backbone detection algorithms:</p>
-<h3><a class="anchor" id="autotoc_md178"></a>
-1. CheckCandidatesOneByOne (Default)</h3>
+<p>BoneDigger includes four backbone detection algorithms:</p>
+<h3><a class="anchor" id="autotoc_md179"></a>
+1. RushAndPray (Default)</h3>
 <ul>
-<li><b>Class:</b> <a class="el" href="classbackbone__solver_1_1CheckCandidatesOneByOne.html" title="Fast backbone detector using upper-bound iterative elimination.">backbone_solver::CheckCandidatesOneByOne</a></li>
+<li><b>Class:</b> <a class="el" href="classbonedigger_1_1RushAndPray.html" title="Experimental backbone detector with rush and verify strategy.">bonedigger::RushAndPray</a></li>
+<li><b>Strategy:</b> Rush-and-verify approach with iterative refinement</li>
+<li><b>Best for:</b> General-purpose backbone detection with good performance on most formulas</li>
+<li><b>Description:</b> Starts with literals from an initial solution, uses activity bumping to find alternative solutions, and iteratively refines candidates until convergence</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md180"></a>
+2. CheckCandidatesOneByOne</h3>
+<ul>
+<li><b>Class:</b> <a class="el" href="classbonedigger_1_1CheckCandidatesOneByOne.html" title="Fast backbone detector using upper-bound iterative elimination.">bonedigger::CheckCandidatesOneByOne</a></li>
 <li><b>Strategy:</b> Upper-bound iterative elimination with activity bumping</li>
 <li><b>Best for:</b> Formulas where solver guidance significantly improves performance</li>
 <li><b>Description:</b> Systematically checks each candidate using activity bumping to guide the SAT solver toward relevant alternative solutions</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md179"></a>
-2. CheckCandidatesOneByOneWithoutAttention</h3>
+<h3><a class="anchor" id="autotoc_md181"></a>
+3. FastOnCliffsSlowOnPlains</h3>
 <ul>
-<li><b>Class:</b> <a class="el" href="classbackbone__solver_1_1CheckCandidatesOneByOneWithoutAttention.html" title="Upper-bound backbone detector without activity bumping.">backbone_solver::CheckCandidatesOneByOneWithoutAttention</a></li>
-<li><b>Strategy:</b> Baseline one-by-one checking without solver guidance</li>
-<li><b>Best for:</b> Comparison baseline to measure impact of activity bumping</li>
-<li><b>Description:</b> Checks candidates individually without activity manipulation, serving as a performance baseline</li>
+<li><b>Class:</b> <a class="el" href="classbonedigger_1_1FastOnCliffsSlowOnPlains.html" title="Adaptive backbone detector with cliff/plain strategy.">bonedigger::FastOnCliffsSlowOnPlains</a></li>
+<li><b>Strategy:</b> Adaptive strategy with cliff/plain detection</li>
+<li><b>Best for:</b> Formulas with varying difficulty regions (rapid progress followed by plateaus)</li>
+<li><b>Description:</b> Automatically switches between rapid elimination (cliffs) and careful verification (plains) based on convergence rate</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md180"></a>
+<h2><a class="anchor" id="autotoc_md182"></a>
 Implementing a New Detector</h2>
-<p>To add a new backbone detection algorithm, create a class that inherits from <a class="el" href="classbackbone__solver_1_1BackBone.html" title="Abstract base class for backbone detection algorithms.">backbone_solver::BackBone</a> and implements all pure virtual methods:</p>
+<p>To add a new backbone detection algorithm, create a class that inherits from <a class="el" href="classbonedigger_1_1BackBone.html" title="Abstract base class for backbone detection algorithms.">bonedigger::BackBone</a> and implements all pure virtual methods:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="BackBone_8hh.html">BackBone.hh</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacebonedigger.html">bonedigger</a> {</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">class </span>MyDetector : <span class="keyword">public</span> BackBone {</div>
 <div class="line"><span class="keyword">public</span>:</div>
@@ -166,10 +179,13 @@ Implementing a New Detector</h2>
 <div class="line">    <a class="code hl_class" href="classLiteralSet.html">LiteralSet</a> backbone;</div>
 <div class="line">    <span class="comment">// ... other data structures</span></div>
 <div class="line">};</div>
+<div class="line"> </div>
+<div class="line">} <span class="comment">// namespace bonedigger</span></div>
 <div class="ttc" id="aBackBone_8hh_html"><div class="ttname"><a href="BackBone_8hh.html">BackBone.hh</a></div><div class="ttdoc">Abstract base class for backbone detection algorithms.</div></div>
-<div class="ttc" id="aDIMACSReader_8hh_html_a944546e234bb3085461279df3c49fa6e"><div class="ttname"><a href="DIMACSReader_8hh.html#a944546e234bb3085461279df3c49fa6e">CNF</a></div><div class="ttdeci">vector&lt; LitSet &gt; CNF</div><div class="ttdoc">CNF formula represented as a vector of clauses (LitSets)</div><div class="ttdef"><b>Definition</b> <a href="DIMACSReader_8hh_source.html#l00250">DIMACSReader.hh:250</a></div></div>
-<div class="ttc" id="aclassLiteralSet_html"><div class="ttname"><a href="classLiteralSet.html">LiteralSet</a></div><div class="ttdoc">Efficient bit-set for storing MiniSat literals.</div><div class="ttdef"><b>Definition</b> <a href="LiteralSet_8hh_source.html#l00163">LiteralSet.hh:163</a></div></div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md181"></a>
+<div class="ttc" id="aDIMACSReader_8hh_html_a944546e234bb3085461279df3c49fa6e"><div class="ttname"><a href="DIMACSReader_8hh.html#a944546e234bb3085461279df3c49fa6e">CNF</a></div><div class="ttdeci">vector&lt; LitSet &gt; CNF</div><div class="ttdoc">CNF formula represented as a vector of clauses (LitSets)</div><div class="ttdef"><b>Definition</b> <a href="DIMACSReader_8hh_source.html#l00254">DIMACSReader.hh:254</a></div></div>
+<div class="ttc" id="aclassLiteralSet_html"><div class="ttname"><a href="classLiteralSet.html">LiteralSet</a></div><div class="ttdoc">Efficient bit-set for storing MiniSat literals.</div><div class="ttdef"><b>Definition</b> <a href="LiteralSet_8hh_source.html#l00167">LiteralSet.hh:167</a></div></div>
+<div class="ttc" id="anamespacebonedigger_html"><div class="ttname"><a href="namespacebonedigger.html">bonedigger</a></div><div class="ttdef"><b>Definition</b> <a href="BoneDiggerAPI_8cc_source.html#l00023">BoneDiggerAPI.cc:23</a></div></div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md183"></a>
 Implementation Guidelines</h3>
 <ol type="1">
 <li><b>initialize()</b>: Must check satisfiability using a SAT solver and return the result. If satisfiable, set up initial data structures for backbone detection.</li>
@@ -177,7 +193,7 @@ Implementation Guidelines</h3>
 <li><b>is_backbone() methods</b>: Should return true only for literals/variables that are proven to be in the backbone (must have the same value in ALL satisfying assignments).</li>
 <li><b>backbone_sign()</b>: Should only be called for variables known to be in the backbone. Returns true if the variable must be positive, false if negative.</li>
 </ol>
-<h3><a class="anchor" id="autotoc_md182"></a>
+<h3><a class="anchor" id="autotoc_md184"></a>
 Common Patterns</h3>
 <p>Most detectors follow this pattern:</p><ul>
 <li>Use a MiniSatExt solver for SAT queries</li>
@@ -185,11 +201,11 @@ Common Patterns</h3>
 <li>Use activity bumping (solver.bump()) to guide solver toward relevant solutions</li>
 <li>Maintain a set of candidate literals and iteratively eliminate non-backbone candidates</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md183"></a>
+<h3><a class="anchor" id="autotoc_md185"></a>
 Integration</h3>
 <p>After implementing your detector:</p><ol type="1">
 <li>Add it to the factory function in cli/main.cc</li>
-<li>Add it to <a class="el" href="BackboneSolverAPI_8cc.html" title="Implementation file for BackboneSolverAPI - SAT formula backbone detection.">BackboneSolverAPI.cc</a> for API access</li>
+<li>Add it to <a class="el" href="BoneDiggerAPI_8cc.html" title="Implementation file for BoneDiggerAPI.">BoneDiggerAPI.cc</a> for API access</li>
 <li>Update documentation and examples</li>
 <li>Add command-line option for your detector </li>
 </ol>

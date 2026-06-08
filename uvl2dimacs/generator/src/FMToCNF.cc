@@ -11,8 +11,9 @@
  * 4. **Cross-tree constraints**: Boolean expressions converted to CNF
  *
  * The transformation supports two CNF conversion modes:
- * - STRAIGHTFORWARD: Direct conversion (may produce long clauses)
- * - TSEITIN: Uses auxiliary variables (shorter clauses, more variables)
+ * - STRAIGHTFORWARD: Direct conversion for all clauses (may produce long clauses)
+ * - TSEITIN: Uses auxiliary variables only for cross-tree constraint expressions;
+ *            feature tree relation clauses are emitted directly at arbitrary length
  *
  * @author UVL2Dimacs Team
  * @date 2024
@@ -20,6 +21,7 @@
 
 #include "FMToCNF.hh"
 #include "RelationEncoder.hh"
+#include <iostream>
 #include <stdexcept>
 
 /**
@@ -123,13 +125,12 @@ void FMToCNF::add_constraints() {
     const auto& constraints = source_model->get_constraints();
 
     int total_constraints = constraints.size();
-    int skipped_constraints = 0;
 
     for (const auto& constraint : constraints) {
         // Skip non-boolean constraints (comparison, arithmetic)
         // These cannot be represented in CNF for SAT solvers
         if (!constraint->is_pure_boolean()) {
-            skipped_constraints++;
+            skipped_constraints_count++;
             continue;
         }
 
@@ -146,15 +147,26 @@ void FMToCNF::add_constraints() {
         };
 
         // Get clauses from constraint and add to CNF model
-        auto clauses = constraint->get_clauses(get_variable, create_aux_var, mode);
-        for (const auto& clause : clauses) {
-            cnf_model.add_clause(clause);
+        try {
+            auto clauses = constraint->get_clauses(get_variable, create_aux_var, mode);
+            for (const auto& clause : clauses) {
+                cnf_model.add_clause(clause);
+            }
+        } catch (const std::runtime_error& e) {
+            skipped_constraints_count++;
+            std::cerr << "Warning: constraint skipped — " << e.what()
+                      << " (the model may use imported features not available"
+                         " to uvl2dimacs, which does not support UVL imports)."
+                      << std::endl;
         }
     }
 
-    // Report skipped constraints if any
-    if (skipped_constraints > 0) {
-        // Note: In a production system, this would use a proper logging mechanism
-        // For now, we silently skip (error reporting happens at a higher level)
+    if (skipped_constraints_count > 0) {
+        std::cerr << "Warning: " << skipped_constraints_count
+                  << " constraint(s) contain arithmetic or non-Boolean operators,"
+                     " reference undefined features, or use unsupported constructs and were skipped."
+                     " uvl2dimacs supports the Boolean language level of UVL only"
+                     " (propositional feature hierarchies and Boolean cross-tree constraints)."
+                  << std::endl;
     }
 }

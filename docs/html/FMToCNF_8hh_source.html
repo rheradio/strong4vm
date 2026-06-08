@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Strong4VM: /mnt/c/strong4vm/uvl2dimacs/generator/include/FMToCNF.hh Source File</title>
+<title>Strong4VM: /mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/generator/include/FMToCNF.hh Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -114,34 +114,38 @@ $(document).ready(function(){initNavTree('FMToCNF_8hh_source.html',''); initResi
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    std::shared_ptr&lt;FeatureModel&gt; source_model;  </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="classCNFModel.html">CNFModel</a> cnf_model;                          </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_enumeration" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a> mode;                                </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="classFMToCNF.html#a406fdee1b36e470957fe4ccdfb144168">   66</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classFMToCNF.html#a406fdee1b36e470957fe4ccdfb144168">FMToCNF</a>(std::shared_ptr&lt;FeatureModel&gt; model);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classFMToCNF.html#aacae468f9df03b822f75b124bcc5ebb2">   71</a></span>    <a class="code hl_function" href="classFMToCNF.html#aacae468f9df03b822f75b124bcc5ebb2">~FMToCNF</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classFMToCNF.html#a78ffc2137bfb912e4461459d5ac7e334">   87</a></span>    <a class="code hl_class" href="classCNFModel.html">CNFModel</a> <a class="code hl_function" href="classFMToCNF.html#a78ffc2137bfb912e4461459d5ac7e334">transform</a>(<a class="code hl_enumeration" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a> conversion_mode = <a class="code hl_enumvalue" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a>);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">void</span> add_features();</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">void</span> add_root();</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">void</span> add_relations();</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordtype">void</span> add_constraints();</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">int</span> skipped_constraints_count{0};            </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classFMToCNF.html#a406fdee1b36e470957fe4ccdfb144168">   67</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classFMToCNF.html#a406fdee1b36e470957fe4ccdfb144168">FMToCNF</a>(std::shared_ptr&lt;FeatureModel&gt; model);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classFMToCNF.html#aacae468f9df03b822f75b124bcc5ebb2">   72</a></span>    <a class="code hl_function" href="classFMToCNF.html#aacae468f9df03b822f75b124bcc5ebb2">~FMToCNF</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classFMToCNF.html#a78ffc2137bfb912e4461459d5ac7e334">   88</a></span>    <a class="code hl_class" href="classCNFModel.html">CNFModel</a> <a class="code hl_function" href="classFMToCNF.html#a78ffc2137bfb912e4461459d5ac7e334">transform</a>(<a class="code hl_enumeration" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a> conversion_mode = <a class="code hl_enumvalue" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a>);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classFMToCNF.html#a45ac906c25009acaae6927782112a646">   91</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="classFMToCNF.html#a45ac906c25009acaae6927782112a646">get_skipped_constraints</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> skipped_constraints_count; }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">void</span> add_features();</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">void</span> add_root();</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordtype">void</span> add_relations();</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordtype">void</span> add_constraints();</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>};</div>
 </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#endif </span><span class="comment">// FMTOCNF_H</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#endif </span><span class="comment">// FMTOCNF_H</span></div>
 <div class="ttc" id="aCNFMode_8hh_html"><div class="ttname"><a href="CNFMode_8hh.html">CNFMode.hh</a></div><div class="ttdoc">CNF conversion mode enumeration.</div></div>
-<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a></div><div class="ttdeci">CNFMode</div><div class="ttdoc">Conversion modes for generating CNF from feature models.</div><div class="ttdef"><b>Definition</b> <a href="CNFMode_8hh_source.html#l00048">CNFMode.hh:48</a></div></div>
-<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a></div><div class="ttdeci">@ STRAIGHTFORWARD</div><div class="ttdoc">Direct conversion without auxiliary variables (fewer vars, potentially longer clauses)</div></div>
+<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a></div><div class="ttdeci">CNFMode</div><div class="ttdoc">Conversion modes for generating CNF from feature models.</div><div class="ttdef"><b>Definition</b> <a href="CNFMode_8hh_source.html#l00049">CNFMode.hh:49</a></div></div>
+<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a></div><div class="ttdeci">@ STRAIGHTFORWARD</div><div class="ttdoc">Direct conversion: no auxiliary variables, potentially longer clauses.</div></div>
 <div class="ttc" id="aCNFModel_8hh_html"><div class="ttname"><a href="CNFModel_8hh.html">CNFModel.hh</a></div><div class="ttdoc">CNF (Conjunctive Normal Form) model with variable mapping.</div></div>
 <div class="ttc" id="aFeatureModel_8hh_html"><div class="ttname"><a href="FeatureModel_8hh.html">FeatureModel.hh</a></div><div class="ttdoc">Complete feature model representation.</div></div>
 <div class="ttc" id="aclassCNFModel_html"><div class="ttname"><a href="classCNFModel.html">CNFModel</a></div><div class="ttdoc">Represents a CNF (Conjunctive Normal Form) formula with variable mappings.</div><div class="ttdef"><b>Definition</b> <a href="CNFModel_8hh_source.html#l00051">CNFModel.hh:51</a></div></div>
 <div class="ttc" id="aclassFMToCNF_html"><div class="ttname"><a href="classFMToCNF.html">FMToCNF</a></div><div class="ttdoc">Transforms a feature model into a CNF formula.</div><div class="ttdef"><b>Definition</b> <a href="FMToCNF_8hh_source.html#l00054">FMToCNF.hh:54</a></div></div>
 <div class="ttc" id="aclassFMToCNF_html_a406fdee1b36e470957fe4ccdfb144168"><div class="ttname"><a href="classFMToCNF.html#a406fdee1b36e470957fe4ccdfb144168">FMToCNF::FMToCNF</a></div><div class="ttdeci">FMToCNF(std::shared_ptr&lt; FeatureModel &gt; model)</div><div class="ttdoc">Constructs a transformer for the given feature model.</div></div>
+<div class="ttc" id="aclassFMToCNF_html_a45ac906c25009acaae6927782112a646"><div class="ttname"><a href="classFMToCNF.html#a45ac906c25009acaae6927782112a646">FMToCNF::get_skipped_constraints</a></div><div class="ttdeci">int get_skipped_constraints() const</div><div class="ttdoc">Returns the number of constraints skipped due to arithmetic / non-Boolean operators.</div><div class="ttdef"><b>Definition</b> <a href="FMToCNF_8hh_source.html#l00091">FMToCNF.hh:91</a></div></div>
 <div class="ttc" id="aclassFMToCNF_html_a78ffc2137bfb912e4461459d5ac7e334"><div class="ttname"><a href="classFMToCNF.html#a78ffc2137bfb912e4461459d5ac7e334">FMToCNF::transform</a></div><div class="ttdeci">CNFModel transform(CNFMode conversion_mode=CNFMode::STRAIGHTFORWARD)</div><div class="ttdoc">Transforms the feature model to CNF.</div></div>
 <div class="ttc" id="aclassFMToCNF_html_aacae468f9df03b822f75b124bcc5ebb2"><div class="ttname"><a href="classFMToCNF.html#aacae468f9df03b822f75b124bcc5ebb2">FMToCNF::~FMToCNF</a></div><div class="ttdeci">~FMToCNF()=default</div><div class="ttdoc">Destructor.</div></div>
 </div><!-- fragment --></div><!-- contents -->

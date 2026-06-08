@@ -1,4 +1,4 @@
-digraph "/mnt/c/strong4vm/uvl2dimacs/api/include/uvl2dimacs"
+digraph "/mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/api/include/uvl2dimacs"
 {
  // LATEX_PDF_SIZE
   bgcolor="transparent";

@@ -53,11 +53,9 @@
  * @see CNFModel for the CNF representation
  * @see FMToCNF for the overall transformation process
  *
- * Feature tree relation clauses are always emitted directly (arbitrary clause
- * length) in both modes, since they are already valid CNF disjunctions. The
- * Tseitin transformation with auxiliary variables is only applied to cross-tree
- * constraint expressions (see ASTNode), where it prevents exponential clause
- * growth from nested boolean operations.
+ * Feature tree relation clauses are emitted directly at arbitrary length in both
+ * STRAIGHTFORWARD and TSEITIN modes. Auxiliary variables are only introduced for
+ * cross-tree constraint expressions (handled by ASTNode::tseitin_transform).
  *
  * Example:
  * @code
@@ -76,7 +74,7 @@ public:
      * @brief Constructs an encoder for the given CNF model
      *
      * @param model Reference to the CNF model where clauses will be added
-     * @param conversion_mode CNF mode: STRAIGHTFORWARD (default) or TSEITIN (3-CNF)
+     * @param conversion_mode CNF mode: STRAIGHTFORWARD (default) or TSEITIN
      */
     explicit RelationEncoder(CNFModel& model, CNFMode conversion_mode = CNFMode::STRAIGHTFORWARD);
 
@@ -165,7 +163,6 @@ private:
      * Example: generate_combinations(3, 2) returns {{0,1}, {0,2}, {1,2}}
      */
     std::vector<std::vector<int>> generate_combinations(int n, int k);
-
 };
 
 #endif // RELATIONENCODER_H

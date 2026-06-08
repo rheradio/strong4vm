@@ -9,7 +9,7 @@ This page provides a comprehensive overview of Strong4VM's architecture, design 
 Strong4VM implements a three-stage pipeline for analyzing variability models:
 
 ```
-UVL Feature Model  →  [UVL2Dimacs]  →  DIMACS CNF  →  [Dimacs2Graphs + Backbone Solver]  →  Graphs
+UVL Feature Model  →  [UVL2Dimacs + BackboneSimplifier]  →  Simplified DIMACS CNF  →  [Dimacs2Graphs + BoneDigger]  →  Graphs
 ```
 
 Each stage transforms the input data, ultimately producing strong transitive dependency and conflict graphs along with core and dead feature lists.
@@ -32,6 +32,8 @@ AST Layer (Abstract Syntax Tree)
 Generator Layer (CNF Transformation)
     ↓
 Writer Layer (DIMACS output)
+    ↓
+BackboneSimplifier (backbone_solver subprocess → simplified DIMACS)
 ```
 
 **Key Classes**:
@@ -41,6 +43,7 @@ Writer Layer (DIMACS output)
 - `ASTNode` - Abstract syntax tree node representation
 - `CNFModel` - Represents the CNF formula
 - `DimacsWriter` - Outputs standard DIMACS format
+- `BackboneSimplifier` - Calls `backbone_solver -r -a 5` as subprocess; removes backbone-satisfied clauses and adds unit clauses for backbone literals, reducing formula size by 30–50%
 
 **Transformation Modes**:
 1. **Straightforward Mode** (default)
@@ -52,6 +55,14 @@ Writer Layer (DIMACS output)
    - Introduces auxiliary variables for subexpressions
    - Produces 3-CNF formulas
    - Shorter clauses, more predictable structure
+
+**Backbone Simplification** (optional, disabled by default in strong4vm):
+- Enabled via `set_backbone_simplification(true)` on the `UVL2Dimacs` API object
+- Invokes `backbone_solver -r -a 5 <file>` as a subprocess after DIMACS generation
+- Identifies backbone literals (features that are core or dead in all configurations)
+- Removes clauses satisfied by those literals; adds explicit unit clauses for them
+- Reduces formula size by 30–50%
+- The `backbone_solver` binary is expected at `<exe_dir>/../backbone_solver/bin/backbone_solver`
 
 **Namespace**: `uvl2dimacs`
 
@@ -86,9 +97,11 @@ Pajek Writer (graph output)
 
 **Namespace**: `dimacs2graphs`
 
-### 3. Backbone Solver: Detection Engine
+### 3. BoneDigger: Backbone Detection Engine
 
-**Purpose**: High-performance SAT backbone detection using MiniSat with optimization heuristics.
+**Purpose**: High-performance SAT backbone detection using MiniSat with three detection strategies. BoneDigger is shared between dimacs2graphs (via API) and uvl2dimacs (as a subprocess for backbone simplification).
+
+**Location**: `uvl2dimacs/backbone_solver/`
 
 **Architecture**: Template method pattern with detector strategies
 
@@ -99,29 +112,32 @@ BackBone Base Class (template method)
     ↓
 Detector Strategy (algorithm selection)
     ↓
-MiniSat Interface (IPASIR)
+Extended MiniSat Interface
     ↓
 Backbone Results (positive/negative literals)
 ```
 
 **Detector Algorithms**:
 
-1. **CheckCandidatesOneByOne** (default, with activity bumping)
-   - Uses SAT solver activity heuristics
-   - Bumps variable activities for faster solving
-   - Best performance in most cases
+1. **CheckCandidatesOneByOne** (`one`) — default, recommended
+   - Upper-bound iterative elimination with activity bumping
+   - Bumps variable activities to guide the solver toward relevant solutions
 
-2. **CheckCandidatesOneByOneWithoutAttention** (baseline)
-   - No activity bumping
-   - Simpler but generally slower
+2. **FastOnCliffsSlowOnPlains** (`flatland`)
+   - Adaptive strategy switching between rapid elimination (cliffs) and careful verification (plains)
+   - Based on convergence rate detection
+
+3. **RushAndPray** (`rush`)
+   - Rush-and-verify approach: starts from an initial solution, iteratively refines candidates
+   - Used by BackboneSimplifier for fast formula preprocessing
 
 **Key Classes**:
 - `BackBone` - Base class defining template method pattern
-- `BackboneSolverAPI` - High-level interface for backbone computation
+- `BoneDiggerAPI` - High-level PIMPL interface for backbone computation, includes `compute_backbone_with_assumptions()` for per-variable analysis in dimacs2graphs
 - `LiteralSet` - Efficient data structure for literal management
 - `DIMACSReader` - Parses DIMACS files
 
-**Namespace**: `backbone_solver`
+**Namespace**: `bonedigger`
 
 ## Design Patterns
 
@@ -152,9 +168,9 @@ private:
 
 ```cpp
 // CORRECT: Initialize solvers sequentially in main thread
-std::vector<BackboneSolverAPI*> solvers;
+std::vector<BoneDiggerAPI*> solvers;
 for (int i = 0; i < num_threads; i++) {
-    solvers.push_back(new BackboneSolverAPI());
+    solvers.push_back(new BoneDiggerAPI());
 }
 
 // Then use solvers in parallel
@@ -207,7 +223,8 @@ Concrete detectors implement specific strategies by overriding virtual methods.
    - ANTLR4 parser generates AST
    - AST traversal builds `FeatureModel`
    - CNF transformation produces `CNFModel`
-   - DIMACS writer outputs .dimacs file
+   - DIMACS writer outputs intermediate .dimacs file
+   - *(Optional)* **Backbone simplification**: if `set_backbone_simplification(true)` is called on the `UVL2Dimacs` object, BoneDigger (RushAndPray) identifies backbone literals; clauses satisfied by them are removed and unit clauses are added, reducing formula size by 30–50%. Disabled by default in the strong4vm CLI and unified API.
 
 3. **Analysis Stage**:
    - DIMACS reader parses formula
@@ -289,14 +306,9 @@ strong4vm/
 │   └── cli/                # Standalone CLI tool
 ├── dimacs2graphs/          # DIMACS to graphs generator
 │   ├── api/                # Graph generation API
-│   ├── cli/                # Standalone CLI tool
-│   └── backbone_solver/    # Backbone detection engine
-│       └── src/
-│           ├── api/        # Backbone Solver API
-│           ├── detectors/  # Detection algorithms
-│           ├── data_structures/  # LiteralSet, etc.
-│           ├── io/         # DIMACS file reading
-│           └── minisat_interface/  # SAT solver integration
+│   └── cli/                # Standalone CLI tool
+├── backbone_solver/        # Runtime backbone solver binary
+│   └── bin/                # backbone_solver executable (auto-built by `make`)
 └── docs/                   # Documentation (this file!)
 ```
 
@@ -358,9 +370,11 @@ converter.convert("model.uvl", "output.dimacs");
 Dimacs2GraphsAPI analyzer;
 analyzer.generateGraphs("formula.dimacs", "./output", 4);
 
-// Use only Backbone Solver
-BackboneSolverAPI solver;
-auto backbone = solver.computeBackbone("formula.dimacs");
+// Use only BoneDigger backbone solver
+BoneDiggerAPI solver;
+solver.read_dimacs("formula.dimacs");
+solver.create_backbone_detector("one");
+auto backbone = solver.compute_backbone();
 ```
 
 ## Performance Considerations
@@ -393,7 +407,7 @@ Extend `RelationEncoder` to support new constraint types:
 Implement the `BackBone` interface:
 1. Inherit from `BackBone` base class
 2. Implement pure virtual methods
-3. Register in `BackboneSolverAPI::create_backbone_detector()`
+3. Register in `BoneDiggerAPI::create_backbone_detector()`
 
 ### Adding New Output Formats
 

@@ -39,7 +39,8 @@ enum class ConversionMode {
  */
 enum class BackboneDetector {
     ONE,        ///< CheckCandidatesOneByOne with activity bumping (default, recommended)
-    WITHOUT     ///< CheckCandidatesOneByOneWithoutAttention (baseline)
+    FLATLAND,   ///< FastOnCliffsSlowOnPlains adaptive cliff/plain strategy
+    RUSH        ///< RushAndPray detector (experimental)
 };
 
 /**
@@ -95,6 +96,7 @@ struct AnalysisResult {
     // CNF formula statistics
     int num_variables;                ///< Number of variables in the CNF
     int num_clauses;                  ///< Number of clauses in the CNF
+    int num_skipped_constraints;      ///< UVL constraints skipped (arithmetic/non-Boolean)
 
     // Graph analysis results
     std::vector<int> global_backbone; ///< Global backbone literals
@@ -121,6 +123,7 @@ struct AnalysisResult {
         , num_constraints(0)
         , num_variables(0)
         , num_clauses(0)
+        , num_skipped_constraints(0)
         , requires_graph_file("")
         , excludes_graph_file("")
         , core_features_file("")

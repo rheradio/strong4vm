@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="Dimacs2GraphsAPI::Impl\l::ThreadWorker",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structDimacs2GraphsAPI_1_1Impl_1_1ThreadWorker.html",tooltip="Thread worker structure for parallel variable processing."];
+  Node0 [id="Node000000",label="ConversionResult",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$structuvl2dimacs_1_1ConversionResult.html",tooltip="Result of a conversion operation."];
 }

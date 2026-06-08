@@ -128,7 +128,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Parser for DIMACS CNF format files. </p>
 <p>Parses Boolean formulas in the standard DIMACS CNF format. The format consists of:</p><ul>
 <li>Comment lines starting with 'c'</li>
-<li>Problem line: p cnf [num_vars] [num_clauses]</li>
+<li>Problem line: p cnf &lt;num_vars&gt; &lt;num_clauses&gt;</li>
 <li>Clause lines: space-separated literals terminated by 0</li>
 </ul>
 <p>Example DIMACS file: </p><div class="fragment"><div class="line">c This is a comment</div>
@@ -140,11 +140,11 @@ Public Member Functions</h2></td></tr>
 <div class="line">dimacs.read();</div>
 <div class="line"><span class="keyword">const</span> <a class="code hl_typedef" href="DIMACSReader_8hh.html#a944546e234bb3085461279df3c49fa6e">CNF</a>&amp; clauses = dimacs.get_clause_vector();</div>
 <div class="line">Var max_var = dimacs.get_max_id();</div>
-<div class="ttc" id="aDIMACSReader_8hh_html_a944546e234bb3085461279df3c49fa6e"><div class="ttname"><a href="DIMACSReader_8hh.html#a944546e234bb3085461279df3c49fa6e">CNF</a></div><div class="ttdeci">vector&lt; LitSet &gt; CNF</div><div class="ttdoc">CNF formula represented as a vector of clauses (LitSets)</div><div class="ttdef"><b>Definition</b> <a href="DIMACSReader_8hh_source.html#l00250">DIMACSReader.hh:250</a></div></div>
-<div class="ttc" id="aclassDIMACSReader_html"><div class="ttname"><a href="classDIMACSReader.html">DIMACSReader</a></div><div class="ttdoc">Parser for DIMACS CNF format files.</div><div class="ttdef"><b>Definition</b> <a href="DIMACSReader_8hh_source.html#l00371">DIMACSReader.hh:371</a></div></div>
-<div class="ttc" id="aclassReader_html"><div class="ttname"><a href="classReader.html">Reader</a></div><div class="ttdoc">Low-level character reader for DIMACS files.</div><div class="ttdef"><b>Definition</b> <a href="DIMACSReader_8hh_source.html#l00262">DIMACSReader.hh:262</a></div></div>
+<div class="ttc" id="aDIMACSReader_8hh_html_a944546e234bb3085461279df3c49fa6e"><div class="ttname"><a href="DIMACSReader_8hh.html#a944546e234bb3085461279df3c49fa6e">CNF</a></div><div class="ttdeci">vector&lt; LitSet &gt; CNF</div><div class="ttdoc">CNF formula represented as a vector of clauses (LitSets)</div><div class="ttdef"><b>Definition</b> <a href="DIMACSReader_8hh_source.html#l00254">DIMACSReader.hh:254</a></div></div>
+<div class="ttc" id="aclassDIMACSReader_html"><div class="ttname"><a href="classDIMACSReader.html">DIMACSReader</a></div><div class="ttdoc">Parser for DIMACS CNF format files.</div><div class="ttdef"><b>Definition</b> <a href="DIMACSReader_8hh_source.html#l00375">DIMACSReader.hh:375</a></div></div>
+<div class="ttc" id="aclassReader_html"><div class="ttname"><a href="classReader.html">Reader</a></div><div class="ttdoc">Low-level character reader for DIMACS files.</div><div class="ttdef"><b>Definition</b> <a href="DIMACSReader_8hh_source.html#l00266">DIMACSReader.hh:266</a></div></div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="DIMACSReader_8hh_source.html#l00371">371</a> of file <a class="el" href="DIMACSReader_8hh_source.html">DIMACSReader.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DIMACSReader_8hh_source.html#l00375">375</a> of file <a class="el" href="DIMACSReader_8hh_source.html">DIMACSReader.hh</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abd40e392a8ef86e43e78128d7187d98f" name="abd40e392a8ef86e43e78128d7187d98f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abd40e392a8ef86e43e78128d7187d98f">&#9670;&#160;</a></span>DIMACSReader() <span class="overload">[1/2]</span></h2>
@@ -258,26 +258,26 @@ Public Member Functions</h2></td></tr>
 <p>Get the parsed CNF formula. </p>
 <dl class="section return"><dt>Returns</dt><dd>Vector of clauses (each clause is a <a class="el" href="classLitSet.html" title="Reference-counted immutable set of literals.">LitSet</a>) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="DIMACSReader_8hh_source.html#l00408">408</a> of file <a class="el" href="DIMACSReader_8hh_source.html">DIMACSReader.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DIMACSReader_8hh_source.html#l00412">412</a> of file <a class="el" href="DIMACSReader_8hh_source.html">DIMACSReader.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="BackboneSolverAPI_8cc_source.html#l00247">BackboneSolverAPI::Impl::read_file()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="BoneDiggerAPI_8cc_source.html#l00035">BoneDiggerAPI::Impl::read_file()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classDIMACSReader_ab9e40d96b1f2285beb7b1d2130826f9e_icgraph.png" border="0" usemap="#aclassDIMACSReader_ab9e40d96b1f2285beb7b1d2130826f9e_icgraph" alt=""/></div>
 <map name="aclassDIMACSReader_ab9e40d96b1f2285beb7b1d2130826f9e_icgraph" id="aclassDIMACSReader_ab9e40d96b1f2285beb7b1d2130826f9e_icgraph">
-<area shape="rect" title="Get the parsed CNF formula." alt="" coords="1311,64,1451,89"/>
-<area shape="rect" href="classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#a1f3f17bc00a2e51111dfdd1cffc65f7c" title="Reads and parses a DIMACS CNF file." alt="" coords="1059,57,1263,97"/>
-<area shape="poly" title=" " alt="" coords="1297,79,1263,79,1263,74,1297,74"/>
-<area shape="rect" href="classbackbone__solver_1_1BackboneSolverAPI.html#a6fa2f781f0e65a541b774f62051cdfca" title="Read a DIMACS CNF file." alt="" coords="807,57,1011,97"/>
-<area shape="poly" title=" " alt="" coords="1045,79,1011,79,1011,74,1045,74"/>
+<area shape="rect" title="Get the parsed CNF formula." alt="" coords="1303,64,1443,89"/>
+<area shape="rect" href="classbonedigger_1_1BoneDiggerAPI_1_1Impl.html#a1f3f17bc00a2e51111dfdd1cffc65f7c" title=" " alt="" coords="1055,57,1255,97"/>
+<area shape="poly" title=" " alt="" coords="1289,79,1255,79,1255,74,1289,74"/>
+<area shape="rect" href="classbonedigger_1_1BoneDiggerAPI.html#a6fa2f781f0e65a541b774f62051cdfca" title="Read a DIMACS CNF file." alt="" coords="807,57,1007,97"/>
+<area shape="poly" title=" " alt="" coords="1041,79,1007,79,1007,74,1041,74"/>
 <area shape="rect" href="classDimacs2GraphsAPI_1_1Impl.html#a7267a63d7e93035c67c000e52e842b18" title="Internal implementation of graph generation." alt="" coords="525,27,759,67"/>
-<area shape="poly" title=" " alt="" coords="793,67,758,63,759,58,793,61"/>
-<area shape="rect" href="backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="615,92,669,117"/>
-<area shape="poly" title=" " alt="" coords="793,91,670,105,669,99,793,86"/>
+<area shape="poly" title=" " alt="" coords="793,67,759,63,759,58,793,61"/>
+<area shape="rect" href="uvl2dimacs_2backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="615,92,669,117"/>
+<area shape="poly" title=" " alt="" coords="794,91,670,105,669,99,793,86"/>
 <area shape="rect" href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html#ae990e997034cc3ff020fcbf912f8c23f" title="Generate graph files from a DIMACS CNF formula." alt="" coords="245,27,477,67"/>
 <area shape="poly" title=" " alt="" coords="512,50,477,50,477,45,512,45"/>
-<area shape="rect" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="74,5,129,31"/>
+<area shape="rect" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="74,5,129,31"/>
 <area shape="poly" title=" " alt="" coords="231,35,129,24,129,18,232,30"/>
 <area shape="rect" href="classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#ae491c69e6096f78564dc58d79de5d525" title="Execute the complete Strong4VM analysis pipeline." alt="" coords="5,55,197,95"/>
 <area shape="poly" title=" " alt="" coords="232,64,198,68,197,62,231,59"/>
@@ -312,26 +312,26 @@ Here is the caller graph for this function:</div>
 <p>Get maximum variable ID in the formula. </p>
 <dl class="section return"><dt>Returns</dt><dd>Highest variable number used </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="DIMACSReader_8hh_source.html#l00402">402</a> of file <a class="el" href="DIMACSReader_8hh_source.html">DIMACSReader.hh</a>.</p>
+<p class="definition">Definition at line <a class="el" href="DIMACSReader_8hh_source.html#l00406">406</a> of file <a class="el" href="DIMACSReader_8hh_source.html">DIMACSReader.hh</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="BackboneSolverAPI_8cc_source.html#l00247">BackboneSolverAPI::Impl::read_file()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="BoneDiggerAPI_8cc_source.html#l00035">BoneDiggerAPI::Impl::read_file()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classDIMACSReader_acced3e8eb4f5cbbe755842b5c2d86eac_icgraph.png" border="0" usemap="#aclassDIMACSReader_acced3e8eb4f5cbbe755842b5c2d86eac_icgraph" alt=""/></div>
 <map name="aclassDIMACSReader_acced3e8eb4f5cbbe755842b5c2d86eac_icgraph" id="aclassDIMACSReader_acced3e8eb4f5cbbe755842b5c2d86eac_icgraph">
-<area shape="rect" title="Get maximum variable ID in the formula." alt="" coords="1311,64,1409,89"/>
-<area shape="rect" href="classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#a1f3f17bc00a2e51111dfdd1cffc65f7c" title="Reads and parses a DIMACS CNF file." alt="" coords="1059,57,1263,97"/>
-<area shape="poly" title=" " alt="" coords="1297,79,1263,79,1263,74,1297,74"/>
-<area shape="rect" href="classbackbone__solver_1_1BackboneSolverAPI.html#a6fa2f781f0e65a541b774f62051cdfca" title="Read a DIMACS CNF file." alt="" coords="807,57,1011,97"/>
-<area shape="poly" title=" " alt="" coords="1045,79,1011,79,1011,74,1045,74"/>
+<area shape="rect" title="Get maximum variable ID in the formula." alt="" coords="1303,64,1401,89"/>
+<area shape="rect" href="classbonedigger_1_1BoneDiggerAPI_1_1Impl.html#a1f3f17bc00a2e51111dfdd1cffc65f7c" title=" " alt="" coords="1055,57,1255,97"/>
+<area shape="poly" title=" " alt="" coords="1289,79,1255,79,1255,74,1289,74"/>
+<area shape="rect" href="classbonedigger_1_1BoneDiggerAPI.html#a6fa2f781f0e65a541b774f62051cdfca" title="Read a DIMACS CNF file." alt="" coords="807,57,1007,97"/>
+<area shape="poly" title=" " alt="" coords="1041,79,1007,79,1007,74,1041,74"/>
 <area shape="rect" href="classDimacs2GraphsAPI_1_1Impl.html#a7267a63d7e93035c67c000e52e842b18" title="Internal implementation of graph generation." alt="" coords="525,27,759,67"/>
-<area shape="poly" title=" " alt="" coords="793,67,758,63,759,58,793,61"/>
-<area shape="rect" href="backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="615,92,669,117"/>
-<area shape="poly" title=" " alt="" coords="793,91,670,105,669,99,793,86"/>
+<area shape="poly" title=" " alt="" coords="793,67,759,63,759,58,793,61"/>
+<area shape="rect" href="uvl2dimacs_2backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="615,92,669,117"/>
+<area shape="poly" title=" " alt="" coords="794,91,670,105,669,99,793,86"/>
 <area shape="rect" href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html#ae990e997034cc3ff020fcbf912f8c23f" title="Generate graph files from a DIMACS CNF formula." alt="" coords="245,27,477,67"/>
 <area shape="poly" title=" " alt="" coords="512,50,477,50,477,45,512,45"/>
-<area shape="rect" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="74,5,129,31"/>
+<area shape="rect" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="74,5,129,31"/>
 <area shape="poly" title=" " alt="" coords="231,35,129,24,129,18,232,30"/>
 <area shape="rect" href="classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#ae491c69e6096f78564dc58d79de5d525" title="Execute the complete Strong4VM analysis pipeline." alt="" coords="5,55,197,95"/>
 <area shape="poly" title=" " alt="" coords="232,64,198,68,197,62,231,59"/>
@@ -362,7 +362,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="DIMACSReader_8cc_source.html#l00072">Reader::skip_whitespace()</a>, and <a class="el" href="parse__utils_8hh_source.html#l00147">skipLine()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="BackboneSolverAPI_8cc_source.html#l00247">BackboneSolverAPI::Impl::read_file()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="BoneDiggerAPI_8cc_source.html#l00035">BoneDiggerAPI::Impl::read_file()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -382,18 +382,18 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classDIMACSReader_aaa936da334e29618ece019bd8a9aa06f_icgraph.png" border="0" usemap="#aclassDIMACSReader_aaa936da334e29618ece019bd8a9aa06f_icgraph" alt=""/></div>
 <map name="aclassDIMACSReader_aaa936da334e29618ece019bd8a9aa06f_icgraph" id="aclassDIMACSReader_aaa936da334e29618ece019bd8a9aa06f_icgraph">
-<area shape="rect" title="Parse the DIMACS file." alt="" coords="1311,64,1361,89"/>
-<area shape="rect" href="classbackbone__solver_1_1BackboneSolverAPI_1_1Impl.html#a1f3f17bc00a2e51111dfdd1cffc65f7c" title="Reads and parses a DIMACS CNF file." alt="" coords="1059,57,1263,97"/>
-<area shape="poly" title=" " alt="" coords="1297,79,1263,79,1263,74,1297,74"/>
-<area shape="rect" href="classbackbone__solver_1_1BackboneSolverAPI.html#a6fa2f781f0e65a541b774f62051cdfca" title="Read a DIMACS CNF file." alt="" coords="807,57,1011,97"/>
-<area shape="poly" title=" " alt="" coords="1045,79,1011,79,1011,74,1045,74"/>
+<area shape="rect" title="Parse the DIMACS file." alt="" coords="1303,64,1353,89"/>
+<area shape="rect" href="classbonedigger_1_1BoneDiggerAPI_1_1Impl.html#a1f3f17bc00a2e51111dfdd1cffc65f7c" title=" " alt="" coords="1055,57,1255,97"/>
+<area shape="poly" title=" " alt="" coords="1289,79,1255,79,1255,74,1289,74"/>
+<area shape="rect" href="classbonedigger_1_1BoneDiggerAPI.html#a6fa2f781f0e65a541b774f62051cdfca" title="Read a DIMACS CNF file." alt="" coords="807,57,1007,97"/>
+<area shape="poly" title=" " alt="" coords="1041,79,1007,79,1007,74,1041,74"/>
 <area shape="rect" href="classDimacs2GraphsAPI_1_1Impl.html#a7267a63d7e93035c67c000e52e842b18" title="Internal implementation of graph generation." alt="" coords="525,27,759,67"/>
-<area shape="poly" title=" " alt="" coords="793,67,758,63,759,58,793,61"/>
-<area shape="rect" href="backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="615,92,669,117"/>
-<area shape="poly" title=" " alt="" coords="793,91,670,105,669,99,793,86"/>
+<area shape="poly" title=" " alt="" coords="793,67,759,63,759,58,793,61"/>
+<area shape="rect" href="uvl2dimacs_2backbone__solver_2src_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="615,92,669,117"/>
+<area shape="poly" title=" " alt="" coords="794,91,670,105,669,99,793,86"/>
 <area shape="rect" href="classdimacs2graphs_1_1Dimacs2GraphsAPI.html#ae990e997034cc3ff020fcbf912f8c23f" title="Generate graph files from a DIMACS CNF formula." alt="" coords="245,27,477,67"/>
 <area shape="poly" title=" " alt="" coords="512,50,477,50,477,45,512,45"/>
-<area shape="rect" href="api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="74,5,129,31"/>
+<area shape="rect" href="dimacs2graphs_2api_2api__example_8cc.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="74,5,129,31"/>
 <area shape="poly" title=" " alt="" coords="231,35,129,24,129,18,232,30"/>
 <area shape="rect" href="classstrong4vm_1_1Strong4VMAPI_1_1Impl.html#ae491c69e6096f78564dc58d79de5d525" title="Execute the complete Strong4VM analysis pipeline." alt="" coords="5,55,197,95"/>
 <area shape="poly" title=" " alt="" coords="232,64,198,68,197,62,231,59"/>
@@ -403,8 +403,8 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/mnt/c/strong4vm/dimacs2graphs/backbone_solver/src/io/<a class="el" href="DIMACSReader_8hh_source.html">DIMACSReader.hh</a></li>
-<li>/mnt/c/strong4vm/dimacs2graphs/backbone_solver/src/io/<a class="el" href="DIMACSReader_8cc_source.html">DIMACSReader.cc</a></li>
+<li>/mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/backbone_solver/src/io/<a class="el" href="DIMACSReader_8hh_source.html">DIMACSReader.hh</a></li>
+<li>/mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/backbone_solver/src/io/<a class="el" href="DIMACSReader_8cc_source.html">DIMACSReader.cc</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

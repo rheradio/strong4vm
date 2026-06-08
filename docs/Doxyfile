@@ -50,16 +50,16 @@ INPUT                  = ../README.md \
                          ../uvl2dimacs/api/include \
                          ../uvl2dimacs/generator/include \
                          ../dimacs2graphs/api \
-                         ../dimacs2graphs/backbone_solver/src/api \
-                         ../dimacs2graphs/backbone_solver/src/detectors \
-                         ../dimacs2graphs/backbone_solver/src/data_structures \
-                         ../dimacs2graphs/backbone_solver/src/io
+                         ../uvl2dimacs/backbone_solver/src/api \
+                         ../uvl2dimacs/backbone_solver/src/detectors \
+                         ../uvl2dimacs/backbone_solver/src/data_structures \
+                         ../uvl2dimacs/backbone_solver/src/io
 
 # Strong4VM Project Structure:
 #   - Strong4VM API: Unified interface (pipeline orchestration)
-#   - UVL2Dimacs: UVL feature models to DIMACS CNF conversion
+#   - UVL2Dimacs: UVL feature models to DIMACS CNF conversion (with BackboneSimplifier)
 #   - Dimacs2Graphs: DIMACS CNF to strong transitive graphs
-#   - Backbone Solver: SAT-based backbone detection engine
+#   - BoneDigger: SAT-based backbone detection engine (uvl2dimacs/backbone_solver/)
 
 INPUT_ENCODING         = UTF-8
 INPUT_FILE_ENCODING    =
@@ -75,7 +75,7 @@ RECURSIVE              = YES
 
 EXCLUDE                = ../uvl2dimacs/third_party \
                          ../uvl2dimacs/parser \
-                         ../dimacs2graphs/backbone_solver/src/minisat \
+                         ../uvl2dimacs/backbone_solver/src/minisat \
                          ../test \
                          ../build
 
@@ -165,7 +165,7 @@ INCLUDE_PATH           = ../api/include \
                          ../uvl2dimacs/api/include \
                          ../uvl2dimacs/generator/include \
                          ../dimacs2graphs/api \
-                         ../dimacs2graphs/backbone_solver/src/api
+                         ../uvl2dimacs/backbone_solver/src/api
 
 #---------------------------------------------------------------------------
 # Diagram Generation with Graphviz

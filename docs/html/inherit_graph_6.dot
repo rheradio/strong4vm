@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="CNFModel",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classCNFModel.html",tooltip="Represents a CNF (Conjunctive Normal Form) formula with variable mappings."];
+  Node0 [id="Node000000",label="BoneDiggerAPI::Impl",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbonedigger_1_1BoneDiggerAPI_1_1Impl.html",tooltip=" "];
 }

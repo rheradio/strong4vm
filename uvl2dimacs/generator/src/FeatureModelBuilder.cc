@@ -25,6 +25,7 @@
  */
 
 #include "FeatureModelBuilder.hh"
+#include <iostream>
 #include <stdexcept>
 #include <algorithm>
 
@@ -182,16 +183,30 @@ void FeatureModelBuilder::exitCardinalityGroup(UVLCppParser::CardinalityGroupCon
  *
  * @param ctx Parse tree context for the constraint line
  */
+void FeatureModelBuilder::enterConstraintLine(UVLCppParser::ConstraintLineContext *ctx) {
+    current_constraint_failed = false;
+    while (!ast_stack.empty()) ast_stack.pop();
+}
+
 void FeatureModelBuilder::exitConstraintLine(UVLCppParser::ConstraintLineContext *ctx) {
-    // The AST for the constraint should be on the ast_stack
-    if (!ast_stack.empty() && feature_model) {
+    if (current_constraint_failed || ast_stack.empty()) {
+        while (!ast_stack.empty()) ast_stack.pop();
+        if (current_constraint_failed) {
+            std::cerr << "Warning: constraint \"" << ctx->getText()
+                      << "\" could not be parsed (it likely contains unsupported constructs"
+                         " such as aggregate functions, attribute access, or typed feature"
+                         " references) and was skipped."
+                      << std::endl;
+        }
+        return;
+    }
+
+    if (feature_model) {
         auto ast = ast_stack.top();
         ast_stack.pop();
 
-        // Create constraint with unique name
         std::string constraint_name = "Constraint_" + std::to_string(constraint_counter++);
         auto constraint = std::make_shared<Constraint>(constraint_name, ast);
-
         feature_model->add_constraint(constraint);
     }
 }
@@ -210,218 +225,128 @@ void FeatureModelBuilder::exitLiteralConstraint(UVLCppParser::LiteralConstraintC
  * @param ctx Parse tree context for NOT operation
  * @throws std::runtime_error if AST stack is empty
  */
+#define FAIL_CONSTRAINT(n) \
+    do { current_constraint_failed = true; \
+         while (!ast_stack.empty()) ast_stack.pop(); \
+         return; } while(0)
+
+#define REQUIRE_STACK(n) \
+    if ((int)ast_stack.size() < (n)) { FAIL_CONSTRAINT(n); }
+
 void FeatureModelBuilder::exitNotConstraint(UVLCppParser::NotConstraintContext *ctx) {
-    if (ast_stack.empty()) {
-        throw std::runtime_error("AST stack underflow in NOT constraint");
-    }
-
-    auto operand = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(1);
+    auto operand = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::NOT, operand));
 }
 
-/**
- * @brief Handles AND operation in constraints
- * @param ctx Parse tree context for AND operation
- * @throws std::runtime_error if AST stack has fewer than 2 operands
- */
 void FeatureModelBuilder::exitAndConstraint(UVLCppParser::AndConstraintContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in AND constraint");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::AND, left, right));
 }
 
-/**
- * @brief Handles OR operation in constraints
- * @param ctx Parse tree context for OR operation
- * @throws std::runtime_error if AST stack has fewer than 2 operands
- */
 void FeatureModelBuilder::exitOrConstraint(UVLCppParser::OrConstraintContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in OR constraint");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::OR, left, right));
 }
 
 void FeatureModelBuilder::exitImplicationConstraint(UVLCppParser::ImplicationConstraintContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in IMPLIES constraint");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::IMPLIES, left, right));
 }
 
 void FeatureModelBuilder::exitEquivalenceConstraint(UVLCppParser::EquivalenceConstraintContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in EQUIVALENCE constraint");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::EQUIVALENCE, left, right));
 }
 
 void FeatureModelBuilder::exitParenthesisConstraint(UVLCppParser::ParenthesisConstraintContext *ctx) {
-    // Parenthesis doesn't change the AST structure, just grouping
-    // The child constraint is already on the stack
+    // child is already on the stack
 }
 
 void FeatureModelBuilder::exitEquationConstraint(UVLCppParser::EquationConstraintContext *ctx) {
-    // Equation is already on the stack from exitXxxEquation handler
-    // Nothing to do here
+    // equation node is already on the stack from the exitXxxEquation handler
 }
 
 void FeatureModelBuilder::exitEqualEquation(UVLCppParser::EqualEquationContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in EQUAL equation");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::EQUALS, left, right));
 }
 
 void FeatureModelBuilder::exitLowerEquation(UVLCppParser::LowerEquationContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in LOWER equation");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::LOWER, left, right));
 }
 
 void FeatureModelBuilder::exitGreaterEquation(UVLCppParser::GreaterEquationContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in GREATER equation");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::GREATER, left, right));
 }
 
 void FeatureModelBuilder::exitLowerEqualsEquation(UVLCppParser::LowerEqualsEquationContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in LOWER_EQUALS equation");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::LOWER_EQUALS, left, right));
 }
 
 void FeatureModelBuilder::exitGreaterEqualsEquation(UVLCppParser::GreaterEqualsEquationContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in GREATER_EQUALS equation");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::GREATER_EQUALS, left, right));
 }
 
 void FeatureModelBuilder::exitNotEqualsEquation(UVLCppParser::NotEqualsEquationContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in NOT_EQUALS equation");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::NOT_EQUALS, left, right));
 }
 
 void FeatureModelBuilder::exitAddExpression(UVLCppParser::AddExpressionContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in ADD expression");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::ADD, left, right));
 }
 
 void FeatureModelBuilder::exitSubExpression(UVLCppParser::SubExpressionContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in SUB expression");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::SUB, left, right));
 }
 
 void FeatureModelBuilder::exitMulExpression(UVLCppParser::MulExpressionContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in MUL expression");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::MUL, left, right));
 }
 
 void FeatureModelBuilder::exitDivExpression(UVLCppParser::DivExpressionContext *ctx) {
-    if (ast_stack.size() < 2) {
-        throw std::runtime_error("AST stack underflow in DIV expression");
-    }
-
-    auto right = ast_stack.top();
-    ast_stack.pop();
-    auto left = ast_stack.top();
-    ast_stack.pop();
-
+    REQUIRE_STACK(2);
+    auto right = ast_stack.top(); ast_stack.pop();
+    auto left  = ast_stack.top(); ast_stack.pop();
     ast_stack.push(std::make_shared<ASTNode>(ASTOperation::DIV, left, right));
 }
+
+#undef REQUIRE_STACK
+#undef FAIL_CONSTRAINT
 
 void FeatureModelBuilder::exitFloatLiteralExpression(UVLCppParser::FloatLiteralExpressionContext *ctx) {
     double value = std::stod(ctx->FLOAT()->getText());

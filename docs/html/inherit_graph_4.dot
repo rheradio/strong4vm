@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="BackboneSolverAPI",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classbackbone__solver_1_1BackboneSolverAPI.html",tooltip="Main API class for backbone computation using PIMPL pattern."];
+  Node0 [id="Node000000",label="BackboneSimplifier",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classuvl2dimacs_1_1BackboneSimplifier.html",tooltip="BackboneSimplifier - Simplifies a DIMACS CNF formula using its backbone."];
 }

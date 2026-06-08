@@ -6,7 +6,9 @@ var classuvl2dimacs_1_1UVL2Dimacs =
     [ "convert", "classuvl2dimacs_1_1UVL2Dimacs.html#a72ec653c82203c79c6967992cdec6768", null ],
     [ "convert_to_string", "classuvl2dimacs_1_1UVL2Dimacs.html#a88a92940148552b068f042783bdca534", null ],
     [ "convert_to_string", "classuvl2dimacs_1_1UVL2Dimacs.html#a4137e3fe1279d8d96b02bb13506b803f", null ],
+    [ "get_backbone_simplification", "classuvl2dimacs_1_1UVL2Dimacs.html#a1f7b234b798ba816f369042de3039f95", null ],
     [ "get_mode", "classuvl2dimacs_1_1UVL2Dimacs.html#a72eaed88344bf1c2e885e93da0a54124", null ],
+    [ "set_backbone_simplification", "classuvl2dimacs_1_1UVL2Dimacs.html#ae6aa4e8ac14940c2bb96b31de8444d3f", null ],
     [ "set_mode", "classuvl2dimacs_1_1UVL2Dimacs.html#a2e69dfa61cd9b0bf02f82da4985aa397", null ],
     [ "set_verbose", "classuvl2dimacs_1_1UVL2Dimacs.html#ab4d3ca61fc3b4dc344b82d1034ddfe91", null ]
 ];

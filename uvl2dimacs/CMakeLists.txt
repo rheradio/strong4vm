@@ -40,6 +40,16 @@ target_include_directories(uvl-parser PUBLIC
     ${ANTLR4_INCLUDE_DIRS}
 )
 target_link_libraries(uvl-parser antlr4-runtime)
+# antlr4::Token::EOF is size_t(-1) cast to int — GCC calls it -Woverflow, Clang -Wconstant-conversion.
+# UVLCppLexer.h is inline, so the warning fires in every TU that includes it; propagate via INTERFACE.
+target_compile_options(uvl-parser PRIVATE
+    $<$<CXX_COMPILER_ID:GNU>:-Wno-overflow>
+    $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:-Wno-constant-conversion>
+)
+target_compile_options(uvl-parser INTERFACE
+    $<$<CXX_COMPILER_ID:GNU>:-Wno-overflow>
+    $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>>:-Wno-constant-conversion>
+)
 
 # Include directories
 include_directories(
@@ -60,6 +70,7 @@ set(LIB_SOURCES
     generator/src/FMToCNF.cc
     generator/src/DimacsWriter.cc
     generator/src/FeatureModelBuilder.cc
+    generator/src/BackboneSimplifier.cc
 )
 
 # Create library
@@ -94,8 +105,25 @@ target_include_directories(uvl2dimacs_api PUBLIC
 )
 target_link_libraries(uvl2dimacs_api uvl2dimacs_lib uvl-parser antlr4-runtime)
 
+# API Examples
+add_executable(simple_convert api/examples/simple_convert.cc)
+target_include_directories(simple_convert PRIVATE ${PROJECT_SOURCE_DIR}/api/include)
+target_link_libraries(simple_convert uvl2dimacs_api uvl2dimacs_lib uvl-parser antlr4-runtime)
+
+add_executable(tseitin_convert api/examples/tseitin_convert.cc)
+target_include_directories(tseitin_convert PRIVATE ${PROJECT_SOURCE_DIR}/api/include)
+target_link_libraries(tseitin_convert uvl2dimacs_api uvl2dimacs_lib uvl-parser antlr4-runtime)
+
+add_executable(batch_convert api/examples/batch_convert.cc)
+target_include_directories(batch_convert PRIVATE ${PROJECT_SOURCE_DIR}/api/include)
+target_link_libraries(batch_convert uvl2dimacs_api uvl2dimacs_lib uvl-parser antlr4-runtime)
+
+add_executable(backbone_convert api/examples/backbone_convert.cc)
+target_include_directories(backbone_convert PRIVATE ${PROJECT_SOURCE_DIR}/api/include)
+target_link_libraries(backbone_convert uvl2dimacs_api uvl2dimacs_lib uvl-parser antlr4-runtime)
+
 # Installation
-install(TARGETS uvl2dimacs_lib uvl2dimacs_api uvl2dimacs
+install(TARGETS uvl2dimacs_lib uvl2dimacs_api uvl2dimacs simple_convert tseitin_convert batch_convert backbone_convert
     RUNTIME DESTINATION bin
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
@@ -108,3 +136,17 @@ install(DIRECTORY generator/include/
 install(DIRECTORY api/include/
     DESTINATION include
 )
+
+# MiniSat library from backbone_solver
+find_package(ZLIB REQUIRED)
+
+add_library(minisat-lib-static STATIC
+    backbone_solver/src/minisat/minisat/core/Solver.cc
+    backbone_solver/src/minisat/minisat/utils/Options.cc
+    backbone_solver/src/minisat/minisat/utils/System.cc
+)
+target_include_directories(minisat-lib-static PUBLIC
+    ${PROJECT_SOURCE_DIR}/backbone_solver/src/minisat
+    ${ZLIB_INCLUDE_DIRS}
+)
+target_link_libraries(minisat-lib-static ${ZLIB_LIBRARIES})

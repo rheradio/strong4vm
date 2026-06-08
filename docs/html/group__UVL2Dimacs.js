@@ -7,6 +7,7 @@ var group__UVL2Dimacs =
       [ "num_constraints", "structuvl2dimacs_1_1ConversionResult.html#abd406f244d4145ae5baf4ea059b5232d", null ],
       [ "num_features", "structuvl2dimacs_1_1ConversionResult.html#aef0090071c7adec0cda2fafc090f4e26", null ],
       [ "num_relations", "structuvl2dimacs_1_1ConversionResult.html#a139850a0832d5f4156c1b53257809804", null ],
+      [ "num_skipped_constraints", "structuvl2dimacs_1_1ConversionResult.html#a7c58d1692a40b60b0ac967c5499d92e4", null ],
       [ "num_variables", "structuvl2dimacs_1_1ConversionResult.html#a2ba7d62da65ff95eae9aa4c64e05fe5d", null ],
       [ "success", "structuvl2dimacs_1_1ConversionResult.html#a7960f9c558f9ee2c3d4a8fdea096fb56", null ]
     ] ],
@@ -17,7 +18,9 @@ var group__UVL2Dimacs =
       [ "convert", "classuvl2dimacs_1_1UVL2Dimacs.html#a72ec653c82203c79c6967992cdec6768", null ],
       [ "convert_to_string", "classuvl2dimacs_1_1UVL2Dimacs.html#a88a92940148552b068f042783bdca534", null ],
       [ "convert_to_string", "classuvl2dimacs_1_1UVL2Dimacs.html#a4137e3fe1279d8d96b02bb13506b803f", null ],
+      [ "get_backbone_simplification", "classuvl2dimacs_1_1UVL2Dimacs.html#a1f7b234b798ba816f369042de3039f95", null ],
       [ "get_mode", "classuvl2dimacs_1_1UVL2Dimacs.html#a72eaed88344bf1c2e885e93da0a54124", null ],
+      [ "set_backbone_simplification", "classuvl2dimacs_1_1UVL2Dimacs.html#ae6aa4e8ac14940c2bb96b31de8444d3f", null ],
       [ "set_mode", "classuvl2dimacs_1_1UVL2Dimacs.html#a2e69dfa61cd9b0bf02f82da4985aa397", null ],
       [ "set_verbose", "classuvl2dimacs_1_1UVL2Dimacs.html#ab4d3ca61fc3b4dc344b82d1034ddfe91", null ]
     ] ]

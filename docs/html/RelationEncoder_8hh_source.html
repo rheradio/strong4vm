@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Strong4VM: /mnt/c/strong4vm/uvl2dimacs/generator/include/RelationEncoder.hh Source File</title>
+<title>Strong4VM: /mnt/c/improving_strong4vm/strong4vm/uvl2dimacs/generator/include/RelationEncoder.hh Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -105,44 +105,49 @@ $(document).ready(function(){initNavTree('RelationEncoder_8hh_source.html',''); 
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="Relation_8hh.html">Relation.hh</a>&quot;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="CNFModel_8hh.html">CNFModel.hh</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classRelationEncoder.html">   62</a></span><span class="keyword">class </span><a class="code hl_class" href="classRelationEncoder.html">RelationEncoder</a> {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_class" href="classCNFModel.html">CNFModel</a>&amp; cnf_model;  </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classRelationEncoder.html#afb3e99f2eda16221ef281a7fe7878dd8">   72</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classRelationEncoder.html#afb3e99f2eda16221ef281a7fe7878dd8">RelationEncoder</a>(<a class="code hl_class" href="classCNFModel.html">CNFModel</a>&amp; model);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classRelationEncoder.html#a2f69290100a28e61358a4d50a31a7c0b">   77</a></span>    <a class="code hl_function" href="classRelationEncoder.html#a2f69290100a28e61358a4d50a31a7c0b">~RelationEncoder</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classRelationEncoder.html#ac3df6b59e7aa978e698b4d7ceb4fd427">   87</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classRelationEncoder.html#ac3df6b59e7aa978e698b4d7ceb4fd427">encode_relation</a>(std::shared_ptr&lt;Relation&gt; relation);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">void</span> encode_mandatory(std::shared_ptr&lt;Relation&gt; relation);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordtype">void</span> encode_optional(std::shared_ptr&lt;Relation&gt; relation);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordtype">void</span> encode_or(std::shared_ptr&lt;Relation&gt; relation);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordtype">void</span> encode_alternative(std::shared_ptr&lt;Relation&gt; relation);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordtype">void</span> encode_cardinality(std::shared_ptr&lt;Relation&gt; relation);</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    std::vector&lt;std::vector&lt;int&gt;&gt; generate_combinations(<span class="keywordtype">int</span> n, <span class="keywordtype">int</span> k);</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>};</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="CNFMode_8hh.html">CNFMode.hh</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="};">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="classRelationEncoder.html">   67</a></span><span class="keyword">class </span><a class="code hl_class" href="classRelationEncoder.html">RelationEncoder</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="classCNFModel.html">CNFModel</a>&amp; cnf_model;  </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_enumeration" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a> mode;         </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classRelationEncoder.html#a165edf6d27c9b23af159ef8d0348d2a1">   79</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classRelationEncoder.html#a165edf6d27c9b23af159ef8d0348d2a1">RelationEncoder</a>(<a class="code hl_class" href="classCNFModel.html">CNFModel</a>&amp; model, <a class="code hl_enumeration" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a> conversion_mode = <a class="code hl_enumvalue" href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a>);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classRelationEncoder.html#a2f69290100a28e61358a4d50a31a7c0b">   84</a></span>    <a class="code hl_function" href="classRelationEncoder.html#a2f69290100a28e61358a4d50a31a7c0b">~RelationEncoder</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="classRelationEncoder.html#ac3df6b59e7aa978e698b4d7ceb4fd427">   94</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classRelationEncoder.html#ac3df6b59e7aa978e698b4d7ceb4fd427">encode_relation</a>(std::shared_ptr&lt;Relation&gt; relation);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">void</span> encode_mandatory(std::shared_ptr&lt;Relation&gt; relation);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordtype">void</span> encode_optional(std::shared_ptr&lt;Relation&gt; relation);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordtype">void</span> encode_or(std::shared_ptr&lt;Relation&gt; relation);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordtype">void</span> encode_alternative(std::shared_ptr&lt;Relation&gt; relation);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordtype">void</span> encode_cardinality(std::shared_ptr&lt;Relation&gt; relation);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    std::vector&lt;std::vector&lt;int&gt;&gt; generate_combinations(<span class="keywordtype">int</span> n, <span class="keywordtype">int</span> k);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>};</div>
 </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="preprocessor">#endif </span><span class="comment">// RELATIONENCODER_H</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">#endif </span><span class="comment">// RELATIONENCODER_H</span></div>
+<div class="ttc" id="aCNFMode_8hh_html"><div class="ttname"><a href="CNFMode_8hh.html">CNFMode.hh</a></div><div class="ttdoc">CNF conversion mode enumeration.</div></div>
+<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65">CNFMode</a></div><div class="ttdeci">CNFMode</div><div class="ttdoc">Conversion modes for generating CNF from feature models.</div><div class="ttdef"><b>Definition</b> <a href="CNFMode_8hh_source.html#l00049">CNFMode.hh:49</a></div></div>
+<div class="ttc" id="aCNFMode_8hh_html_af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3"><div class="ttname"><a href="CNFMode_8hh.html#af2e1a72f99e16438c039ed7ab2eb7f65aad291db37460bbda67d5cb72096477e3">CNFMode::STRAIGHTFORWARD</a></div><div class="ttdeci">@ STRAIGHTFORWARD</div><div class="ttdoc">Direct conversion: no auxiliary variables, potentially longer clauses.</div></div>
 <div class="ttc" id="aCNFModel_8hh_html"><div class="ttname"><a href="CNFModel_8hh.html">CNFModel.hh</a></div><div class="ttdoc">CNF (Conjunctive Normal Form) model with variable mapping.</div></div>
 <div class="ttc" id="aRelation_8hh_html"><div class="ttname"><a href="Relation_8hh.html">Relation.hh</a></div><div class="ttdoc">Parent-child relationship in the feature tree.</div></div>
 <div class="ttc" id="aclassCNFModel_html"><div class="ttname"><a href="classCNFModel.html">CNFModel</a></div><div class="ttdoc">Represents a CNF (Conjunctive Normal Form) formula with variable mappings.</div><div class="ttdef"><b>Definition</b> <a href="CNFModel_8hh_source.html#l00051">CNFModel.hh:51</a></div></div>
-<div class="ttc" id="aclassRelationEncoder_html"><div class="ttname"><a href="classRelationEncoder.html">RelationEncoder</a></div><div class="ttdoc">Encodes feature model relations as CNF clauses.</div><div class="ttdef"><b>Definition</b> <a href="RelationEncoder_8hh_source.html#l00062">RelationEncoder.hh:62</a></div></div>
+<div class="ttc" id="aclassRelationEncoder_html"><div class="ttname"><a href="classRelationEncoder.html">RelationEncoder</a></div><div class="ttdoc">Encodes feature model relations as CNF clauses.</div><div class="ttdef"><b>Definition</b> <a href="RelationEncoder_8hh_source.html#l00067">RelationEncoder.hh:67</a></div></div>
+<div class="ttc" id="aclassRelationEncoder_html_a165edf6d27c9b23af159ef8d0348d2a1"><div class="ttname"><a href="classRelationEncoder.html#a165edf6d27c9b23af159ef8d0348d2a1">RelationEncoder::RelationEncoder</a></div><div class="ttdeci">RelationEncoder(CNFModel &amp;model, CNFMode conversion_mode=CNFMode::STRAIGHTFORWARD)</div><div class="ttdoc">Constructs an encoder for the given CNF model.</div></div>
 <div class="ttc" id="aclassRelationEncoder_html_a2f69290100a28e61358a4d50a31a7c0b"><div class="ttname"><a href="classRelationEncoder.html#a2f69290100a28e61358a4d50a31a7c0b">RelationEncoder::~RelationEncoder</a></div><div class="ttdeci">~RelationEncoder()=default</div><div class="ttdoc">Destructor.</div></div>
 <div class="ttc" id="aclassRelationEncoder_html_ac3df6b59e7aa978e698b4d7ceb4fd427"><div class="ttname"><a href="classRelationEncoder.html#ac3df6b59e7aa978e698b4d7ceb4fd427">RelationEncoder::encode_relation</a></div><div class="ttdeci">void encode_relation(std::shared_ptr&lt; Relation &gt; relation)</div><div class="ttdoc">Encodes a relation into CNF clauses.</div></div>
-<div class="ttc" id="aclassRelationEncoder_html_afb3e99f2eda16221ef281a7fe7878dd8"><div class="ttname"><a href="classRelationEncoder.html#afb3e99f2eda16221ef281a7fe7878dd8">RelationEncoder::RelationEncoder</a></div><div class="ttdeci">RelationEncoder(CNFModel &amp;model)</div><div class="ttdoc">Constructs an encoder for the given CNF model.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -5,7 +5,8 @@ var namespacestrong4vm =
     [ "Strong4VMAPI", "classstrong4vm_1_1Strong4VMAPI.html", "classstrong4vm_1_1Strong4VMAPI" ],
     [ "BackboneDetector", "namespacestrong4vm.html#a88774dbdb1b25c12427725720e082769", [
       [ "ONE", "namespacestrong4vm.html#a88774dbdb1b25c12427725720e082769abc21e6484530fc9d0313cb816b733396", null ],
-      [ "WITHOUT", "namespacestrong4vm.html#a88774dbdb1b25c12427725720e082769a16c336a4b6264c73a3f40a2a11a085b4", null ]
+      [ "FLATLAND", "namespacestrong4vm.html#a88774dbdb1b25c12427725720e082769a841014cf83c08a8ad455199e18027667", null ],
+      [ "RUSH", "namespacestrong4vm.html#a88774dbdb1b25c12427725720e082769ace9981238b60cb4e5e43c548093127ef", null ]
     ] ],
     [ "ConversionMode", "namespacestrong4vm.html#a8a444ef85241a1b920a3c3b6a166b86d", [
       [ "STRAIGHTFORWARD", "namespacestrong4vm.html#a8a444ef85241a1b920a3c3b6a166b86daad291db37460bbda67d5cb72096477e3", null ],

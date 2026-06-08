@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="Reader",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classReader.html",tooltip="Low-level character reader for DIMACS files."];
+  Node0 [id="Node000000",label="LiteralSet",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$classLiteralSet.html",tooltip="Efficient bit-set for storing MiniSat literals."];
 }
