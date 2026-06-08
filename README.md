@@ -309,6 +309,36 @@ xcode-select --install
 brew install cmake
 ```
 
+## 📖 Citation
+
+If you use Strong4VM in your research, please cite:
+
+```bibtex
+@article{heradio2026strong4vm,
+  title   = {{Strong4VM: From variability models to strong transitive dependency and conflict graphs}},
+  journal = {SoftwareX},
+  volume  = {34},
+  pages   = {102663},
+  year    = {2026},
+  doi     = {https://doi.org/10.1016/j.softx.2026.102663},
+  author  = {Ruben Heradio and Luis Cambelo and Miguel A. Olivero and Jose M. Sanchez
+             and Alberto {Perez Garcia-Plaza} and David Fernandez-Amoros},
+  keywords = {Variability models, Strong relationships, SAT solving, Backbone detection,
+              Software product lines, Network analysis},
+  abstract = {This paper introduces Strong4VM, a C++ tool that extracts complete graphs
+              of strong transitive dependencies and conflicts from variability models using
+              multi-threaded SAT-based backbone detection. The resulting graphs, exported
+              in standard Pajek format, enable structural analysis with network analysis
+              tools such as Pajek, igraph, Neo4j, and Gephi. Strong4VM has been validated
+              on 5709 real-world models (within a range of 99-35,907 features), generating
+              a total of 3.2⋅10⁷ nodes, 4.8⋅10⁸ require arcs, and 3.1⋅10⁸ exclude edges.
+              The analysis of the synthesized graphs reveals domain-specific architectural
+              patterns that provide practitioners with diagnostic indicators for quality
+              assessment and evolution planning. The tool and the graph dataset are publicly
+              available for reproducible research.}
+}
+```
+
 ## 📜 License, Authors & Funding
 
 ### ⚖️ Licensing
